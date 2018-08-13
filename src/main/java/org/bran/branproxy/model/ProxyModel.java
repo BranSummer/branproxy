@@ -17,7 +17,7 @@ public class ProxyModel {
 
     private String ip;
 
-    private String port;
+    private int port;
 
     private int timeout;
 
@@ -46,12 +46,12 @@ public class ProxyModel {
         return proxyModel;
     }
 
-    public static void main(String[] args) {
+  /*  public static void main(String[] args) {
         ProxyModel proxyModel =new ProxyModel();
         proxyModel.setIp("127.0.0.1");
         proxyModel.setPort("9999");
         proxyModel.setTimeout(0);
 
         System.out.println(proxyModel.toJson());
-    }
+    }*/
 }

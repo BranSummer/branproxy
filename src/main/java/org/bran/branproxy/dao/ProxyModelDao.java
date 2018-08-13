@@ -14,5 +14,5 @@ public interface ProxyModelDao {
 
     void update(ProxyModel proxyModel,int timeout);
 
-    ProxyModel getTop();
+    ProxyModel pop();
 }
