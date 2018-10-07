@@ -17,9 +17,9 @@ public class ProxyModel {
 
     private String ip;
 
-    private int port;
+    private Integer port;
 
-    private int timeout;
+    private Integer timeout;
 
     public String toJson(){
         ObjectMapper mapper =new ObjectMapper();
