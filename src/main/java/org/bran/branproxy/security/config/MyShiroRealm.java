@@ -8,8 +8,7 @@ import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
-import org.bran.branproxy.model.mysql.RoleEntity;
-import org.bran.branproxy.model.mysql.UserEntity;
+
 import org.bran.branproxy.service.IUserService;
 import org.springframework.stereotype.Component;
 
@@ -18,7 +17,7 @@ import javax.annotation.Resource;
 /**
  * @Auther: BranSummer
  * @Date: 2019-2-6 14:53
- * @Description:
+ * @Description: TODO
  */
 @Component
 public class MyShiroRealm extends AuthorizingRealm {
@@ -36,16 +35,11 @@ public class MyShiroRealm extends AuthorizingRealm {
         // 获取登录用户名
         String username = (String) principalCollection.getPrimaryPrincipal();
         // 从数据库查询用户
-        UserEntity userEntity = userService.selectUserByName(username);
+
         // 存储角色和权限信息的POJO
         SimpleAuthorizationInfo authInfo = new SimpleAuthorizationInfo();
         // 添加用户角色和权限
-        userEntity.getRoles().forEach(role->{
-            authInfo.addRole(role.getRoleName());
-            role.getPermissions().forEach(permission -> {
-                authInfo.addStringPermission(permission.getPermissionName());
-            });
-        });
+
         return authInfo;
     }
 
@@ -62,10 +56,8 @@ public class MyShiroRealm extends AuthorizingRealm {
         }
         // 获取用户信息
         String username = authenticationToken.getPrincipal().toString();
-        UserEntity userEntity = userService.selectUserByName(username);
-        if(userEntity == null){
-            return null;
-        }
+
+
         AuthenticationInfo authenticationInfo = new SimpleAuthenticationInfo(
                 authenticationToken.getPrincipal().toString(),
                 authenticationToken.getCredentials().toString(),

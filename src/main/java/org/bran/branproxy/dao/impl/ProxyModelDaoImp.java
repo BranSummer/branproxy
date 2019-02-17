@@ -1,11 +1,10 @@
 package org.bran.branproxy.dao.impl;
 
-import org.bran.branproxy.config.Constant;
+import org.bran.branproxy.config.RedisConstants;
 import org.bran.branproxy.dao.ProxyModelDao;
 import org.bran.branproxy.model.ProxyModel;
 import org.bran.branproxy.util.Detector;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Component;
 
@@ -21,13 +20,13 @@ public class ProxyModelDaoImp implements ProxyModelDao {
 
     @Override
     public void save(ProxyModel proxyModel) {
-        redisTemplate.opsForList().rightPush(Constant.REDIS_PROXY_QUEUE, proxyModel.toJson());
+        redisTemplate.opsForList().rightPush(RedisConstants.REDIS_PROXY_QUEUE, proxyModel.toJson());
     }
 
     @Override
     public void save(Iterable<ProxyModel> proxyModels) {
         for (ProxyModel proxyModel : proxyModels) {
-            redisTemplate.opsForList().rightPush(Constant.REDIS_PROXY_QUEUE, proxyModel.toJson());
+            redisTemplate.opsForList().rightPush(RedisConstants.REDIS_PROXY_QUEUE, proxyModel.toJson());
         }
     }
 
@@ -43,7 +42,7 @@ public class ProxyModelDaoImp implements ProxyModelDao {
 
     @Override
     public ProxyModel pop() {
-        String strModel = (String) redisTemplate.opsForList().rightPop(Constant.REDIS_PROXY_QUEUE, 5, TimeUnit.MINUTES);
+        String strModel = (String) redisTemplate.opsForList().rightPop(RedisConstants.REDIS_PROXY_QUEUE, 5, TimeUnit.MINUTES);
         ProxyModel proxyModel = null;
         if (strModel != null) {
             proxyModel = ProxyModel.praseJson(strModel);

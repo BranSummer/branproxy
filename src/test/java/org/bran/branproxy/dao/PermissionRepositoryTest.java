@@ -1,7 +1,6 @@
 package org.bran.branproxy.dao;
 
 import org.bran.branproxy.BranproxyApplicationTests;
-import org.bran.branproxy.model.mysql.PermissionEntity;
 import org.junit.Test;
 
 import javax.annotation.Resource;
@@ -17,18 +16,5 @@ import static org.junit.Assert.*;
  */
 public class PermissionRepositoryTest extends BranproxyApplicationTests {
 
-    @Resource
-    private PermissionRepository permissionRepository;
 
-    @Test
-    public void testAddPermission(){
-        Date now = new Date();
-        PermissionEntity permissionEntity = new PermissionEntity();
-        permissionEntity.setPermissionName("test:create");
-        permissionEntity.setAddTime(now);
-        permissionEntity.setAddUid("test_uid");
-        permissionEntity.setUpdateTime(now);
-        permissionEntity.setUpdateUid("test_uid");
-        permissionRepository.save(permissionEntity);
-    }
 }

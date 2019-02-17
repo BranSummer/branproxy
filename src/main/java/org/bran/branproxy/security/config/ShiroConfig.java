@@ -4,6 +4,7 @@ import org.apache.shiro.mgt.DefaultSecurityManager;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
+import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -25,7 +26,7 @@ public class ShiroConfig {
      */
     @Bean
     public SecurityManager securityManager(MyShiroRealm myShiroRealm){
-        DefaultSecurityManager securityManager = new DefaultSecurityManager();
+        DefaultSecurityManager securityManager = new DefaultWebSecurityManager();
         securityManager.setRealm(myShiroRealm);
         return securityManager;
     }

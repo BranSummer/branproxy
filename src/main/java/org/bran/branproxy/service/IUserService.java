@@ -1,6 +1,5 @@
 package org.bran.branproxy.service;
 
-import org.bran.branproxy.model.mysql.UserEntity;
 
 /**
  * @Auther: BranSummer
@@ -9,5 +8,5 @@ import org.bran.branproxy.model.mysql.UserEntity;
  */
 public interface IUserService {
 
-    UserEntity selectUserByName(String name);
+
 }
