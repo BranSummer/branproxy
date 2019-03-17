@@ -1,20 +1,15 @@
 package org.bran.branproxy.util;
 
 import lombok.extern.slf4j.Slf4j;
-import org.bran.branproxy.model.ProxyModel;
-import org.jsoup.Connection;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
+
 import org.springframework.stereotype.Component;
 
-import java.io.IOException;
-import java.net.*;
 
 @Component
 @Slf4j
 public class Detector {
 
-    public boolean isAvailable(ProxyModel proxyModel) {
+/*    public boolean isAvailable(ProxyModel proxyModel) {
         String url = "https://www.baidu.com";
         Document doc=null;
 
@@ -39,5 +34,5 @@ public class Detector {
 
         boolean test = new Detector().isAvailable(proxyModel);
         System.out.println(test);
-    }
+    }*/
 }
