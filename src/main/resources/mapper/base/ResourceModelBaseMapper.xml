@@ -1,0 +1,585 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.bran.branproxy.dao.base.ResourceModelBaseMapper">
+
+
+    <insert id="insertResourceModel"  useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO `p_resource`
+        (
+        <trim suffixOverrides=",">
+                    <if test="id!=null">
+                        `id`,
+                    </if>
+                    <if test="pid!=null">
+                        `pid`,
+                    </if>
+                    <if test="title!=null">
+                        `title`,
+                    </if>
+                    <if test="code!=null">
+                        `code`,
+                    </if>
+                    <if test="isDelete!=null">
+                        `is_delete`,
+                    </if>
+                    <if test="updateUid!=null">
+                        `update_uid`,
+                    </if>
+                    <if test="lastUpdateTime!=null">
+                        `last_update_time`,
+                    </if>
+        </trim>
+        )
+        VALUES
+        (
+        <trim suffixOverrides=",">
+                <if test="id!=null">
+                    #{id},
+                </if>
+                <if test="pid!=null">
+                    #{pid},
+                </if>
+                <if test="title!=null">
+                    #{title},
+                </if>
+                <if test="code!=null">
+                    #{code},
+                </if>
+                <if test="isDelete!=null">
+                    #{isDelete},
+                </if>
+                <if test="updateUid!=null">
+                    #{updateUid},
+                </if>
+                <if test="lastUpdateTime!=null">
+                    #{lastUpdateTime},
+                </if>
+        </trim>
+        )
+    </insert>
+
+
+
+
+    <update id="updateResourceModel">
+        UPDATE `p_resource`
+        SET
+        <trim suffixOverrides=",">
+            <if test="pid != null">
+                `pid` = #{pid},
+            </if>
+            <if test="title != null and title!=''">
+                `title` = #{title},
+            </if>
+            <if test="code != null and code!=''">
+                `code` = #{code},
+            </if>
+            <if test="isDelete != null">
+                `is_delete` = #{isDelete},
+            </if>
+            <if test="updateUid != null">
+                `update_uid` = #{updateUid},
+            </if>
+            <if test="lastUpdateTime != null">
+                `last_update_time` = #{lastUpdateTime},
+            </if>
+        </trim>
+        WHERE
+        <trim suffixOverrides="and">
+                `id` = #{id} and
+        </trim>
+    </update>
+
+    <update id="update">
+        UPDATE `p_resource`
+        SET
+        <trim suffixOverrides=",">
+        <if test="set.pid != null">
+            `pid` = #{set.pid},
+        </if>
+        <if test="set.title != null and set.title!=''">
+            `title` = #{set.title},
+        </if>
+        <if test="set.code != null and set.code!=''">
+            `code` = #{set.code},
+        </if>
+        <if test="set.isDelete != null">
+            `is_delete` = #{set.isDelete},
+        </if>
+        <if test="set.updateUid != null">
+            `update_uid` = #{set.updateUid},
+        </if>
+        <if test="set.lastUpdateTime != null">
+            `last_update_time` = #{set.lastUpdateTime},
+        </if>
+        </trim>
+        <trim prefix="where" suffixOverrides="and | or">
+                <if test="where.idList != null">
+                    `id` in
+                    <foreach collection="where.idList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+            <if test="where.idSt !=null">
+                `id` >= #{where.idSt} and
+            </if>
+            <if test="where.idEd!=null">
+                `id` &lt;= #{where.idEd} and
+            </if>
+                <if test="where.pidList != null">
+                    `pid` in
+                    <foreach collection="where.pidList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+            <if test="where.pidSt !=null">
+                `pid` >= #{where.pidSt} and
+            </if>
+            <if test="where.pidEd!=null">
+                `pid` &lt;= #{where.pidEd} and
+            </if>
+                <if test="where.titleList != null">
+                    `title` in
+                    <foreach collection="where.titleList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+            <if test ="where.fuzzyTitle!=null and where.fuzzyTitle.size()>0">
+                (
+                <foreach collection="where.fuzzyTitle"  separator="or" item="item">
+                    `Title` like concat('%',#{item},'%')
+                </foreach>
+                ) and
+            </if>
+            <if test ="where.rightFuzzyTitle!=null and where.rightFuzzyTitle.size()>0">
+                (
+                <foreach collection="where.rightFuzzyTitle"  separator="or" item="item">
+                    `Title` like concat(#{item},'%')
+                </foreach>
+                ) and
+            </if>
+                <if test="where.codeList != null">
+                    `code` in
+                    <foreach collection="where.codeList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+            <if test ="where.fuzzyCode!=null and where.fuzzyCode.size()>0">
+                (
+                <foreach collection="where.fuzzyCode"  separator="or" item="item">
+                    `Code` like concat('%',#{item},'%')
+                </foreach>
+                ) and
+            </if>
+            <if test ="where.rightFuzzyCode!=null and where.rightFuzzyCode.size()>0">
+                (
+                <foreach collection="where.rightFuzzyCode"  separator="or" item="item">
+                    `Code` like concat(#{item},'%')
+                </foreach>
+                ) and
+            </if>
+                <if test="where.isDeleteList != null">
+                    `is_delete` in
+                    <foreach collection="where.isDeleteList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+            <if test="where.isDeleteSt !=null">
+                `is_delete` >= #{where.isDeleteSt} and
+            </if>
+            <if test="where.isDeleteEd!=null">
+                `is_delete` &lt;= #{where.isDeleteEd} and
+            </if>
+                <if test="where.updateUidList != null">
+                    `update_uid` in
+                    <foreach collection="where.updateUidList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+            <if test="where.updateUidSt !=null">
+                `update_uid` >= #{where.updateUidSt} and
+            </if>
+            <if test="where.updateUidEd!=null">
+                `update_uid` &lt;= #{where.updateUidEd} and
+            </if>
+                <if test="where.lastUpdateTimeList != null">
+                    `last_update_time` in
+                    <foreach collection="where.lastUpdateTimeList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+            <if test="where.lastUpdateTimeSt !=null">
+                `last_update_time` >= #{where.lastUpdateTimeSt} and
+            </if>
+            <if test="where.lastUpdateTimeEd!=null">
+                `last_update_time` &lt;= #{where.lastUpdateTimeEd} and
+            </if>
+        </trim>
+    </update>
+
+
+    <resultMap type="org.bran.branproxy.model.ResourceModel" id="ResourceModelMap">
+        <result property="id" column="id"/>
+        <result property="pid" column="pid"/>
+        <result property="title" column="title"/>
+        <result property="code" column="code"/>
+        <result property="isDelete" column="is_delete"/>
+        <result property="updateUid" column="update_uid"/>
+        <result property="lastUpdateTime" column="last_update_time"/>
+    </resultMap>
+
+
+    <select id="queryResourceModel" resultMap="ResourceModelMap">
+        select
+        <include refid="baseResult"></include>
+        from  `p_resource`
+        <trim prefix="where" suffixOverrides="and | or">
+            <if test="id != null">
+                `id` = #{id} and
+            </if>
+            <if test="pid != null">
+                `pid` = #{pid} and
+            </if>
+            <if test="title != null and title!=''">
+                `title` = #{title} and
+            </if>
+            <if test="code != null and code!=''">
+                `code` = #{code} and
+            </if>
+            <if test="isDelete != null">
+                `is_delete` = #{isDelete} and
+            </if>
+            <if test="updateUid != null">
+                `update_uid` = #{updateUid} and
+            </if>
+            <if test="lastUpdateTime != null">
+                `last_update_time` = #{lastUpdateTime} and
+            </if>
+            <if test = "(_parameter instanceof org.bran.branproxy.model.ResourceModel$QueryBuilder) == true">
+                <if test="idList != null">
+                    `id` in
+                    <foreach collection="idList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+                <if test="idSt !=null">
+                    `id` >= #{idSt} and
+                </if>
+                <if test="idEd!=null">
+                    `id` &lt;= #{idEd} and
+                </if>
+                <if test="pidList != null">
+                    `pid` in
+                    <foreach collection="pidList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+                <if test="pidSt !=null">
+                    `pid` >= #{pidSt} and
+                </if>
+                <if test="pidEd!=null">
+                    `pid` &lt;= #{pidEd} and
+                </if>
+                <if test="titleList != null">
+                    `title` in
+                    <foreach collection="titleList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+                <if test ="fuzzyTitle!=null and fuzzyTitle.size()>0">
+                    (
+                    <foreach collection="fuzzyTitle"  separator="or" item="item">
+                        `Title` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzyTitle!=null and rightFuzzyTitle.size()>0">
+                    (
+                    <foreach collection="rightFuzzyTitle"  separator="or" item="item">
+                        `Title` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test="codeList != null">
+                    `code` in
+                    <foreach collection="codeList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+                <if test ="fuzzyCode!=null and fuzzyCode.size()>0">
+                    (
+                    <foreach collection="fuzzyCode"  separator="or" item="item">
+                        `Code` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzyCode!=null and rightFuzzyCode.size()>0">
+                    (
+                    <foreach collection="rightFuzzyCode"  separator="or" item="item">
+                        `Code` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test="isDeleteList != null">
+                    `is_delete` in
+                    <foreach collection="isDeleteList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+                <if test="isDeleteSt !=null">
+                    `is_delete` >= #{isDeleteSt} and
+                </if>
+                <if test="isDeleteEd!=null">
+                    `is_delete` &lt;= #{isDeleteEd} and
+                </if>
+                <if test="updateUidList != null">
+                    `update_uid` in
+                    <foreach collection="updateUidList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+                <if test="updateUidSt !=null">
+                    `update_uid` >= #{updateUidSt} and
+                </if>
+                <if test="updateUidEd!=null">
+                    `update_uid` &lt;= #{updateUidEd} and
+                </if>
+                <if test="lastUpdateTimeList != null">
+                    `last_update_time` in
+                    <foreach collection="lastUpdateTimeList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+                <if test="lastUpdateTimeSt !=null">
+                    `last_update_time` >= #{lastUpdateTimeSt} and
+                </if>
+                <if test="lastUpdateTimeEd!=null">
+                    `last_update_time` &lt;= #{lastUpdateTimeEd} and
+                </if>
+            </if>
+        </trim>
+    </select>
+
+    <select id="queryResourceModelLimit1" resultMap="ResourceModelMap">
+        select
+        <include refid="baseResult"></include>
+        from  `p_resource`
+        <trim prefix="where" suffixOverrides="and | or">
+            <if test="id != null">
+                `id` = #{id} and
+            </if>
+            <if test="pid != null">
+                `pid` = #{pid} and
+            </if>
+            <if test="title != null and title!=''">
+                `title` = #{title} and
+            </if>
+            <if test="code != null and code!=''">
+                `code` = #{code} and
+            </if>
+            <if test="isDelete != null">
+                `is_delete` = #{isDelete} and
+            </if>
+            <if test="updateUid != null">
+                `update_uid` = #{updateUid} and
+            </if>
+            <if test="lastUpdateTime != null">
+                `last_update_time` = #{lastUpdateTime} and
+            </if>
+            <if test = "(_parameter instanceof org.bran.branproxy.model.ResourceModel$QueryBuilder) == true">
+                    <if test="idList != null">
+                        `id` in
+                        <foreach collection="idList" close=")" open="(" separator="," item="item">
+                            #{item}
+                        </foreach> and
+                    </if>
+                <if test="idSt !=null">
+                    `id` >= #{idSt} and
+                </if>
+                <if test="idEd!=null">
+                    `id` &lt;= #{idEd} and
+                </if>
+                    <if test="pidList != null">
+                        `pid` in
+                        <foreach collection="pidList" close=")" open="(" separator="," item="item">
+                            #{item}
+                        </foreach> and
+                    </if>
+                <if test="pidSt !=null">
+                    `pid` >= #{pidSt} and
+                </if>
+                <if test="pidEd!=null">
+                    `pid` &lt;= #{pidEd} and
+                </if>
+                    <if test="titleList != null">
+                        `title` in
+                        <foreach collection="titleList" close=")" open="(" separator="," item="item">
+                            #{item}
+                        </foreach> and
+                    </if>
+                <if test ="fuzzyTitle!=null and fuzzyTitle.size()>0">
+                    (
+                    <foreach collection="fuzzyTitle"  separator="or" item="item">
+                        `Title` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzyTitle!=null and rightFuzzyTitle.size()>0">
+                    (
+                    <foreach collection="rightFuzzyTitle"  separator="or" item="item">
+                        `Title` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                    <if test="codeList != null">
+                        `code` in
+                        <foreach collection="codeList" close=")" open="(" separator="," item="item">
+                            #{item}
+                        </foreach> and
+                    </if>
+                <if test ="fuzzyCode!=null and fuzzyCode.size()>0">
+                    (
+                    <foreach collection="fuzzyCode"  separator="or" item="item">
+                        `Code` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzyCode!=null and rightFuzzyCode.size()>0">
+                    (
+                    <foreach collection="rightFuzzyCode"  separator="or" item="item">
+                        `Code` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                    <if test="isDeleteList != null">
+                        `is_delete` in
+                        <foreach collection="isDeleteList" close=")" open="(" separator="," item="item">
+                            #{item}
+                        </foreach> and
+                    </if>
+                <if test="isDeleteSt !=null">
+                    `is_delete` >= #{isDeleteSt} and
+                </if>
+                <if test="isDeleteEd!=null">
+                    `is_delete` &lt;= #{isDeleteEd} and
+                </if>
+                    <if test="updateUidList != null">
+                        `update_uid` in
+                        <foreach collection="updateUidList" close=")" open="(" separator="," item="item">
+                            #{item}
+                        </foreach> and
+                    </if>
+                <if test="updateUidSt !=null">
+                    `update_uid` >= #{updateUidSt} and
+                </if>
+                <if test="updateUidEd!=null">
+                    `update_uid` &lt;= #{updateUidEd} and
+                </if>
+                    <if test="lastUpdateTimeList != null">
+                        `last_update_time` in
+                        <foreach collection="lastUpdateTimeList" close=")" open="(" separator="," item="item">
+                            #{item}
+                        </foreach> and
+                    </if>
+                <if test="lastUpdateTimeSt !=null">
+                    `last_update_time` >= #{lastUpdateTimeSt} and
+                </if>
+                <if test="lastUpdateTimeEd!=null">
+                    `last_update_time` &lt;= #{lastUpdateTimeEd} and
+                </if>
+            </if>
+        </trim>
+        limit 1
+    </select>
+
+    <sql id="allResult">
+        <trim suffixOverrides=",">
+        `id`,
+        `pid`,
+        `title`,
+        `code`,
+        `is_delete`,
+        `update_uid`,
+        `last_update_time`,
+        </trim>
+    </sql>
+
+
+
+    <sql id="baseResult">
+        <trim suffixOverrides=",">
+            <if test = "(_parameter instanceof org.bran.branproxy.model.ResourceModel$QueryBuilder) == true">
+
+                <if test="fetchFields==null">
+                    <include refid="allResult"></include>
+                </if>
+                <if test="fetchFields!=null">
+                    <if test="fetchFields.AllFields !=null">
+                        <include refid="allResult"></include>
+                    </if>
+                    <if test="fetchFields.AllFields ==null and fetchFields.fetchFields==null and fetchFields.excludeFields==null and fetchFields.otherFields==null">
+                        <include refid="allResult"></include>
+                    </if>
+                    <if test="fetchFields.AllFields==null and fetchFields.fetchFields!=null">
+                    <if test="fetchFields.fetchFields.id==true">
+                        `id`,
+                    </if>
+                    <if test="fetchFields.fetchFields.pid==true">
+                        `pid`,
+                    </if>
+                    <if test="fetchFields.fetchFields.title==true">
+                        `title`,
+                    </if>
+                    <if test="fetchFields.fetchFields.code==true">
+                        `code`,
+                    </if>
+                    <if test="fetchFields.fetchFields.isDelete==true">
+                        `is_delete`,
+                    </if>
+                    <if test="fetchFields.fetchFields.updateUid==true">
+                        `update_uid`,
+                    </if>
+                    <if test="fetchFields.fetchFields.lastUpdateTime==true">
+                        `last_update_time`,
+                    </if>
+                    </if>
+                    <if test="fetchFields.AllFields==null and fetchFields.excludeFields!=null">
+                    <if test="fetchFields.excludeFields.id==null">
+                        `id`,
+                    </if>
+                    <if test="fetchFields.excludeFields.pid==null">
+                        `pid`,
+                    </if>
+                    <if test="fetchFields.excludeFields.title==null">
+                        `title`,
+                    </if>
+                    <if test="fetchFields.excludeFields.code==null">
+                        `code`,
+                    </if>
+                    <if test="fetchFields.excludeFields.isDelete==null">
+                        `is_delete`,
+                    </if>
+                    <if test="fetchFields.excludeFields.updateUid==null">
+                        `update_uid`,
+                    </if>
+                    <if test="fetchFields.excludeFields.lastUpdateTime==null">
+                        `last_update_time`,
+                    </if>
+                    </if>
+                    <if test="fetchFields.otherFields!=null and fetchFields.otherFields.size>0">
+                        <foreach collection="fetchFields.otherFields" index="index" item="item" separator=",">
+                        `#{item}`
+                        </foreach>
+                    </if>
+                </if>
+            </if>
+            <if test="(_parameter instanceof org.bran.branproxy.model.ResourceModel$QueryBuilder) == false" >
+                <include refid="allResult"></include>
+            </if>
+
+        </trim>
+    </sql>
+
+
+</mapper>

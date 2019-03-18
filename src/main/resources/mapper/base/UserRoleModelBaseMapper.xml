@@ -1,0 +1,475 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.bran.branproxy.dao.base.UserRoleModelBaseMapper">
+
+
+    <insert id="insertUserRoleModel"  useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO `p_user_role`
+        (
+        <trim suffixOverrides=",">
+                    <if test="id!=null">
+                        `id`,
+                    </if>
+                    <if test="userId!=null">
+                        `user_id`,
+                    </if>
+                    <if test="roleId!=null">
+                        `role_id`,
+                    </if>
+                    <if test="isDelete!=null">
+                        `is_delete`,
+                    </if>
+                    <if test="updateUid!=null">
+                        `update_uid`,
+                    </if>
+                    <if test="updateTime!=null">
+                        `update_time`,
+                    </if>
+        </trim>
+        )
+        VALUES
+        (
+        <trim suffixOverrides=",">
+                <if test="id!=null">
+                    #{id},
+                </if>
+                <if test="userId!=null">
+                    #{userId},
+                </if>
+                <if test="roleId!=null">
+                    #{roleId},
+                </if>
+                <if test="isDelete!=null">
+                    #{isDelete},
+                </if>
+                <if test="updateUid!=null">
+                    #{updateUid},
+                </if>
+                <if test="updateTime!=null">
+                    #{updateTime},
+                </if>
+        </trim>
+        )
+    </insert>
+
+
+
+
+    <update id="updateUserRoleModel">
+        UPDATE `p_user_role`
+        SET
+        <trim suffixOverrides=",">
+            <if test="userId != null">
+                `user_id` = #{userId},
+            </if>
+            <if test="roleId != null">
+                `role_id` = #{roleId},
+            </if>
+            <if test="isDelete != null">
+                `is_delete` = #{isDelete},
+            </if>
+            <if test="updateUid != null">
+                `update_uid` = #{updateUid},
+            </if>
+            <if test="updateTime != null">
+                `update_time` = #{updateTime},
+            </if>
+        </trim>
+        WHERE
+        <trim suffixOverrides="and">
+                `id` = #{id} and
+        </trim>
+    </update>
+
+    <update id="update">
+        UPDATE `p_user_role`
+        SET
+        <trim suffixOverrides=",">
+        <if test="set.userId != null">
+            `user_id` = #{set.userId},
+        </if>
+        <if test="set.roleId != null">
+            `role_id` = #{set.roleId},
+        </if>
+        <if test="set.isDelete != null">
+            `is_delete` = #{set.isDelete},
+        </if>
+        <if test="set.updateUid != null">
+            `update_uid` = #{set.updateUid},
+        </if>
+        <if test="set.updateTime != null">
+            `update_time` = #{set.updateTime},
+        </if>
+        </trim>
+        <trim prefix="where" suffixOverrides="and | or">
+                <if test="where.idList != null">
+                    `id` in
+                    <foreach collection="where.idList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+            <if test="where.idSt !=null">
+                `id` >= #{where.idSt} and
+            </if>
+            <if test="where.idEd!=null">
+                `id` &lt;= #{where.idEd} and
+            </if>
+                <if test="where.userIdList != null">
+                    `user_id` in
+                    <foreach collection="where.userIdList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+            <if test="where.userIdSt !=null">
+                `user_id` >= #{where.userIdSt} and
+            </if>
+            <if test="where.userIdEd!=null">
+                `user_id` &lt;= #{where.userIdEd} and
+            </if>
+                <if test="where.roleIdList != null">
+                    `role_id` in
+                    <foreach collection="where.roleIdList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+            <if test="where.roleIdSt !=null">
+                `role_id` >= #{where.roleIdSt} and
+            </if>
+            <if test="where.roleIdEd!=null">
+                `role_id` &lt;= #{where.roleIdEd} and
+            </if>
+                <if test="where.isDeleteList != null">
+                    `is_delete` in
+                    <foreach collection="where.isDeleteList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+            <if test="where.isDeleteSt !=null">
+                `is_delete` >= #{where.isDeleteSt} and
+            </if>
+            <if test="where.isDeleteEd!=null">
+                `is_delete` &lt;= #{where.isDeleteEd} and
+            </if>
+                <if test="where.updateUidList != null">
+                    `update_uid` in
+                    <foreach collection="where.updateUidList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+            <if test="where.updateUidSt !=null">
+                `update_uid` >= #{where.updateUidSt} and
+            </if>
+            <if test="where.updateUidEd!=null">
+                `update_uid` &lt;= #{where.updateUidEd} and
+            </if>
+                <if test="where.updateTimeList != null">
+                    `update_time` in
+                    <foreach collection="where.updateTimeList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+            <if test="where.updateTimeSt !=null">
+                `update_time` >= #{where.updateTimeSt} and
+            </if>
+            <if test="where.updateTimeEd!=null">
+                `update_time` &lt;= #{where.updateTimeEd} and
+            </if>
+        </trim>
+    </update>
+
+
+    <resultMap type="org.bran.branproxy.model.UserRoleModel" id="UserRoleModelMap">
+        <result property="id" column="id"/>
+        <result property="userId" column="user_id"/>
+        <result property="roleId" column="role_id"/>
+        <result property="isDelete" column="is_delete"/>
+        <result property="updateUid" column="update_uid"/>
+        <result property="updateTime" column="update_time"/>
+    </resultMap>
+
+
+    <select id="queryUserRoleModel" resultMap="UserRoleModelMap">
+        select
+        <include refid="baseResult"></include>
+        from  `p_user_role`
+        <trim prefix="where" suffixOverrides="and | or">
+            <if test="id != null">
+                `id` = #{id} and
+            </if>
+            <if test="userId != null">
+                `user_id` = #{userId} and
+            </if>
+            <if test="roleId != null">
+                `role_id` = #{roleId} and
+            </if>
+            <if test="isDelete != null">
+                `is_delete` = #{isDelete} and
+            </if>
+            <if test="updateUid != null">
+                `update_uid` = #{updateUid} and
+            </if>
+            <if test="updateTime != null">
+                `update_time` = #{updateTime} and
+            </if>
+            <if test = "(_parameter instanceof org.bran.branproxy.model.UserRoleModel$QueryBuilder) == true">
+                <if test="idList != null">
+                    `id` in
+                    <foreach collection="idList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+                <if test="idSt !=null">
+                    `id` >= #{idSt} and
+                </if>
+                <if test="idEd!=null">
+                    `id` &lt;= #{idEd} and
+                </if>
+                <if test="userIdList != null">
+                    `user_id` in
+                    <foreach collection="userIdList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+                <if test="userIdSt !=null">
+                    `user_id` >= #{userIdSt} and
+                </if>
+                <if test="userIdEd!=null">
+                    `user_id` &lt;= #{userIdEd} and
+                </if>
+                <if test="roleIdList != null">
+                    `role_id` in
+                    <foreach collection="roleIdList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+                <if test="roleIdSt !=null">
+                    `role_id` >= #{roleIdSt} and
+                </if>
+                <if test="roleIdEd!=null">
+                    `role_id` &lt;= #{roleIdEd} and
+                </if>
+                <if test="isDeleteList != null">
+                    `is_delete` in
+                    <foreach collection="isDeleteList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+                <if test="isDeleteSt !=null">
+                    `is_delete` >= #{isDeleteSt} and
+                </if>
+                <if test="isDeleteEd!=null">
+                    `is_delete` &lt;= #{isDeleteEd} and
+                </if>
+                <if test="updateUidList != null">
+                    `update_uid` in
+                    <foreach collection="updateUidList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+                <if test="updateUidSt !=null">
+                    `update_uid` >= #{updateUidSt} and
+                </if>
+                <if test="updateUidEd!=null">
+                    `update_uid` &lt;= #{updateUidEd} and
+                </if>
+                <if test="updateTimeList != null">
+                    `update_time` in
+                    <foreach collection="updateTimeList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+                <if test="updateTimeSt !=null">
+                    `update_time` >= #{updateTimeSt} and
+                </if>
+                <if test="updateTimeEd!=null">
+                    `update_time` &lt;= #{updateTimeEd} and
+                </if>
+            </if>
+        </trim>
+    </select>
+
+    <select id="queryUserRoleModelLimit1" resultMap="UserRoleModelMap">
+        select
+        <include refid="baseResult"></include>
+        from  `p_user_role`
+        <trim prefix="where" suffixOverrides="and | or">
+            <if test="id != null">
+                `id` = #{id} and
+            </if>
+            <if test="userId != null">
+                `user_id` = #{userId} and
+            </if>
+            <if test="roleId != null">
+                `role_id` = #{roleId} and
+            </if>
+            <if test="isDelete != null">
+                `is_delete` = #{isDelete} and
+            </if>
+            <if test="updateUid != null">
+                `update_uid` = #{updateUid} and
+            </if>
+            <if test="updateTime != null">
+                `update_time` = #{updateTime} and
+            </if>
+            <if test = "(_parameter instanceof org.bran.branproxy.model.UserRoleModel$QueryBuilder) == true">
+                    <if test="idList != null">
+                        `id` in
+                        <foreach collection="idList" close=")" open="(" separator="," item="item">
+                            #{item}
+                        </foreach> and
+                    </if>
+                <if test="idSt !=null">
+                    `id` >= #{idSt} and
+                </if>
+                <if test="idEd!=null">
+                    `id` &lt;= #{idEd} and
+                </if>
+                    <if test="userIdList != null">
+                        `user_id` in
+                        <foreach collection="userIdList" close=")" open="(" separator="," item="item">
+                            #{item}
+                        </foreach> and
+                    </if>
+                <if test="userIdSt !=null">
+                    `user_id` >= #{userIdSt} and
+                </if>
+                <if test="userIdEd!=null">
+                    `user_id` &lt;= #{userIdEd} and
+                </if>
+                    <if test="roleIdList != null">
+                        `role_id` in
+                        <foreach collection="roleIdList" close=")" open="(" separator="," item="item">
+                            #{item}
+                        </foreach> and
+                    </if>
+                <if test="roleIdSt !=null">
+                    `role_id` >= #{roleIdSt} and
+                </if>
+                <if test="roleIdEd!=null">
+                    `role_id` &lt;= #{roleIdEd} and
+                </if>
+                    <if test="isDeleteList != null">
+                        `is_delete` in
+                        <foreach collection="isDeleteList" close=")" open="(" separator="," item="item">
+                            #{item}
+                        </foreach> and
+                    </if>
+                <if test="isDeleteSt !=null">
+                    `is_delete` >= #{isDeleteSt} and
+                </if>
+                <if test="isDeleteEd!=null">
+                    `is_delete` &lt;= #{isDeleteEd} and
+                </if>
+                    <if test="updateUidList != null">
+                        `update_uid` in
+                        <foreach collection="updateUidList" close=")" open="(" separator="," item="item">
+                            #{item}
+                        </foreach> and
+                    </if>
+                <if test="updateUidSt !=null">
+                    `update_uid` >= #{updateUidSt} and
+                </if>
+                <if test="updateUidEd!=null">
+                    `update_uid` &lt;= #{updateUidEd} and
+                </if>
+                    <if test="updateTimeList != null">
+                        `update_time` in
+                        <foreach collection="updateTimeList" close=")" open="(" separator="," item="item">
+                            #{item}
+                        </foreach> and
+                    </if>
+                <if test="updateTimeSt !=null">
+                    `update_time` >= #{updateTimeSt} and
+                </if>
+                <if test="updateTimeEd!=null">
+                    `update_time` &lt;= #{updateTimeEd} and
+                </if>
+            </if>
+        </trim>
+        limit 1
+    </select>
+
+    <sql id="allResult">
+        <trim suffixOverrides=",">
+        `id`,
+        `user_id`,
+        `role_id`,
+        `is_delete`,
+        `update_uid`,
+        `update_time`,
+        </trim>
+    </sql>
+
+
+
+    <sql id="baseResult">
+        <trim suffixOverrides=",">
+            <if test = "(_parameter instanceof org.bran.branproxy.model.UserRoleModel$QueryBuilder) == true">
+
+                <if test="fetchFields==null">
+                    <include refid="allResult"></include>
+                </if>
+                <if test="fetchFields!=null">
+                    <if test="fetchFields.AllFields !=null">
+                        <include refid="allResult"></include>
+                    </if>
+                    <if test="fetchFields.AllFields ==null and fetchFields.fetchFields==null and fetchFields.excludeFields==null and fetchFields.otherFields==null">
+                        <include refid="allResult"></include>
+                    </if>
+                    <if test="fetchFields.AllFields==null and fetchFields.fetchFields!=null">
+                    <if test="fetchFields.fetchFields.id==true">
+                        `id`,
+                    </if>
+                    <if test="fetchFields.fetchFields.userId==true">
+                        `user_id`,
+                    </if>
+                    <if test="fetchFields.fetchFields.roleId==true">
+                        `role_id`,
+                    </if>
+                    <if test="fetchFields.fetchFields.isDelete==true">
+                        `is_delete`,
+                    </if>
+                    <if test="fetchFields.fetchFields.updateUid==true">
+                        `update_uid`,
+                    </if>
+                    <if test="fetchFields.fetchFields.updateTime==true">
+                        `update_time`,
+                    </if>
+                    </if>
+                    <if test="fetchFields.AllFields==null and fetchFields.excludeFields!=null">
+                    <if test="fetchFields.excludeFields.id==null">
+                        `id`,
+                    </if>
+                    <if test="fetchFields.excludeFields.userId==null">
+                        `user_id`,
+                    </if>
+                    <if test="fetchFields.excludeFields.roleId==null">
+                        `role_id`,
+                    </if>
+                    <if test="fetchFields.excludeFields.isDelete==null">
+                        `is_delete`,
+                    </if>
+                    <if test="fetchFields.excludeFields.updateUid==null">
+                        `update_uid`,
+                    </if>
+                    <if test="fetchFields.excludeFields.updateTime==null">
+                        `update_time`,
+                    </if>
+                    </if>
+                    <if test="fetchFields.otherFields!=null and fetchFields.otherFields.size>0">
+                        <foreach collection="fetchFields.otherFields" index="index" item="item" separator=",">
+                        `#{item}`
+                        </foreach>
+                    </if>
+                </if>
+            </if>
+            <if test="(_parameter instanceof org.bran.branproxy.model.UserRoleModel$QueryBuilder) == false" >
+                <include refid="allResult"></include>
+            </if>
+
+        </trim>
+    </sql>
+
+
+</mapper>

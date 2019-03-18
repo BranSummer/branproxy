@@ -1,8 +1,5 @@
 package org.bran.branproxy.controller;
 
-import org.bran.branproxy.model.ResultDTO;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -12,8 +9,8 @@ import org.springframework.web.bind.annotation.RestController;
  * @Description:
  */
 @RestController
-@RequestMapping("/branproxy")
-public class ProxyController {
+@RequestMapping("api/proxy")
+public class ApiController {
 
 
 
