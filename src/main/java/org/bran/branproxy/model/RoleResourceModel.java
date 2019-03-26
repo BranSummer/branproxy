@@ -42,7 +42,7 @@ public class RoleResourceModel implements Serializable {
     * 
     * isNullAble:0
     */
-    private Long  updateUid;
+    private Long updateUid;
 
     /**
     * 
@@ -67,9 +67,9 @@ public class RoleResourceModel implements Serializable {
 
     public Integer getIsDelete(){return this.isDelete;}
 
-    public void set UpdateUid(Long  updateUid){this. updateUid =  updateUid;}
+    public void setUpdateUid(Long  updateUid){this. updateUid =  updateUid;}
 
-    public Long get UpdateUid(){return this. updateUid;}
+    public Long getUpdateUid(){return this. updateUid;}
 
     public void setLastUpdateTime(java.time.LocalDateTime lastUpdateTime){this.lastUpdateTime = lastUpdateTime;}
 
@@ -181,15 +181,15 @@ public class RoleResourceModel implements Serializable {
 
         private List<Long>  updateUidList;
 
-        public List<Long> get UpdateUidList(){return this. updateUidList;}
+        public List<Long> getUpdateUidList(){return this. updateUidList;}
 
         private Long  updateUidSt;
 
         private Long  updateUidEd;
 
-        public Long get UpdateUidSt(){return this. updateUidSt;}
+        public Long getUpdateUidSt(){return this. updateUidSt;}
 
-        public Long get UpdateUidEd(){return this. updateUidEd;}
+        public Long getUpdateUidEd(){return this. updateUidEd;}
 
         private List<java.time.LocalDateTime> lastUpdateTimeList;
 
@@ -388,7 +388,7 @@ public class RoleResourceModel implements Serializable {
 
 
         public QueryBuilder  updateUid(Long  updateUid){
-            set UpdateUid( updateUid);
+            setUpdateUid( updateUid);
             return this;
         }
 
@@ -402,12 +402,12 @@ public class RoleResourceModel implements Serializable {
             return this;
         }
 
-        public QueryBuilder fetch UpdateUid(){
+        public QueryBuilder fetchUpdateUid(){
             setFetchFields("fetchFields"," updateUid");
             return this;
         }
 
-        public QueryBuilder exclude UpdateUid(){
+        public QueryBuilder excludeUpdateUid(){
             setFetchFields("excludeFields"," updateUid");
             return this;
         }
@@ -545,15 +545,15 @@ public class RoleResourceModel implements Serializable {
 
         private List<Long>  updateUidList;
 
-        public List<Long> get UpdateUidList(){return this. updateUidList;}
+        public List<Long> getUpdateUidList(){return this. updateUidList;}
 
         private Long  updateUidSt;
 
         private Long  updateUidEd;
 
-        public Long get UpdateUidSt(){return this. updateUidSt;}
+        public Long getUpdateUidSt(){return this. updateUidSt;}
 
-        public Long get UpdateUidEd(){return this. updateUidEd;}
+        public Long getUpdateUidEd(){return this. updateUidEd;}
 
         private List<java.time.LocalDateTime> lastUpdateTimeList;
 
@@ -765,7 +765,7 @@ public class RoleResourceModel implements Serializable {
             return this;
         }
         public Builder  updateUid(Long  updateUid){
-            this.obj.set UpdateUid( updateUid);
+            this.obj.setUpdateUid( updateUid);
             return this;
         }
         public Builder lastUpdateTime(java.time.LocalDateTime lastUpdateTime){

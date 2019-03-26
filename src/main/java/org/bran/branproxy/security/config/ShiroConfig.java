@@ -16,7 +16,7 @@ import java.util.Map;
  * @Date: 2019-2-6 15:44
  * @Description:
  */
-@Configuration
+//@Configuration
 public class ShiroConfig {
 
     /**
@@ -40,18 +40,21 @@ public class ShiroConfig {
     public ShiroFilterFactoryBean shiroFilterFactoryBean(SecurityManager securityManager){
         ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
         shiroFilterFactoryBean.setSecurityManager(securityManager);
-        Map<String,String> map = new HashMap<>();
+        Map<String,String> filterChainDefinitionMap = new HashMap<>();
         //登出
-        map.put("/logout","logout");
+        filterChainDefinitionMap.put("/logout","logout");
         //对所有用户认证
-        map.put("/**","authc");
+        filterChainDefinitionMap.put("/**","anon");
+        //匿名访问静态资源
+        filterChainDefinitionMap.put("/static/**", "anon");
+        filterChainDefinitionMap.put("/lib/**", "anon");
         //登录
         shiroFilterFactoryBean.setLoginUrl("/login");
         //首页
         shiroFilterFactoryBean.setSuccessUrl("/index");
         //错误页面，认证不通过跳转
         shiroFilterFactoryBean.setUnauthorizedUrl("/error");
-        shiroFilterFactoryBean.setFilterChainDefinitionMap(map);
+        shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
         return shiroFilterFactoryBean;
     }
 
