@@ -6,7 +6,6 @@ import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSource
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -47,7 +46,7 @@ public class ShiroConfig {
         filterChainDefinitionMap.put("/**","anon");
         //匿名访问静态资源
         filterChainDefinitionMap.put("/static/**", "anon");
-        filterChainDefinitionMap.put("/lib/**", "anon");
+        filterChainDefinitionMap.put("/static/lib/**", "anon");
         //登录
         shiroFilterFactoryBean.setLoginUrl("/login");
         //首页

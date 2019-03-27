@@ -19,7 +19,6 @@ public class UserService implements IUserService {
 
     @Override
     public BasePageVo getUserList() {
-
         userModelMapper.queryUserModel(UserModel.QueryBuild().isDelete(0).build());
         return null;
     }
