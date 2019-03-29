@@ -39,10 +39,11 @@
 				return false;
 			}
         	 $.ajax({
-		            url:"/checkLogin",
+		            url:"/user/login",
 		            dataType: "json",
+                    contentType: "application/json; charset=utf-8",
 		            type: "post",
-		            data: {"uname":username,"pwd":password},
+		            data: JSON.stringify({"username":username,"pwd":password}),
 		            success: function (data) {
 		                if (data.code == 0) {
 		                	 location.href="/index"

@@ -6,12 +6,13 @@ import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSource
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
 import java.util.HashMap;
 import java.util.Map;
 
 /**
- * @Auther: BranSummer
+ * @author: BranSummer
  * @Date: 2019-2-6 15:44
  * @Description:
  */
@@ -41,14 +42,14 @@ public class ShiroConfig {
         shiroFilterFactoryBean.setSecurityManager(securityManager);
         Map<String,String> filterChainDefinitionMap = new HashMap<>();
         //登出
-        filterChainDefinitionMap.put("/logout","logout");
+        filterChainDefinitionMap.put("/user/logout","logout");
         //对所有用户认证
         filterChainDefinitionMap.put("/**","anon");
         //匿名访问静态资源
         filterChainDefinitionMap.put("/static/**", "anon");
         filterChainDefinitionMap.put("/static/lib/**", "anon");
         //登录
-        shiroFilterFactoryBean.setLoginUrl("/login");
+        shiroFilterFactoryBean.setLoginUrl("/user/login");
         //首页
         shiroFilterFactoryBean.setSuccessUrl("/index");
         //错误页面，认证不通过跳转
