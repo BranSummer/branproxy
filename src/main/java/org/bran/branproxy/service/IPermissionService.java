@@ -1,6 +1,7 @@
 package org.bran.branproxy.service;
 
 import org.bran.branproxy.common.vo.ResultResponse;
+import org.bran.branproxy.dto.permission.AddPermissionDto;
 import org.bran.branproxy.vo.BasePageVo;
 
 /**
@@ -8,9 +9,9 @@ import org.bran.branproxy.vo.BasePageVo;
  */
 public interface IPermissionService {
 
-    ResultResponse addPermission();
+    ResultResponse addPermission(AddPermissionDto dto);
 
-    ResultResponse removePermission();
+    ResultResponse removePermission(long id);
 
     ResultResponse updatePermission();
 

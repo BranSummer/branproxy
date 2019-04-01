@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="org.bran.branproxy.dao.base.UserModelBaseMapper">
+<mapper namespace="org.bran.branproxy.dao.base.UserBaseMapper">
 
 
-    <insert id="insertUserModel"  useGeneratedKeys="true" keyProperty="id">
+    <insert id="insertUser"  useGeneratedKeys="true" keyProperty="id">
         INSERT INTO `p_user`
         (
         <trim suffixOverrides=",">
@@ -20,8 +20,8 @@
                     <if test="email!=null">
                         `email`,
                     </if>
-                    <if test="salt!=null">
-                        `salt`,
+                    <if test="status!=null">
+                        `status`,
                     </if>
                     <if test="isDelete!=null">
                         `is_delete`,
@@ -49,8 +49,8 @@
                 <if test="email!=null">
                     #{email},
                 </if>
-                <if test="salt!=null">
-                    #{salt},
+                <if test="status!=null">
+                    #{status},
                 </if>
                 <if test="isDelete!=null">
                     #{isDelete},
@@ -68,7 +68,7 @@
 
 
 
-    <update id="updateUserModel">
+    <update id="updateUser">
         UPDATE `p_user`
         SET
         <trim suffixOverrides=",">
@@ -81,8 +81,8 @@
             <if test="email != null and email!=''">
                 `email` = #{email},
             </if>
-            <if test="salt != null and salt!=''">
-                `salt` = #{salt},
+            <if test="status != null">
+                `status` = #{status},
             </if>
             <if test="isDelete != null">
                 `is_delete` = #{isDelete},
@@ -113,8 +113,8 @@
         <if test="set.email != null and set.email!=''">
             `email` = #{set.email},
         </if>
-        <if test="set.salt != null and set.salt!=''">
-            `salt` = #{set.salt},
+        <if test="set.status != null">
+            `status` = #{set.status},
         </if>
         <if test="set.isDelete != null">
             `is_delete` = #{set.isDelete},
@@ -199,25 +199,17 @@
                 </foreach>
                 ) and
             </if>
-                <if test="where.saltList != null">
-                    `salt` in
-                    <foreach collection="where.saltList" close=")" open="(" separator="," item="item">
+                <if test="where.statusList != null">
+                    `status` in
+                    <foreach collection="where.statusList" close=")" open="(" separator="," item="item">
                         #{item}
                     </foreach> and
                 </if>
-            <if test ="where.fuzzySalt!=null and where.fuzzySalt.size()>0">
-                (
-                <foreach collection="where.fuzzySalt"  separator="or" item="item">
-                    `Salt` like concat('%',#{item},'%')
-                </foreach>
-                ) and
+            <if test="where.statusSt !=null">
+                `status` >= #{where.statusSt} and
             </if>
-            <if test ="where.rightFuzzySalt!=null and where.rightFuzzySalt.size()>0">
-                (
-                <foreach collection="where.rightFuzzySalt"  separator="or" item="item">
-                    `Salt` like concat(#{item},'%')
-                </foreach>
-                ) and
+            <if test="where.statusEd!=null">
+                `status` &lt;= #{where.statusEd} and
             </if>
                 <if test="where.isDeleteList != null">
                     `is_delete` in
@@ -267,19 +259,19 @@
     </update>
 
 
-    <resultMap type="org.bran.branproxy.model.UserModel" id="UserModelMap">
+    <resultMap type="org.bran.branproxy.model.User" id="UserMap">
         <result property="id" column="id"/>
         <result property="title" column="title"/>
         <result property="pwd" column="pwd"/>
         <result property="email" column="email"/>
-        <result property="salt" column="salt"/>
+        <result property="status" column="status"/>
         <result property="isDelete" column="is_delete"/>
         <result property="lastUpdateTime" column="last_update_time"/>
         <result property="lastLoginAddress" column="last_login_address"/>
     </resultMap>
 
 
-    <select id="queryUserModel" resultMap="UserModelMap">
+    <select id="queryUser" resultMap="UserMap">
         select
         <include refid="baseResult"></include>
         from  `p_user`
@@ -296,8 +288,8 @@
             <if test="email != null and email!=''">
                 `email` = #{email} and
             </if>
-            <if test="salt != null and salt!=''">
-                `salt` = #{salt} and
+            <if test="status != null">
+                `status` = #{status} and
             </if>
             <if test="isDelete != null">
                 `is_delete` = #{isDelete} and
@@ -308,7 +300,7 @@
             <if test="lastLoginAddress != null and lastLoginAddress!=''">
                 `last_login_address` = #{lastLoginAddress} and
             </if>
-            <if test = "(_parameter instanceof org.bran.branproxy.model.UserModel$QueryBuilder) == true">
+            <if test = "(_parameter instanceof org.bran.branproxy.model.User$QueryBuilder) == true">
                 <if test="idList != null">
                     `id` in
                     <foreach collection="idList" close=")" open="(" separator="," item="item">
@@ -381,25 +373,17 @@
                     </foreach>
                     ) and
                 </if>
-                <if test="saltList != null">
-                    `salt` in
-                    <foreach collection="saltList" close=")" open="(" separator="," item="item">
+                <if test="statusList != null">
+                    `status` in
+                    <foreach collection="statusList" close=")" open="(" separator="," item="item">
                         #{item}
                     </foreach> and
                 </if>
-                <if test ="fuzzySalt!=null and fuzzySalt.size()>0">
-                    (
-                    <foreach collection="fuzzySalt"  separator="or" item="item">
-                        `Salt` like concat('%',#{item},'%')
-                    </foreach>
-                    ) and
+                <if test="statusSt !=null">
+                    `status` >= #{statusSt} and
                 </if>
-                <if test ="rightFuzzySalt!=null and rightFuzzySalt.size()>0">
-                    (
-                    <foreach collection="rightFuzzySalt"  separator="or" item="item">
-                        `Salt` like concat(#{item},'%')
-                    </foreach>
-                    ) and
+                <if test="statusEd!=null">
+                    `status` &lt;= #{statusEd} and
                 </if>
                 <if test="isDeleteList != null">
                     `is_delete` in
@@ -449,7 +433,7 @@
         </trim>
     </select>
 
-    <select id="queryUserModelLimit1" resultMap="UserModelMap">
+    <select id="queryUserLimit1" resultMap="UserMap">
         select
         <include refid="baseResult"></include>
         from  `p_user`
@@ -466,8 +450,8 @@
             <if test="email != null and email!=''">
                 `email` = #{email} and
             </if>
-            <if test="salt != null and salt!=''">
-                `salt` = #{salt} and
+            <if test="status != null">
+                `status` = #{status} and
             </if>
             <if test="isDelete != null">
                 `is_delete` = #{isDelete} and
@@ -478,7 +462,7 @@
             <if test="lastLoginAddress != null and lastLoginAddress!=''">
                 `last_login_address` = #{lastLoginAddress} and
             </if>
-            <if test = "(_parameter instanceof org.bran.branproxy.model.UserModel$QueryBuilder) == true">
+            <if test = "(_parameter instanceof org.bran.branproxy.model.User$QueryBuilder) == true">
                     <if test="idList != null">
                         `id` in
                         <foreach collection="idList" close=")" open="(" separator="," item="item">
@@ -551,25 +535,17 @@
                     </foreach>
                     ) and
                 </if>
-                    <if test="saltList != null">
-                        `salt` in
-                        <foreach collection="saltList" close=")" open="(" separator="," item="item">
+                    <if test="statusList != null">
+                        `status` in
+                        <foreach collection="statusList" close=")" open="(" separator="," item="item">
                             #{item}
                         </foreach> and
                     </if>
-                <if test ="fuzzySalt!=null and fuzzySalt.size()>0">
-                    (
-                    <foreach collection="fuzzySalt"  separator="or" item="item">
-                        `Salt` like concat('%',#{item},'%')
-                    </foreach>
-                    ) and
+                <if test="statusSt !=null">
+                    `status` >= #{statusSt} and
                 </if>
-                <if test ="rightFuzzySalt!=null and rightFuzzySalt.size()>0">
-                    (
-                    <foreach collection="rightFuzzySalt"  separator="or" item="item">
-                        `Salt` like concat(#{item},'%')
-                    </foreach>
-                    ) and
+                <if test="statusEd!=null">
+                    `status` &lt;= #{statusEd} and
                 </if>
                     <if test="isDeleteList != null">
                         `is_delete` in
@@ -626,7 +602,7 @@
         `title`,
         `pwd`,
         `email`,
-        `salt`,
+        `status`,
         `is_delete`,
         `last_update_time`,
         `last_login_address`,
@@ -637,7 +613,7 @@
 
     <sql id="baseResult">
         <trim suffixOverrides=",">
-            <if test = "(_parameter instanceof org.bran.branproxy.model.UserModel$QueryBuilder) == true">
+            <if test = "(_parameter instanceof org.bran.branproxy.model.User$QueryBuilder) == true">
 
                 <if test="fetchFields==null">
                     <include refid="allResult"></include>
@@ -662,8 +638,8 @@
                     <if test="fetchFields.fetchFields.email==true">
                         `email`,
                     </if>
-                    <if test="fetchFields.fetchFields.salt==true">
-                        `salt`,
+                    <if test="fetchFields.fetchFields.status==true">
+                        `status`,
                     </if>
                     <if test="fetchFields.fetchFields.isDelete==true">
                         `is_delete`,
@@ -688,8 +664,8 @@
                     <if test="fetchFields.excludeFields.email==null">
                         `email`,
                     </if>
-                    <if test="fetchFields.excludeFields.salt==null">
-                        `salt`,
+                    <if test="fetchFields.excludeFields.status==null">
+                        `status`,
                     </if>
                     <if test="fetchFields.excludeFields.isDelete==null">
                         `is_delete`,
@@ -708,7 +684,7 @@
                     </if>
                 </if>
             </if>
-            <if test="(_parameter instanceof org.bran.branproxy.model.UserModel$QueryBuilder) == false" >
+            <if test="(_parameter instanceof org.bran.branproxy.model.User$QueryBuilder) == false" >
                 <include refid="allResult"></include>
             </if>
 

@@ -8,20 +8,20 @@ import java.util.List;
 *
 *  @author bran
 */
-public class UserModel implements Serializable {
+public class User implements Serializable {
 
-    private static final long serialVersionUID = 1552819645505L;
+    private static final long serialVersionUID = 1554089442441L;
 
 
     /**
     * 主键
-    * 
+    * 主键
     * isNullAble:0
     */
     private Long id;
 
     /**
-    * 
+    * 用户名
     * isNullAble:0,defaultVal:
     */
     private String title;
@@ -33,16 +33,16 @@ public class UserModel implements Serializable {
     private String pwd;
 
     /**
-    * 
+    * 邮件
     * isNullAble:0,defaultVal:
     */
     private String email;
 
     /**
-    * 
-    * isNullAble:0,defaultVal:
+    * 状态(0禁用，1启用)
+    * isNullAble:0,defaultVal:0
     */
-    private String salt;
+    private Integer status;
 
     /**
     * 0未删，1已删
@@ -57,7 +57,7 @@ public class UserModel implements Serializable {
     private java.time.LocalDateTime lastUpdateTime;
 
     /**
-    * 
+    * 最后登陆地址
     * isNullAble:0,defaultVal:
     */
     private String lastLoginAddress;
@@ -79,9 +79,9 @@ public class UserModel implements Serializable {
 
     public String getEmail(){return this.email;}
 
-    public void setSalt(String salt){this.salt = salt;}
+    public void setStatus(Integer status){this.status = status;}
 
-    public String getSalt(){return this.salt;}
+    public Integer getStatus(){return this.status;}
 
     public void setIsDelete(Integer isDelete){this.isDelete = isDelete;}
 
@@ -96,12 +96,12 @@ public class UserModel implements Serializable {
     public String getLastLoginAddress(){return this.lastLoginAddress;}
     @Override
     public String toString() {
-        return "UserModel{" +
+        return "User{" +
                 "id='" + id + '\'' +
                 "title='" + title + '\'' +
                 "pwd='" + pwd + '\'' +
                 "email='" + email + '\'' +
-                "salt='" + salt + '\'' +
+                "status='" + status + '\'' +
                 "isDelete='" + isDelete + '\'' +
                 "lastUpdateTime='" + lastUpdateTime + '\'' +
                 "lastLoginAddress='" + lastLoginAddress + '\'' +
@@ -118,16 +118,16 @@ public class UserModel implements Serializable {
 
     public static class UpdateBuilder {
 
-        private UserModel set;
+        private User set;
 
         private ConditionBuilder where;
 
-        public UpdateBuilder set(UserModel set){
+        public UpdateBuilder set(User set){
             this.set = set;
             return this;
         }
 
-        public UserModel getSet(){
+        public User getSet(){
             return this.set;
         }
 
@@ -145,7 +145,7 @@ public class UserModel implements Serializable {
         }
     }
 
-    public static class QueryBuilder extends UserModel{
+    public static class QueryBuilder extends User{
         /**
         * 需要返回的列
         */
@@ -201,18 +201,18 @@ public class UserModel implements Serializable {
         private List<String> rightFuzzyEmail;
 
         public List<String> getRightFuzzyEmail(){return this.rightFuzzyEmail;}
-        private List<String> saltList;
+        private List<Integer> statusList;
 
-        public List<String> getSaltList(){return this.saltList;}
+        public List<Integer> getStatusList(){return this.statusList;}
 
+        private Integer statusSt;
 
-        private List<String> fuzzySalt;
+        private Integer statusEd;
 
-        public List<String> getFuzzySalt(){return this.fuzzySalt;}
+        public Integer getStatusSt(){return this.statusSt;}
 
-        private List<String> rightFuzzySalt;
+        public Integer getStatusEd(){return this.statusEd;}
 
-        public List<String> getRightFuzzySalt(){return this.rightFuzzySalt;}
         private List<Integer> isDeleteList;
 
         public List<Integer> getIsDeleteList(){return this.isDeleteList;}
@@ -429,48 +429,44 @@ public class UserModel implements Serializable {
             return this;
         }
 
-        public QueryBuilder fuzzySalt (List<String> fuzzySalt){
-            this.fuzzySalt = fuzzySalt;
+        public QueryBuilder statusBetWeen(Integer statusSt,Integer statusEd){
+            this.statusSt = statusSt;
+            this.statusEd = statusEd;
             return this;
         }
 
-        public QueryBuilder fuzzySalt (String ... fuzzySalt){
-            this.fuzzySalt = solveNullList(fuzzySalt);
+        public QueryBuilder statusGreaterEqThan(Integer statusSt){
+            this.statusSt = statusSt;
+            return this;
+        }
+        public QueryBuilder statusLessEqThan(Integer statusEd){
+            this.statusEd = statusEd;
             return this;
         }
 
-        public QueryBuilder rightFuzzySalt (List<String> rightFuzzySalt){
-            this.rightFuzzySalt = rightFuzzySalt;
+
+        public QueryBuilder status(Integer status){
+            setStatus(status);
             return this;
         }
 
-        public QueryBuilder rightFuzzySalt (String ... rightFuzzySalt){
-            this.rightFuzzySalt = solveNullList(rightFuzzySalt);
+        public QueryBuilder statusList(Integer ... status){
+            this.statusList = solveNullList(status);
             return this;
         }
 
-        public QueryBuilder salt(String salt){
-            setSalt(salt);
+        public QueryBuilder statusList(List<Integer> status){
+            this.statusList = status;
             return this;
         }
 
-        public QueryBuilder saltList(String ... salt){
-            this.saltList = solveNullList(salt);
+        public QueryBuilder fetchStatus(){
+            setFetchFields("fetchFields","status");
             return this;
         }
 
-        public QueryBuilder saltList(List<String> salt){
-            this.saltList = salt;
-            return this;
-        }
-
-        public QueryBuilder fetchSalt(){
-            setFetchFields("fetchFields","salt");
-            return this;
-        }
-
-        public QueryBuilder excludeSalt(){
-            setFetchFields("excludeFields","salt");
+        public QueryBuilder excludeStatus(){
+            setFetchFields("excludeFields","status");
             return this;
         }
 
@@ -638,7 +634,7 @@ public class UserModel implements Serializable {
             this.fetchFields.put(key,fields);
         }
 
-        public UserModel build(){return this;}
+        public User build(){return this;}
     }
 
 
@@ -691,18 +687,18 @@ public class UserModel implements Serializable {
         private List<String> rightFuzzyEmail;
 
         public List<String> getRightFuzzyEmail(){return this.rightFuzzyEmail;}
-        private List<String> saltList;
+        private List<Integer> statusList;
 
-        public List<String> getSaltList(){return this.saltList;}
+        public List<Integer> getStatusList(){return this.statusList;}
 
+        private Integer statusSt;
 
-        private List<String> fuzzySalt;
+        private Integer statusEd;
 
-        public List<String> getFuzzySalt(){return this.fuzzySalt;}
+        public Integer getStatusSt(){return this.statusSt;}
 
-        private List<String> rightFuzzySalt;
+        public Integer getStatusEd(){return this.statusEd;}
 
-        public List<String> getRightFuzzySalt(){return this.rightFuzzySalt;}
         private List<Integer> isDeleteList;
 
         public List<Integer> getIsDeleteList(){return this.isDeleteList;}
@@ -856,33 +852,29 @@ public class UserModel implements Serializable {
             return this;
         }
 
-        public ConditionBuilder fuzzySalt (List<String> fuzzySalt){
-            this.fuzzySalt = fuzzySalt;
+        public ConditionBuilder statusBetWeen(Integer statusSt,Integer statusEd){
+            this.statusSt = statusSt;
+            this.statusEd = statusEd;
             return this;
         }
 
-        public ConditionBuilder fuzzySalt (String ... fuzzySalt){
-            this.fuzzySalt = solveNullList(fuzzySalt);
+        public ConditionBuilder statusGreaterEqThan(Integer statusSt){
+            this.statusSt = statusSt;
+            return this;
+        }
+        public ConditionBuilder statusLessEqThan(Integer statusEd){
+            this.statusEd = statusEd;
             return this;
         }
 
-        public ConditionBuilder rightFuzzySalt (List<String> rightFuzzySalt){
-            this.rightFuzzySalt = rightFuzzySalt;
+
+        public ConditionBuilder statusList(Integer ... status){
+            this.statusList = solveNullList(status);
             return this;
         }
 
-        public ConditionBuilder rightFuzzySalt (String ... rightFuzzySalt){
-            this.rightFuzzySalt = solveNullList(rightFuzzySalt);
-            return this;
-        }
-
-        public ConditionBuilder saltList(String ... salt){
-            this.saltList = solveNullList(salt);
-            return this;
-        }
-
-        public ConditionBuilder saltList(List<String> salt){
-            this.saltList = salt;
+        public ConditionBuilder statusList(List<Integer> status){
+            this.statusList = status;
             return this;
         }
 
@@ -986,10 +978,10 @@ public class UserModel implements Serializable {
 
     public static class Builder {
 
-        private UserModel obj;
+        private User obj;
 
         public Builder(){
-            this.obj = new UserModel();
+            this.obj = new User();
         }
 
         public Builder id(Long id){
@@ -1008,8 +1000,8 @@ public class UserModel implements Serializable {
             this.obj.setEmail(email);
             return this;
         }
-        public Builder salt(String salt){
-            this.obj.setSalt(salt);
+        public Builder status(Integer status){
+            this.obj.setStatus(status);
             return this;
         }
         public Builder isDelete(Integer isDelete){
@@ -1024,7 +1016,7 @@ public class UserModel implements Serializable {
             this.obj.setLastLoginAddress(lastLoginAddress);
             return this;
         }
-        public UserModel build(){return obj;}
+        public User build(){return obj;}
     }
 
 }
