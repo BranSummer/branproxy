@@ -12,7 +12,7 @@ import org.springframework.context.annotation.Configuration;
  * @Date: 2019-2-5 20:56
  * @Description: druid 连接池配置
  */
-@Configuration
+//@Configuration
 public class DruidConfig {
 
     /**

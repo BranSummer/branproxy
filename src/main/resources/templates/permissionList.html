@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Cache-control" content="no-cache">
+    <meta http-equiv="Cache" content="no-cache">
+    <meta http-Equiv="Expires" Content="0"/>
+    <title>权限列表</title>
+
+    <link rel="stylesheet" href="/lib/layui/css/layui.css"/>
+</head>
+<body>
+<div style="padding: 20px;margin-top: 50px;">
+    <div class="layui-row layui-col-space15">
+        <div class="layui-col-md12">
+            <div class="layui-card">
+                <div class="layui-card-header">
+                    <i class="layui-icon">&#xe68e;</i>
+                    <span>首页 / 权限列表</span>
+                </div>
+                <div class="layui-card-body">
+                    <button class="layui-btn layui-btn-sm" id="add"><i class="layui-icon">&#xe654;</i>添加权限</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 数据表格 -->
+    <table class="layui-table">
+        <colgroup>
+            <col width="150">
+            <col width="200">
+            <col>
+        </colgroup>
+        <thead>
+        <tr>
+            <th>资源名</th>
+            <th>类型</th>
+            <th>code</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="vo:${list}">
+            <td th:text="${vo.title}"></td>
+            <td th:text="${vo.typeName}"></td>
+            <td th:text="${vo.code}"></td>
+            <td>
+                <button class="layui-btn layui-btn-danger layui-btn-sm del" title="删除" th:attr="data-id=${vo.id}">
+                    <i class="layui-icon">&#xe640;</i>
+                </button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <!--动态数据表格-->
+
+    <!-- 弹出层 -->
+    <div class="layelAdd" style="display: none;">
+        <form class="layui-form" action="" style="margin-top: 20px;">
+            <div class="layui-form-item">
+                <label class="layui-form-label">资源名称</label>
+                <div class="layui-input-block">
+                    <input type="text" name="title" required lay-verify="required" placeholder="输入资源名称（权限名）"
+                           autocomplete="off" class="layui-input" style="width: 300px;">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">code</label>
+                <div class="layui-input-block">
+                    <input type="text" name="code" required lay-verify="required" placeholder="输入code"
+                           autocomplete="off" class="layui-input" style="width: 300px;">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">类别</label>
+                <div class="layui-input-block">
+                    <select name="pid" lay-verify="required">
+                        <option value=""></option>
+                        <option value="1">系统</option>
+                        <option value="2">常规</option>
+                        <option value="3">调用</option>
+                        <option value="4">生产</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <button class="layui-btn" lay-submit lay-filter="formAdd">立即提交</button>
+                    <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script src="/lib/layui/layui.all.js"></script>
+<script type="text/javascript">
+    //由于模块都一次性加载，因此不用执行 layui.use() 来加载对应模块，直接使用即可：
+    ;!function () {
+        var layer = layui.layer
+            ,form = layui.form,$=layui.jquery;
+
+        $("#add").on("click",function(){
+
+            //页面层
+            layer.open({
+                type: 1,
+                area: ['600px', '400px'], //宽高
+                content: $(".layelAdd").html()
+            });
+        });
+
+        //监听提交
+        form.on('submit(formAdd)', function(data){
+            var pid = data.field.pid
+            var title = data.field.title
+            var code = data.field.code
+
+            $.ajax({
+                url:"/user/permission",
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                type: "post",
+                data:JSON.stringify({
+                    "pid":pid,
+                    "title":title,
+                    "code":code
+                }),
+                success: function (data) {
+                    if (data.code == 0) {
+                        location.reload();
+                    }else{
+                        layer.msg(data.msg);
+                    }
+                }
+            });
+        });
+
+    }();
+
+</script>
+</body>
+</html>

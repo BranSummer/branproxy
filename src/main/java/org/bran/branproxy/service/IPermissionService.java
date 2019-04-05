@@ -2,7 +2,10 @@ package org.bran.branproxy.service;
 
 import org.bran.branproxy.common.vo.ResultResponse;
 import org.bran.branproxy.dto.permission.AddPermissionDto;
-import org.bran.branproxy.vo.BasePageVo;
+import org.bran.branproxy.dto.permission.UpdatePermissionDto;
+import org.bran.branproxy.vo.permission.PermissionVo;
+
+import java.util.List;
 
 /**
  * @author lizhle
@@ -13,7 +16,7 @@ public interface IPermissionService {
 
     ResultResponse removePermission(long id);
 
-    ResultResponse updatePermission();
+    ResultResponse updatePermission(UpdatePermissionDto dto);
 
-    BasePageVo listPermission();
+    List<PermissionVo> listPermission();
 }
