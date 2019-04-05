@@ -7,15 +7,13 @@ import org.apache.shiro.subject.Subject;
 import org.bran.branproxy.common.vo.ResultResponse;
 import org.bran.branproxy.dto.UserLoginDto;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author lizhle
  */
-@RestController
+@Controller
 @RequestMapping("/user")
 public class UserController {
 
@@ -25,6 +23,7 @@ public class UserController {
      * @return ResultResponse
      */
     @PostMapping("/login")
+    @ResponseBody
     public ResultResponse login(@RequestBody UserLoginDto dto){
        /* Subject user = SecurityUtils.getSubject();
         UsernamePasswordToken token = new UsernamePasswordToken(dto.getUsername(),dto.getPwd());
@@ -39,12 +38,12 @@ public class UserController {
 
     /**
      * 登出
-     * @return ResultResponse
      */
-    @PostMapping("/logout")
-    public ResultResponse logout(){
+    @GetMapping("/logout")
+    public String logout(){
         Subject user = SecurityUtils.getSubject();
         user.logout();
-        return ResultResponse.buildSuccess();
+        return "/login";
     }
+
 }

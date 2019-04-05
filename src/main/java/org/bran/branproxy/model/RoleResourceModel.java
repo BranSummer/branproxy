@@ -67,9 +67,9 @@ public class RoleResourceModel implements Serializable {
 
     public Integer getIsDelete(){return this.isDelete;}
 
-    public void setUpdateUid(Long  updateUid){this. updateUid =  updateUid;}
+    public void setUpdateUid(Long updateUid){this. updateUid = updateUid;}
 
-    public Long getUpdateUid(){return this. updateUid;}
+    public Long getUpdateUid(){return this.updateUid;}
 
     public void setLastUpdateTime(java.time.LocalDateTime lastUpdateTime){this.lastUpdateTime = lastUpdateTime;}
 

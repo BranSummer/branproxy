@@ -1,9 +1,13 @@
 package org.bran.branproxy.controller;
 
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
 import org.bran.branproxy.service.IPermissionService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.Mapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.annotation.Resource;
 
@@ -17,12 +21,12 @@ public class RouteController {
     private IPermissionService permissionService;
 
     @GetMapping("/")
-    public String localhost(){
+    public String localhost() {
         return "login";
     }
 
     @GetMapping("/login")
-    public String loginPage(){
+    public String loginPage() {
         return "login";
     }
 
@@ -32,8 +36,17 @@ public class RouteController {
     }
 
     @GetMapping("/permissionList")
-    public String permissionListPage(ModelMap modelMap) {
-        modelMap.addAttribute("list",permissionService.listPermission());
+    public String permissionListPage() {
         return "permissionList";
+    }
+
+    @GetMapping("/roleList")
+    public String roleListPage() {
+        return "roleList";
+    }
+
+    @GetMapping("/userList")
+    public String userListPage() {
+        return "userList";
     }
 }

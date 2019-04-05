@@ -18,10 +18,10 @@
             <div class="layui-card">
                 <div class="layui-card-header">
                     <i class="layui-icon">&#xe68e;</i>
-                    <span>首页 / 权限列表</span>
+                    <span>首页 / 角色列表</span>
                 </div>
                 <div class="layui-card-body">
-                    <button class="layui-btn layui-btn-sm" id="add"><i class="layui-icon">&#xe654;</i>添加权限</button>
+                    <button class="layui-btn layui-btn-sm" id="add"><i class="layui-icon">&#xe654;</i>添加角色</button>
                 </div>
             </div>
         </div>
@@ -84,7 +84,7 @@
 <script src="/lib/layui/layui.all.js"></script>
 <script type="text/html" id="bar">
     <!--<a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>-->
-    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del"><i class="layui-icon layui-icon-group">&#xe640;</i></a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
 </script>
 <script type="text/javascript">
     //由于模块都一次性加载，因此不用执行 layui.use() 来加载对应模块，直接使用即可：
@@ -95,7 +95,7 @@
         table.on('tool(permissionList)', function(obj){
             var data = obj.data;
             if(obj.event === 'del') {
-                layer.confirm('确定删除此权限?', function (index) {
+                layer.confirm('真的删除行么', function (index) {
                     $.ajax({
                         url: "/user/permission/"+data.id,
                         type:"delete",

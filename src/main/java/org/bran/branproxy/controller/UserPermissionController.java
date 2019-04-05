@@ -3,10 +3,7 @@ package org.bran.branproxy.controller;
 import org.bran.branproxy.common.vo.ResultResponse;
 import org.bran.branproxy.dto.permission.AddPermissionDto;
 import org.bran.branproxy.service.IPermissionService;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 
@@ -25,16 +22,18 @@ public class UserPermissionController {
         return permissionService.addPermission(dto);
     }
 
-    public ResultResponse removePermission(){
-        return null;
+    @DeleteMapping("/{id}")
+    public ResultResponse removePermission(@PathVariable("id") long id){
+        return permissionService.removePermission(id);
     }
 
     public ResultResponse updatePermission(){
         return null;
     }
 
+    @GetMapping("/list")
     public ResultResponse listPermission(){
-        return null;
+        return ResultResponse.buildSuccess(permissionService.listPermission());
     }
 
     public ResultResponse detailPermission(){
