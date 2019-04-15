@@ -1,7 +1,10 @@
 package org.bran.branproxy.dao;
 
 import org.bran.branproxy.BranproxyApplicationTests;
+import org.bran.branproxy.service.KDLInhaPageProcessor;
 import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import us.codecraft.webmagic.Spider;
 
 import javax.annotation.Resource;
 

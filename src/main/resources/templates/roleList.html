@@ -29,7 +29,7 @@
 
 
     <!--动态数据表格-->
-    <table class="layui-table" lay-data="{url:'/user/permission/list'}" lay-filter="permissionList">
+    <table class="layui-table" lay-data="{url:'/user/permission/list'}" lay-filter="roleList">
         <thead>
         <tr>
             <th lay-data="{field:'title', fixed: true}">资源名称</th>
@@ -39,33 +39,26 @@
         </tr>
         </thead>
     </table>
-    <!-- 弹出层 -->
-    <div class="layelAdd" style="display: none;">
+    <!-- 弹出层 ：角色表单-->
+    <div class="roleForm" style="display: none;">
         <form class="layui-form" action="">
             <div class="layui-form-item">
-                <label class="layui-form-label">资源名称</label>
+                <label class="layui-form-label">角色名称</label>
                 <div class="layui-input-block">
-                    <input type="text" name="title" required lay-verify="required" placeholder="输入资源名称（权限名）"
+                    <input type="text" name="title" required lay-verify="required" placeholder="输入角色名"
                            autocomplete="off" class="layui-input" style="width: 300px;">
                 </div>
             </div>
-            <div class="layui-form-item">
-                <label class="layui-form-label">code</label>
+            <div class="layui-form-item layui-form-text">
+                <label class="layui-form-label">角色描述</label>
                 <div class="layui-input-block">
-                    <input type="text" name="code" required lay-verify="required" placeholder="输入code"
-                           autocomplete="off" class="layui-input" style="width: 300px;">
+                    <textarea name="desc" placeholder="请输入内容" class="layui-textarea"></textarea>
                 </div>
             </div>
             <div class="layui-form-item">
-                <label class="layui-form-label">类别</label>
-                <div class="layui-input-block">
-                    <select name="pid" lay-verify="required" style="width: 300px;">
-                        <option value=""></option>
-                        <option value="1">系统</option>
-                        <option value="2">常规</option>
-                        <option value="3">调用</option>
-                        <option value="4">生产</option>
-                    </select>
+                <label class="layui-form-label">分配权限</label>
+                <div class="layui-input-block" id="permission_selector">
+                    <!--多选组件-->
                 </div>
             </div>
 
@@ -82,22 +75,43 @@
 </div>
 
 <script src="/lib/layui/layui.all.js"></script>
+<script src="/js/auth/role.js"></script>
 <script type="text/html" id="bar">
     <!--<a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>-->
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
 </script>
 <script type="text/javascript">
-    //由于模块都一次性加载，因此不用执行 layui.use() 来加载对应模块，直接使用即可：
-    !function () {
-        var layer = layui.layer, form = layui.form, $ = layui.jquery, table = layui.table;
+
+
+
+    layui.config({
+        base : './'
+    }).extend({
+        selectN: './layui_extends/selectN',
+        selectM: './layui_extends/selectM'
+    }).use(['layer','form','jquery','selectN','selectM','table'],function(){
+        $ = layui.jquery;
+        var form = layui.form;
+        var table = layui.table;
+        var layer = layui.layer;
+        var selectM = layui.selectM;
+
+        // 权限下拉框
+        var permissionSelector = [];
+        var preRes = getPermissionSelector();
+        if(preRes.code === 0){
+            permissionSelector = preRes.list;
+        }else {
+            layer.error(preRes.msg)
+        }
 
         //监听工具条
-        table.on('tool(permissionList)', function(obj){
+        table.on('tool(roleList)', function(obj){
             var data = obj.data;
             if(obj.event === 'del') {
-                layer.confirm('真的删除行么', function (index) {
+                layer.confirm('确定删除角色', function (index) {
                     $.ajax({
-                        url: "/user/permission/"+data.id,
+                        url: "/user/role/"+data.id,
                         type:"delete",
                         dataType:"json",
                         contentType: "application/json; charset=utf-8",
@@ -110,32 +124,49 @@
                         }
                     });
                 });
+            }else{
+
             }
+        });
+
+        //多选标签-所有配置
+        var tagIns2 = selectM({
+            //元素容器【必填】
+            elem: '#permission_selector'
+            //候选数据【必填】
+            ,data: permissionSelector
+            //最多选中个数，默认5
+            ,max : 99
+            //input的name 不设置与选择器相同(去#.)
+            ,name: 'permission'
+            //值的分隔符
+            ,delimiter: ','
+            //候选项数据的键名
+            ,field: {idName:'id',titleName:'name'}
         });
 
         $("#add").on("click", function () {
             //页面层
             layer.open({
                 area: ['600px', '400px'], //宽高
-                content: $(".layelAdd").html()
+                content: $(".roleForm").html()
             });
         });
 
-        //监听提交
+        //监听提交:新增角色
         form.on('submit(formAdd)', function (data) {
-            var pid = data.field.pid;
             var title = data.field.title;
-            var code = data.field.code;
-
+            var desc = data.field.desc;
+            var role = data.field.role;
             $.ajax({
                 url: "/user/permission",
                 dataType: "json",
                 contentType: "application/json; charset=utf-8",
                 type: "post",
                 data: JSON.stringify({
-                    "pid": pid,
+                    "desc": desc,
                     "title": title,
-                    "code": code
+                    "code": role
                 }),
                 success: function (data) {
                     if (data.code === 0) {
@@ -147,7 +178,7 @@
             });
         });
 
-    }();
+    });
 
 </script>
 </body>

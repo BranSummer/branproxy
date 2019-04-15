@@ -1,0 +1,647 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.bran.branproxy.dao.base.ProxyModelBaseMapper">
+
+
+    <insert id="insertProxyModel"  useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO `p_proxy`
+        (
+        <trim suffixOverrides=",">
+                    <if test="id!=null">
+                        `id`,
+                    </if>
+                    <if test="ip!=null">
+                        `ip`,
+                    </if>
+                    <if test="port!=null">
+                        `port`,
+                    </if>
+                    <if test="address!=null">
+                        `address`,
+                    </if>
+                    <if test="anonymity!=null">
+                        `anonymity`,
+                    </if>
+                    <if test="type!=null">
+                        `type`,
+                    </if>
+                    <if test="timeout!=null">
+                        `timeout`,
+                    </if>
+                    <if test="lastUpdateTime!=null">
+                        `lastUpdateTime`,
+                    </if>
+        </trim>
+        )
+        VALUES
+        (
+        <trim suffixOverrides=",">
+                <if test="id!=null">
+                    #{id},
+                </if>
+                <if test="ip!=null">
+                    #{ip},
+                </if>
+                <if test="port!=null">
+                    #{port},
+                </if>
+                <if test="address!=null">
+                    #{address},
+                </if>
+                <if test="anonymity!=null">
+                    #{anonymity},
+                </if>
+                <if test="type!=null">
+                    #{type},
+                </if>
+                <if test="timeout!=null">
+                    #{timeout},
+                </if>
+                <if test="lastUpdateTime!=null">
+                    #{lastUpdateTime},
+                </if>
+        </trim>
+        )
+    </insert>
+
+
+
+
+    <update id="updateProxyModel">
+        UPDATE `p_proxy`
+        SET
+        <trim suffixOverrides=",">
+            <if test="ip != null and ip!=''">
+                `ip` = #{ip},
+            </if>
+            <if test="port != null">
+                `port` = #{port},
+            </if>
+            <if test="address != null and address!=''">
+                `address` = #{address},
+            </if>
+            <if test="anonymity != null">
+                `anonymity` = #{anonymity},
+            </if>
+            <if test="type != null">
+                `type` = #{type},
+            </if>
+            <if test="timeout != null">
+                `timeout` = #{timeout},
+            </if>
+            <if test="lastUpdateTime != null">
+                `lastUpdateTime` = #{lastUpdateTime},
+            </if>
+        </trim>
+        WHERE
+        <trim suffixOverrides="and">
+                `id` = #{id} and
+        </trim>
+    </update>
+
+    <update id="update">
+        UPDATE `p_proxy`
+        SET
+        <trim suffixOverrides=",">
+        <if test="set.ip != null and set.ip!=''">
+            `ip` = #{set.ip},
+        </if>
+        <if test="set.port != null">
+            `port` = #{set.port},
+        </if>
+        <if test="set.address != null and set.address!=''">
+            `address` = #{set.address},
+        </if>
+        <if test="set.anonymity != null">
+            `anonymity` = #{set.anonymity},
+        </if>
+        <if test="set.type != null">
+            `type` = #{set.type},
+        </if>
+        <if test="set.timeout != null">
+            `timeout` = #{set.timeout},
+        </if>
+        <if test="set.lastUpdateTime != null">
+            `lastUpdateTime` = #{set.lastUpdateTime},
+        </if>
+        </trim>
+        <trim prefix="where" suffixOverrides="and | or">
+                <if test="where.idList != null">
+                    `id` in
+                    <foreach collection="where.idList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+            <if test="where.idSt !=null">
+                `id` >= #{where.idSt} and
+            </if>
+            <if test="where.idEd!=null">
+                `id` &lt;= #{where.idEd} and
+            </if>
+                <if test="where.ipList != null">
+                    `ip` in
+                    <foreach collection="where.ipList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+            <if test ="where.fuzzyIp!=null and where.fuzzyIp.size()>0">
+                (
+                <foreach collection="where.fuzzyIp"  separator="or" item="item">
+                    `Ip` like concat('%',#{item},'%')
+                </foreach>
+                ) and
+            </if>
+            <if test ="where.rightFuzzyIp!=null and where.rightFuzzyIp.size()>0">
+                (
+                <foreach collection="where.rightFuzzyIp"  separator="or" item="item">
+                    `Ip` like concat(#{item},'%')
+                </foreach>
+                ) and
+            </if>
+                <if test="where.portList != null">
+                    `port` in
+                    <foreach collection="where.portList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+            <if test="where.portSt !=null">
+                `port` >= #{where.portSt} and
+            </if>
+            <if test="where.portEd!=null">
+                `port` &lt;= #{where.portEd} and
+            </if>
+                <if test="where.addressList != null">
+                    `address` in
+                    <foreach collection="where.addressList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+            <if test ="where.fuzzyAddress!=null and where.fuzzyAddress.size()>0">
+                (
+                <foreach collection="where.fuzzyAddress"  separator="or" item="item">
+                    `Address` like concat('%',#{item},'%')
+                </foreach>
+                ) and
+            </if>
+            <if test ="where.rightFuzzyAddress!=null and where.rightFuzzyAddress.size()>0">
+                (
+                <foreach collection="where.rightFuzzyAddress"  separator="or" item="item">
+                    `Address` like concat(#{item},'%')
+                </foreach>
+                ) and
+            </if>
+                <if test="where.anonymityList != null">
+                    `anonymity` in
+                    <foreach collection="where.anonymityList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+            <if test="where.anonymitySt !=null">
+                `anonymity` >= #{where.anonymitySt} and
+            </if>
+            <if test="where.anonymityEd!=null">
+                `anonymity` &lt;= #{where.anonymityEd} and
+            </if>
+                <if test="where.typeList != null">
+                    `type` in
+                    <foreach collection="where.typeList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+            <if test="where.typeSt !=null">
+                `type` >= #{where.typeSt} and
+            </if>
+            <if test="where.typeEd!=null">
+                `type` &lt;= #{where.typeEd} and
+            </if>
+                <if test="where.timeoutList != null">
+                    `timeout` in
+                    <foreach collection="where.timeoutList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+            <if test="where.timeoutSt !=null">
+                `timeout` >= #{where.timeoutSt} and
+            </if>
+            <if test="where.timeoutEd!=null">
+                `timeout` &lt;= #{where.timeoutEd} and
+            </if>
+                <if test="where.lastUpdateTimeList != null">
+                    `lastUpdateTime` in
+                    <foreach collection="where.lastUpdateTimeList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+            <if test="where.lastUpdateTimeSt !=null">
+                `lastUpdateTime` >= #{where.lastUpdateTimeSt} and
+            </if>
+            <if test="where.lastUpdateTimeEd!=null">
+                `lastUpdateTime` &lt;= #{where.lastUpdateTimeEd} and
+            </if>
+        </trim>
+    </update>
+
+
+    <resultMap type="org.bran.branproxy.model.ProxyModel" id="ProxyModelMap">
+        <result property="id" column="id"/>
+        <result property="ip" column="ip"/>
+        <result property="port" column="port"/>
+        <result property="address" column="address"/>
+        <result property="anonymity" column="anonymity"/>
+        <result property="type" column="type"/>
+        <result property="timeout" column="timeout"/>
+        <result property="lastUpdateTime" column="lastUpdateTime"/>
+    </resultMap>
+
+
+    <select id="queryProxyModel" resultMap="ProxyModelMap">
+        select
+        <include refid="baseResult"></include>
+        from  `p_proxy`
+        <trim prefix="where" suffixOverrides="and | or">
+            <if test="id != null">
+                `id` = #{id} and
+            </if>
+            <if test="ip != null and ip!=''">
+                `ip` = #{ip} and
+            </if>
+            <if test="port != null">
+                `port` = #{port} and
+            </if>
+            <if test="address != null and address!=''">
+                `address` = #{address} and
+            </if>
+            <if test="anonymity != null">
+                `anonymity` = #{anonymity} and
+            </if>
+            <if test="type != null">
+                `type` = #{type} and
+            </if>
+            <if test="timeout != null">
+                `timeout` = #{timeout} and
+            </if>
+            <if test="lastUpdateTime != null">
+                `lastUpdateTime` = #{lastUpdateTime} and
+            </if>
+            <if test = "(_parameter instanceof org.bran.branproxy.model.ProxyModel$QueryBuilder) == true">
+                <if test="idList != null">
+                    `id` in
+                    <foreach collection="idList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+                <if test="idSt !=null">
+                    `id` >= #{idSt} and
+                </if>
+                <if test="idEd!=null">
+                    `id` &lt;= #{idEd} and
+                </if>
+                <if test="ipList != null">
+                    `ip` in
+                    <foreach collection="ipList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+                <if test ="fuzzyIp!=null and fuzzyIp.size()>0">
+                    (
+                    <foreach collection="fuzzyIp"  separator="or" item="item">
+                        `Ip` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzyIp!=null and rightFuzzyIp.size()>0">
+                    (
+                    <foreach collection="rightFuzzyIp"  separator="or" item="item">
+                        `Ip` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test="portList != null">
+                    `port` in
+                    <foreach collection="portList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+                <if test="portSt !=null">
+                    `port` >= #{portSt} and
+                </if>
+                <if test="portEd!=null">
+                    `port` &lt;= #{portEd} and
+                </if>
+                <if test="addressList != null">
+                    `address` in
+                    <foreach collection="addressList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+                <if test ="fuzzyAddress!=null and fuzzyAddress.size()>0">
+                    (
+                    <foreach collection="fuzzyAddress"  separator="or" item="item">
+                        `Address` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzyAddress!=null and rightFuzzyAddress.size()>0">
+                    (
+                    <foreach collection="rightFuzzyAddress"  separator="or" item="item">
+                        `Address` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test="anonymityList != null">
+                    `anonymity` in
+                    <foreach collection="anonymityList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+                <if test="anonymitySt !=null">
+                    `anonymity` >= #{anonymitySt} and
+                </if>
+                <if test="anonymityEd!=null">
+                    `anonymity` &lt;= #{anonymityEd} and
+                </if>
+                <if test="typeList != null">
+                    `type` in
+                    <foreach collection="typeList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+                <if test="typeSt !=null">
+                    `type` >= #{typeSt} and
+                </if>
+                <if test="typeEd!=null">
+                    `type` &lt;= #{typeEd} and
+                </if>
+                <if test="timeoutList != null">
+                    `timeout` in
+                    <foreach collection="timeoutList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+                <if test="timeoutSt !=null">
+                    `timeout` >= #{timeoutSt} and
+                </if>
+                <if test="timeoutEd!=null">
+                    `timeout` &lt;= #{timeoutEd} and
+                </if>
+                <if test="lastUpdateTimeList != null">
+                    `lastUpdateTime` in
+                    <foreach collection="lastUpdateTimeList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+                <if test="lastUpdateTimeSt !=null">
+                    `lastUpdateTime` >= #{lastUpdateTimeSt} and
+                </if>
+                <if test="lastUpdateTimeEd!=null">
+                    `lastUpdateTime` &lt;= #{lastUpdateTimeEd} and
+                </if>
+            </if>
+        </trim>
+    </select>
+
+    <select id="queryProxyModelLimit1" resultMap="ProxyModelMap">
+        select
+        <include refid="baseResult"></include>
+        from  `p_proxy`
+        <trim prefix="where" suffixOverrides="and | or">
+            <if test="id != null">
+                `id` = #{id} and
+            </if>
+            <if test="ip != null and ip!=''">
+                `ip` = #{ip} and
+            </if>
+            <if test="port != null">
+                `port` = #{port} and
+            </if>
+            <if test="address != null and address!=''">
+                `address` = #{address} and
+            </if>
+            <if test="anonymity != null">
+                `anonymity` = #{anonymity} and
+            </if>
+            <if test="type != null">
+                `type` = #{type} and
+            </if>
+            <if test="timeout != null">
+                `timeout` = #{timeout} and
+            </if>
+            <if test="lastUpdateTime != null">
+                `lastUpdateTime` = #{lastUpdateTime} and
+            </if>
+            <if test = "(_parameter instanceof org.bran.branproxy.model.ProxyModel$QueryBuilder) == true">
+                    <if test="idList != null">
+                        `id` in
+                        <foreach collection="idList" close=")" open="(" separator="," item="item">
+                            #{item}
+                        </foreach> and
+                    </if>
+                <if test="idSt !=null">
+                    `id` >= #{idSt} and
+                </if>
+                <if test="idEd!=null">
+                    `id` &lt;= #{idEd} and
+                </if>
+                    <if test="ipList != null">
+                        `ip` in
+                        <foreach collection="ipList" close=")" open="(" separator="," item="item">
+                            #{item}
+                        </foreach> and
+                    </if>
+                <if test ="fuzzyIp!=null and fuzzyIp.size()>0">
+                    (
+                    <foreach collection="fuzzyIp"  separator="or" item="item">
+                        `Ip` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzyIp!=null and rightFuzzyIp.size()>0">
+                    (
+                    <foreach collection="rightFuzzyIp"  separator="or" item="item">
+                        `Ip` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                    <if test="portList != null">
+                        `port` in
+                        <foreach collection="portList" close=")" open="(" separator="," item="item">
+                            #{item}
+                        </foreach> and
+                    </if>
+                <if test="portSt !=null">
+                    `port` >= #{portSt} and
+                </if>
+                <if test="portEd!=null">
+                    `port` &lt;= #{portEd} and
+                </if>
+                    <if test="addressList != null">
+                        `address` in
+                        <foreach collection="addressList" close=")" open="(" separator="," item="item">
+                            #{item}
+                        </foreach> and
+                    </if>
+                <if test ="fuzzyAddress!=null and fuzzyAddress.size()>0">
+                    (
+                    <foreach collection="fuzzyAddress"  separator="or" item="item">
+                        `Address` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzyAddress!=null and rightFuzzyAddress.size()>0">
+                    (
+                    <foreach collection="rightFuzzyAddress"  separator="or" item="item">
+                        `Address` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                    <if test="anonymityList != null">
+                        `anonymity` in
+                        <foreach collection="anonymityList" close=")" open="(" separator="," item="item">
+                            #{item}
+                        </foreach> and
+                    </if>
+                <if test="anonymitySt !=null">
+                    `anonymity` >= #{anonymitySt} and
+                </if>
+                <if test="anonymityEd!=null">
+                    `anonymity` &lt;= #{anonymityEd} and
+                </if>
+                    <if test="typeList != null">
+                        `type` in
+                        <foreach collection="typeList" close=")" open="(" separator="," item="item">
+                            #{item}
+                        </foreach> and
+                    </if>
+                <if test="typeSt !=null">
+                    `type` >= #{typeSt} and
+                </if>
+                <if test="typeEd!=null">
+                    `type` &lt;= #{typeEd} and
+                </if>
+                    <if test="timeoutList != null">
+                        `timeout` in
+                        <foreach collection="timeoutList" close=")" open="(" separator="," item="item">
+                            #{item}
+                        </foreach> and
+                    </if>
+                <if test="timeoutSt !=null">
+                    `timeout` >= #{timeoutSt} and
+                </if>
+                <if test="timeoutEd!=null">
+                    `timeout` &lt;= #{timeoutEd} and
+                </if>
+                    <if test="lastUpdateTimeList != null">
+                        `lastUpdateTime` in
+                        <foreach collection="lastUpdateTimeList" close=")" open="(" separator="," item="item">
+                            #{item}
+                        </foreach> and
+                    </if>
+                <if test="lastUpdateTimeSt !=null">
+                    `lastUpdateTime` >= #{lastUpdateTimeSt} and
+                </if>
+                <if test="lastUpdateTimeEd!=null">
+                    `lastUpdateTime` &lt;= #{lastUpdateTimeEd} and
+                </if>
+            </if>
+        </trim>
+        limit 1
+    </select>
+
+    <sql id="allResult">
+        <trim suffixOverrides=",">
+        `id`,
+        `ip`,
+        `port`,
+        `address`,
+        `anonymity`,
+        `type`,
+        `timeout`,
+        `lastUpdateTime`,
+        </trim>
+    </sql>
+
+
+
+    <sql id="baseResult">
+        <trim suffixOverrides=",">
+            <if test = "(_parameter instanceof org.bran.branproxy.model.ProxyModel$QueryBuilder) == true">
+
+                <if test="fetchFields==null">
+                    <include refid="allResult"></include>
+                </if>
+                <if test="fetchFields!=null">
+                    <if test="fetchFields.AllFields !=null">
+                        <include refid="allResult"></include>
+                    </if>
+                    <if test="fetchFields.AllFields ==null and fetchFields.fetchFields==null and fetchFields.excludeFields==null and fetchFields.otherFields==null">
+                        <include refid="allResult"></include>
+                    </if>
+                    <if test="fetchFields.AllFields==null and fetchFields.fetchFields!=null">
+                    <if test="fetchFields.fetchFields.id==true">
+                        `id`,
+                    </if>
+                    <if test="fetchFields.fetchFields.ip==true">
+                        `ip`,
+                    </if>
+                    <if test="fetchFields.fetchFields.port==true">
+                        `port`,
+                    </if>
+                    <if test="fetchFields.fetchFields.address==true">
+                        `address`,
+                    </if>
+                    <if test="fetchFields.fetchFields.anonymity==true">
+                        `anonymity`,
+                    </if>
+                    <if test="fetchFields.fetchFields.type==true">
+                        `type`,
+                    </if>
+                    <if test="fetchFields.fetchFields.timeout==true">
+                        `timeout`,
+                    </if>
+                    <if test="fetchFields.fetchFields.lastUpdateTime==true">
+                        `lastUpdateTime`,
+                    </if>
+                    </if>
+                    <if test="fetchFields.AllFields==null and fetchFields.excludeFields!=null">
+                    <if test="fetchFields.excludeFields.id==null">
+                        `id`,
+                    </if>
+                    <if test="fetchFields.excludeFields.ip==null">
+                        `ip`,
+                    </if>
+                    <if test="fetchFields.excludeFields.port==null">
+                        `port`,
+                    </if>
+                    <if test="fetchFields.excludeFields.address==null">
+                        `address`,
+                    </if>
+                    <if test="fetchFields.excludeFields.anonymity==null">
+                        `anonymity`,
+                    </if>
+                    <if test="fetchFields.excludeFields.type==null">
+                        `type`,
+                    </if>
+                    <if test="fetchFields.excludeFields.timeout==null">
+                        `timeout`,
+                    </if>
+                    <if test="fetchFields.excludeFields.lastUpdateTime==null">
+                        `lastUpdateTime`,
+                    </if>
+                    </if>
+                    <if test="fetchFields.otherFields!=null and fetchFields.otherFields.size>0">
+                        <foreach collection="fetchFields.otherFields" index="index" item="item" separator=",">
+                        `#{item}`
+                        </foreach>
+                    </if>
+                </if>
+            </if>
+            <if test="(_parameter instanceof org.bran.branproxy.model.ProxyModel$QueryBuilder) == false" >
+                <include refid="allResult"></include>
+            </if>
+
+        </trim>
+    </sql>
+
+
+</mapper>

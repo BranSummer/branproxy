@@ -48,34 +48,19 @@
         <div class="layui-side-scroll">
             <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
             <ul class="layui-nav layui-nav-tree" lay-filter="test">
-                <li class="layui-nav-item layui-nav-itemed">
-                    <a class="" href="javascript:void(0)"><i class="layui-icon" style="font-size: 20px;">&#xe614;</i>&nbsp;应用列表</a>
-                    <dl class="layui-nav-child" th:each="list:${list}">
-                        <dd>
-                            <a class="monitor" href="javascript:void(0)">
-                                <i class="layui-icon layui-icon-chart" style="font-size: 14px; margin-right: 5px;"></i>
-                                <span th:text="${list.name}"></span>
-                            </a>
-                        </dd>
-                    </dl>
-                </li>
+                <li class="layui-nav-item"><a onclick="index()" href="javascript:void(0)"><i class="layui-icon">&#xe68e;</i>&nbsp;首页</a></li>
+
                 <li class="layui-nav-item">
                     <a href="javascript:;"><i class="layui-icon" style="font-size: 20px;">&#xe629;</i>&nbsp;系统管理</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="/userList" target="myiframe"><i class="layui-icon layui-icon-group"
-                                                                     style="font-size: 12px; margin-right: 5px;"></i>用户列表</a>
+                        <dd><a href="/monitor" target="myiframe"><i class="layui-icon layui-icon-date"
+                                                                           style="font-size: 14px; margin-right: 5px;"></i>实时监控</a>
                         </dd>
                         <dd><a href="/schedule/index" target="myiframe"><i class="layui-icon layui-icon-date"
                                                                            style="font-size: 14px; margin-right: 5px;"></i>定时任务</a>
                         </dd>
                         <dd><a href="https://gitee.com/qinxuewu" target="myiframe"><i class="layui-icon layui-icon-link"
                                                                                       style="font-size: 12px; margin-right: 5px;"></i>码云</a>
-                        </dd>
-                        <dd><a href="/roleList" target="myiframe"><i class="layui-icon layui-icon-group"
-                                                                     style="font-size: 12px; margin-right: 5px;"></i>角色列表</a>
-                        </dd>
-                        <dd><a href="/permissionList" target="myiframe"><i class="layui-icon layui-icon-group"
-                                                                     style="font-size: 12px; margin-right: 5px;"></i>权限列表</a>
                         </dd>
                     </dl>
                 </li>

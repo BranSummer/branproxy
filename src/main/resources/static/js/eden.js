@@ -1,5 +1,6 @@
+var myChart = echarts.init(document.getElementById('eden'));
+
 function eden(data) {
-    var myChart = echarts.init(document.getElementById('eden'));
         myChart.setOption(option = {
             backgroundColor: background_color,
             title: {
@@ -36,7 +37,7 @@ function eden(data) {
                 }
             }],
             series: [
-                {
+          /*      {
                     name: "EC",
                     type: 'line',
                     data: data.map(function (item) {
@@ -45,12 +46,12 @@ function eden(data) {
                     lineStyle: {
                         color: colors[0]
                     }
-                },
+                },*/
                 {
-                    name: "EU",
+                    name: "capacity",
                     type: 'line',
                     data: data.map(function (item) {
-                        return item.eu;
+                        return item.capacity;
                     }),
                     lineStyle: {
                         color: colors[1]

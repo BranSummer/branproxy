@@ -21,7 +21,7 @@ public class XiCiProcessor implements PageProcessor {
 //        page.addTargetRequests(pages);
         String xpath = "//*[@id=\"ip_list\"]/tbody/tr/td[2]/text()";
         System.out.println(page.getHtml().xpath(xpath).all());
-
+        //sad
 
 
     }
