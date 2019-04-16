@@ -23,7 +23,7 @@ public class KDLInhaPageProcessorTest extends BranproxyApplicationTests {
 
     @Test
     public void testKDL(){
-        Spider.create(pageProcessor).addUrl("https://www.kuaidaili.com/free/inha").thread(10).run();
+        Spider.create(pageProcessor).addUrl("https://www.kuaidaili.com/free/inha").thread(2).run();
     }
 
     @Test

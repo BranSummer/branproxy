@@ -3,6 +3,19 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.bran.branproxy.dao.ProxyModelMapper">
 
+    <sql id="allResult">
+        <trim suffixOverrides=",">
+            `id`,
+            `ip`,
+            `port`,
+            `address`,
+            `anonymity`,
+            `type`,
+            `timeout`,
+            `lastUpdateTime`,
+        </trim>
+    </sql>
+
     <sql id="batchInsertField">
         <trim suffixOverrides=",">
             ip ,
@@ -27,11 +40,23 @@
 
     <insert id="insertBatch" parameterType="list">
         <if test="list != null and list.size()>0 ">
-            insert into p_proxy1 (<include refid="batchInsertField"/>)
+            insert into p_proxy (<include refid="batchInsertField"/>)
             values
             <foreach collection="list" item="obj" index="index" separator=",">
                 (<include refid="batchInsertValues"/>)
             </foreach>
         </if>
     </insert>
+
+    <select id="selectList" parameterType="object" resultType="org.bran.branproxy.model.ProxyModel">
+        select
+        <include refid="allResult"/>
+        from p_proxy
+        limit #{offset} , #{limit}
+    </select>
+
+    <select id="countAll" resultType="int">
+        select count(*) from p_proxy
+    </select>
+
 </mapper>

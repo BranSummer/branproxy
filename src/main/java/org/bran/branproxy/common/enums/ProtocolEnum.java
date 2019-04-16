@@ -9,21 +9,19 @@ import org.apache.commons.lang3.StringUtils;
  */
 public enum ProtocolEnum {
 
-    HTTP(1,"http"),
+    HTTP(1, "http"),
 
-    HTTPS(2,"https"),
+    HTTPS(2, "https"),
 
-    SOCKS(3,"socks"),
+    SOCKS(3, "socks"),
 
-    FTP(4,"ftp"),
+    FTP(4, "ftp"),
 
-    TELNET(5,"telnet"),
+    TELNET(5, "telnet"),
 
-    POP3(6,"pop3"),
+    POP3(6, "pop3"),
 
-    UNKNOW(7,"未知")
-    ;
-
+    UNKNOW(7, "未知");
 
 
     private Integer value;
@@ -43,12 +41,21 @@ public enum ProtocolEnum {
         return desc;
     }
 
-    public static ProtocolEnum getProtocolFromDesc(String desc){
-        if(StringUtils.isBlank(desc)){
+    public static String getDescFromValue(int value) {
+        for (ProtocolEnum protocolEnum : ProtocolEnum.values()) {
+            if (protocolEnum.getValue() == value) {
+                return protocolEnum.getDesc();
+            }
+        }
+        return UNKNOW.getDesc();
+    }
+
+    public static ProtocolEnum getProtocolFromDesc(String desc) {
+        if (StringUtils.isBlank(desc)) {
             return UNKNOW;
         }
-        for(ProtocolEnum protocolEnum : ProtocolEnum.values()) {
-            if(protocolEnum.getDesc().equalsIgnoreCase(desc)) {
+        for (ProtocolEnum protocolEnum : ProtocolEnum.values()) {
+            if (protocolEnum.getDesc().equalsIgnoreCase(desc)) {
                 return protocolEnum;
             }
         }

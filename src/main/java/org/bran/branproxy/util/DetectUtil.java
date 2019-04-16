@@ -1,12 +1,15 @@
 package org.bran.branproxy.util;
 
 import lombok.extern.slf4j.Slf4j;
-
+import org.apache.http.HttpHost;
+import org.apache.http.HttpStatus;
+import org.apache.http.client.config.RequestConfig;
+import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
 import org.bran.branproxy.common.CommonContransts;
 import org.bran.branproxy.model.ProxyModel;
-import org.jsoup.Connection;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -21,30 +24,54 @@ import java.io.IOException;
 @Slf4j
 public class DetectUtil {
 
-    private static final String BAIDU_URL = "https://www.baidu.com";
+    public static final String BAIDU_URL = "https://www.baidu.com";
 
-    public static int detectOnBaidu(ProxyModel proxyModel) {
+    public static final String GOOGLE_URL = "https://www.google.com";
 
-        Connection con=Jsoup.connect(BAIDU_URL);
-        con.proxy(proxyModel.getIp(),proxyModel.getPort());
-        con.userAgent(CommonContransts.USER_AGENT);
+    public static int detect(ProxyModel proxyModel, String detectUrl) {
         long start = System.currentTimeMillis();
+        // 创建http get实例
+        HttpGet httpGet=new HttpGet(detectUrl);
+        CloseableHttpClient client = setProxy(httpGet, proxyModel.getIp(), proxyModel.getPort());
+        //设置请求头消息
+        httpGet.setHeader("User-Agent",CommonContransts.USER_AGENT);
+        // 执行http get请求
         try {
-            con.get();
+            CloseableHttpResponse response=client.execute(httpGet);
+            if (response != null){
+                if(response.getStatusLine().getStatusCode() != HttpStatus.SC_OK){
+                    return -1;
+                }
+            }
         } catch (IOException e) {
-            log.info("此代理无效");
+            log.info("{}此代理无效",proxyModel);
             return -1;
         }
         long end = System.currentTimeMillis();
+        return (int) (end - start);
+    }
 
-        return (int)(end - start);
+    public static int detect(ProxyModel proxyModel) {
+        return detect(proxyModel,BAIDU_URL);
     }
 
 
+
+    private static CloseableHttpClient setProxy(HttpGet httpGet, String proxyIp, int proxyPort){
+        // 创建httpClient实例
+        CloseableHttpClient httpClient= HttpClients.createDefault();
+        //设置代理IP、端口
+        HttpHost proxy=new HttpHost(proxyIp,proxyPort,"http");
+        //也可以设置超时时间
+        RequestConfig requestConfig=RequestConfig.custom().setProxy(proxy).setConnectTimeout(5000).build();
+        httpGet.setConfig(requestConfig);
+        return httpClient;
+    }
+
     public static void main(String[] args) {
         ProxyModel proxyModel = new ProxyModel();
-        proxyModel.setIp("61.189.242.243");
-        proxyModel.setPort(55484);
-        System.out.println(DetectUtil.detectOnBaidu(proxyModel));
+        proxyModel.setIp("123.132.232.254");
+        proxyModel.setPort(61017);
+        System.out.println(DetectUtil.detect(proxyModel));
     }
 }

@@ -17,8 +17,6 @@ public class RouteController {
 
     /**
      * 默认页(首页)
-     *
-     * @return
      */
     @GetMapping("/")
     public String localhost() {
@@ -27,8 +25,6 @@ public class RouteController {
 
     /**
      * 登录页
-     *
-     * @return
      */
     @GetMapping("/login")
     public String loginPage() {
@@ -37,8 +33,6 @@ public class RouteController {
 
     /**
      * 首页
-     *
-     * @return
      */
     @GetMapping("/index")
     public String indexPage() {
@@ -46,9 +40,15 @@ public class RouteController {
     }
 
     /**
+     * 主页
+     */
+    @GetMapping("/main")
+    public String mainPage() {
+        return "main";
+    }
+
+    /**
      * 权限列表页
-     *
-     * @return
      */
     @GetMapping("/permissionList")
     public String permissionListPage() {
@@ -57,8 +57,6 @@ public class RouteController {
 
     /**
      * 角色列表页
-     *
-     * @return
      */
     @GetMapping("/roleList")
     public String roleListPage() {
@@ -67,8 +65,6 @@ public class RouteController {
 
     /**
      * 用户列表页
-     *
-     * @return
      */
     @GetMapping("/userList")
     public String userListPage() {
@@ -77,8 +73,6 @@ public class RouteController {
 
     /**
      * 监控页
-     *
-     * @return
      */
     @GetMapping("/monitor")
     public String monitorPage() {
