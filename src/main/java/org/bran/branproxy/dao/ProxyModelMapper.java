@@ -33,4 +33,10 @@ public interface ProxyModelMapper extends ProxyModelBaseMapper {
      * @return 总数
      */
     int countAll();
+
+    /**
+     *
+     * @return
+     */
+    List<Long> selectProxyIdsAll();
 }

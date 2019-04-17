@@ -59,4 +59,7 @@
         select count(*) from p_proxy
     </select>
 
+    <select id="selectProxyIdsAll" resultType="long">
+        select id from srm p_proxy
+    </select>
 </mapper>
