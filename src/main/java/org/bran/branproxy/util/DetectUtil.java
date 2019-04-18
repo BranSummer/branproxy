@@ -20,15 +20,15 @@ import java.io.IOException;
  *
  * @author lizhile
  */
-@Component
 @Slf4j
+@Component
 public class DetectUtil {
 
     public static final String BAIDU_URL = "https://www.baidu.com";
 
     public static final String GOOGLE_URL = "https://www.google.com";
 
-    public static int detect(ProxyModel proxyModel, String detectUrl) {
+    public int detect(ProxyModel proxyModel, String detectUrl) {
         long start = System.currentTimeMillis();
         // 创建http get实例
         HttpGet httpGet=new HttpGet(detectUrl);
@@ -44,34 +44,28 @@ public class DetectUtil {
                 }
             }
         } catch (IOException e) {
-            log.info("{}此代理无效",proxyModel);
+            log.info("{}此代理无效,error = {}",proxyModel,e.getMessage());
             return -1;
         }
         long end = System.currentTimeMillis();
         return (int) (end - start);
     }
 
-    public static int detect(ProxyModel proxyModel) {
+    public  int detect(ProxyModel proxyModel) {
         return detect(proxyModel,BAIDU_URL);
     }
 
 
 
-    private static CloseableHttpClient setProxy(HttpGet httpGet, String proxyIp, int proxyPort){
+    private  CloseableHttpClient setProxy(HttpGet httpGet, String proxyIp, int proxyPort){
         // 创建httpClient实例
         CloseableHttpClient httpClient= HttpClients.createDefault();
         //设置代理IP、端口
         HttpHost proxy=new HttpHost(proxyIp,proxyPort,"http");
         //也可以设置超时时间
-        RequestConfig requestConfig=RequestConfig.custom().setProxy(proxy).setConnectTimeout(5000).build();
+        RequestConfig requestConfig=RequestConfig.custom().setProxy(proxy).setConnectTimeout(10000).build();
         httpGet.setConfig(requestConfig);
         return httpClient;
     }
 
-    public static void main(String[] args) {
-        ProxyModel proxyModel = new ProxyModel();
-        proxyModel.setIp("123.132.232.254");
-        proxyModel.setPort(61017);
-        System.out.println(DetectUtil.detect(proxyModel));
-    }
 }
