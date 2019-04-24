@@ -28,7 +28,8 @@ public class WebMvcConfig implements WebMvcConfigurer {
         registry.addResourceHandler("/static/**")
                 .addResourceLocations("classpath:/static/")
                 .addResourceLocations("/static/lib/**")
-                .addResourceLocations("classpath:/lib/");
+                .addResourceLocations("classpath:/lib/")
+                .addResourceLocations("/static/css/**");
     }
 
     public class LoginInterceptor extends HandlerInterceptorAdapter {

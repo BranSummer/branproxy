@@ -51,13 +51,6 @@
             <artifactId>spring-boot-starter-amqp</artifactId>
         </dependency>
 
-        <!-- 热部署组件 -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-devtools</artifactId>
-            <optional>true</optional>
-            <scope>true</scope>
-        </dependency>
         <!-- spring-boot整合mybatis -->
         <dependency>
             <groupId>org.mybatis.spring.boot</groupId>

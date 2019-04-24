@@ -21,7 +21,7 @@ capacityChart.setOption({
     series: [{
         name: 'capacity',
         type: 'line',
-        smooth:true,
+        smooth:false,
         symbol: 'none',
         areaStyle: {
             normal: {}

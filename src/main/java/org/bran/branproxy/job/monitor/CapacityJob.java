@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Random;
 
 /**
@@ -21,17 +22,18 @@ public class CapacityJob {
 
     private static final Random RANDOM = new Random();
 
+    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+
     @Resource
     private SimpMessagingTemplate simpMessagingTemplate;
 
-    @Scheduled(fixedDelay = 500)
+    @Scheduled(fixedDelay = 1000)
     public void pubCapacityMessage(){
         LocalDateTime now = LocalDateTime.now();
-        String nowDate = String.valueOf(now.getMinute()) + now.getSecond();
         CapacityVo capacityVo = new CapacityVo();
-        capacityVo.setDate(nowDate);
+        capacityVo.setDate(now.format(formatter));
 
-        capacityVo.setCapacity(RANDOM.nextInt(100));
+        capacityVo.setCapacity(RANDOM.nextInt(100)+500);
         simpMessagingTemplate.convertAndSend("/dashboard",capacityVo);
     }
 }

@@ -4,11 +4,9 @@ import lombok.Data;
 import org.bran.branproxy.config.RabbitMqConfig;
 import org.bran.branproxy.dao.ProxyModelMapper;
 import org.bran.branproxy.model.ProxyModel;
-import org.bran.branproxy.service.IAsyncService;
 import org.bran.branproxy.util.DetectUtil;
 import org.springframework.amqp.rabbit.annotation.RabbitHandler;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
-import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 
