@@ -1,0 +1,833 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.bran.branproxy.dao.base.CityBlockIpv4BaseMapper">
+
+
+    <insert id="insertCityBlockIpv4"  useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO `city_block_ipv4`
+        (
+        <trim suffixOverrides=",">
+                    <if test="id!=null">
+                        `id`,
+                    </if>
+                    <if test="network!=null">
+                        `network`,
+                    </if>
+                    <if test="geonameId!=null">
+                        `geoname_id`,
+                    </if>
+                    <if test="registeredCountryGeonameId!=null">
+                        `registered_country_geoname_id`,
+                    </if>
+                    <if test="representedCountryGeonameId!=null">
+                        `represented_country_geoname_id`,
+                    </if>
+                    <if test="isAnonymousProxy!=null">
+                        `is_anonymous_proxy`,
+                    </if>
+                    <if test="isSatelliteProvider!=null">
+                        `is_satellite_provider`,
+                    </if>
+                    <if test="postalCode!=null">
+                        `postal_code`,
+                    </if>
+                    <if test="latitude!=null">
+                        `latitude`,
+                    </if>
+                    <if test="longitude!=null">
+                        `longitude`,
+                    </if>
+                    <if test="accuracyRadius!=null">
+                        `accuracy_radius`,
+                    </if>
+        </trim>
+        )
+        VALUES
+        (
+        <trim suffixOverrides=",">
+                <if test="id!=null">
+                    #{id},
+                </if>
+                <if test="network!=null">
+                    #{network},
+                </if>
+                <if test="geonameId!=null">
+                    #{geonameId},
+                </if>
+                <if test="registeredCountryGeonameId!=null">
+                    #{registeredCountryGeonameId},
+                </if>
+                <if test="representedCountryGeonameId!=null">
+                    #{representedCountryGeonameId},
+                </if>
+                <if test="isAnonymousProxy!=null">
+                    #{isAnonymousProxy},
+                </if>
+                <if test="isSatelliteProvider!=null">
+                    #{isSatelliteProvider},
+                </if>
+                <if test="postalCode!=null">
+                    #{postalCode},
+                </if>
+                <if test="latitude!=null">
+                    #{latitude},
+                </if>
+                <if test="longitude!=null">
+                    #{longitude},
+                </if>
+                <if test="accuracyRadius!=null">
+                    #{accuracyRadius},
+                </if>
+        </trim>
+        )
+    </insert>
+
+
+
+
+    <update id="updateCityBlockIpv4">
+        UPDATE `city_block_ipv4`
+        SET
+        <trim suffixOverrides=",">
+            <if test="network != null and network!=''">
+                `network` = #{network},
+            </if>
+            <if test="geonameId != null">
+                `geoname_id` = #{geonameId},
+            </if>
+            <if test="registeredCountryGeonameId != null">
+                `registered_country_geoname_id` = #{registeredCountryGeonameId},
+            </if>
+            <if test="representedCountryGeonameId != null">
+                `represented_country_geoname_id` = #{representedCountryGeonameId},
+            </if>
+            <if test="isAnonymousProxy != null">
+                `is_anonymous_proxy` = #{isAnonymousProxy},
+            </if>
+            <if test="isSatelliteProvider != null">
+                `is_satellite_provider` = #{isSatelliteProvider},
+            </if>
+            <if test="postalCode != null and postalCode!=''">
+                `postal_code` = #{postalCode},
+            </if>
+            <if test="latitude != null">
+                `latitude` = #{latitude},
+            </if>
+            <if test="longitude != null">
+                `longitude` = #{longitude},
+            </if>
+            <if test="accuracyRadius != null">
+                `accuracy_radius` = #{accuracyRadius},
+            </if>
+        </trim>
+        WHERE
+        <trim suffixOverrides="and">
+                `id` = #{id} and
+        </trim>
+    </update>
+
+    <update id="update">
+        UPDATE `city_block_ipv4`
+        SET
+        <trim suffixOverrides=",">
+        <if test="set.network != null and set.network!=''">
+            `network` = #{set.network},
+        </if>
+        <if test="set.geonameId != null">
+            `geoname_id` = #{set.geonameId},
+        </if>
+        <if test="set.registeredCountryGeonameId != null">
+            `registered_country_geoname_id` = #{set.registeredCountryGeonameId},
+        </if>
+        <if test="set.representedCountryGeonameId != null">
+            `represented_country_geoname_id` = #{set.representedCountryGeonameId},
+        </if>
+        <if test="set.isAnonymousProxy != null">
+            `is_anonymous_proxy` = #{set.isAnonymousProxy},
+        </if>
+        <if test="set.isSatelliteProvider != null">
+            `is_satellite_provider` = #{set.isSatelliteProvider},
+        </if>
+        <if test="set.postalCode != null and set.postalCode!=''">
+            `postal_code` = #{set.postalCode},
+        </if>
+        <if test="set.latitude != null">
+            `latitude` = #{set.latitude},
+        </if>
+        <if test="set.longitude != null">
+            `longitude` = #{set.longitude},
+        </if>
+        <if test="set.accuracyRadius != null">
+            `accuracy_radius` = #{set.accuracyRadius},
+        </if>
+        </trim>
+        <trim prefix="where" suffixOverrides="and | or">
+                <if test="where.idList != null">
+                    `id` in
+                    <foreach collection="where.idList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+            <if test="where.idSt !=null">
+                `id` >= #{where.idSt} and
+            </if>
+            <if test="where.idEd!=null">
+                `id` &lt;= #{where.idEd} and
+            </if>
+                <if test="where.networkList != null">
+                    `network` in
+                    <foreach collection="where.networkList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+            <if test ="where.fuzzyNetwork!=null and where.fuzzyNetwork.size()>0">
+                (
+                <foreach collection="where.fuzzyNetwork"  separator="or" item="item">
+                    `Network` like concat('%',#{item},'%')
+                </foreach>
+                ) and
+            </if>
+            <if test ="where.rightFuzzyNetwork!=null and where.rightFuzzyNetwork.size()>0">
+                (
+                <foreach collection="where.rightFuzzyNetwork"  separator="or" item="item">
+                    `Network` like concat(#{item},'%')
+                </foreach>
+                ) and
+            </if>
+                <if test="where.geonameIdList != null">
+                    `geoname_id` in
+                    <foreach collection="where.geonameIdList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+            <if test="where.geonameIdSt !=null">
+                `geoname_id` >= #{where.geonameIdSt} and
+            </if>
+            <if test="where.geonameIdEd!=null">
+                `geoname_id` &lt;= #{where.geonameIdEd} and
+            </if>
+                <if test="where.registeredCountryGeonameIdList != null">
+                    `registered_country_geoname_id` in
+                    <foreach collection="where.registeredCountryGeonameIdList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+            <if test="where.registeredCountryGeonameIdSt !=null">
+                `registered_country_geoname_id` >= #{where.registeredCountryGeonameIdSt} and
+            </if>
+            <if test="where.registeredCountryGeonameIdEd!=null">
+                `registered_country_geoname_id` &lt;= #{where.registeredCountryGeonameIdEd} and
+            </if>
+                <if test="where.representedCountryGeonameIdList != null">
+                    `represented_country_geoname_id` in
+                    <foreach collection="where.representedCountryGeonameIdList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+            <if test="where.representedCountryGeonameIdSt !=null">
+                `represented_country_geoname_id` >= #{where.representedCountryGeonameIdSt} and
+            </if>
+            <if test="where.representedCountryGeonameIdEd!=null">
+                `represented_country_geoname_id` &lt;= #{where.representedCountryGeonameIdEd} and
+            </if>
+                <if test="where.isAnonymousProxyList != null">
+                    `is_anonymous_proxy` in
+                    <foreach collection="where.isAnonymousProxyList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+            <if test="where.isAnonymousProxySt !=null">
+                `is_anonymous_proxy` >= #{where.isAnonymousProxySt} and
+            </if>
+            <if test="where.isAnonymousProxyEd!=null">
+                `is_anonymous_proxy` &lt;= #{where.isAnonymousProxyEd} and
+            </if>
+                <if test="where.isSatelliteProviderList != null">
+                    `is_satellite_provider` in
+                    <foreach collection="where.isSatelliteProviderList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+            <if test="where.isSatelliteProviderSt !=null">
+                `is_satellite_provider` >= #{where.isSatelliteProviderSt} and
+            </if>
+            <if test="where.isSatelliteProviderEd!=null">
+                `is_satellite_provider` &lt;= #{where.isSatelliteProviderEd} and
+            </if>
+                <if test="where.postalCodeList != null">
+                    `postal_code` in
+                    <foreach collection="where.postalCodeList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+            <if test ="where.fuzzyPostalCode!=null and where.fuzzyPostalCode.size()>0">
+                (
+                <foreach collection="where.fuzzyPostalCode"  separator="or" item="item">
+                    `Postal_code` like concat('%',#{item},'%')
+                </foreach>
+                ) and
+            </if>
+            <if test ="where.rightFuzzyPostalCode!=null and where.rightFuzzyPostalCode.size()>0">
+                (
+                <foreach collection="where.rightFuzzyPostalCode"  separator="or" item="item">
+                    `Postal_code` like concat(#{item},'%')
+                </foreach>
+                ) and
+            </if>
+                <if test="where.latitudeList != null">
+                    `latitude` in
+                    <foreach collection="where.latitudeList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+            <if test="where.latitudeSt !=null">
+                `latitude` >= #{where.latitudeSt} and
+            </if>
+            <if test="where.latitudeEd!=null">
+                `latitude` &lt;= #{where.latitudeEd} and
+            </if>
+                <if test="where.longitudeList != null">
+                    `longitude` in
+                    <foreach collection="where.longitudeList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+            <if test="where.longitudeSt !=null">
+                `longitude` >= #{where.longitudeSt} and
+            </if>
+            <if test="where.longitudeEd!=null">
+                `longitude` &lt;= #{where.longitudeEd} and
+            </if>
+                <if test="where.accuracyRadiusList != null">
+                    `accuracy_radius` in
+                    <foreach collection="where.accuracyRadiusList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+            <if test="where.accuracyRadiusSt !=null">
+                `accuracy_radius` >= #{where.accuracyRadiusSt} and
+            </if>
+            <if test="where.accuracyRadiusEd!=null">
+                `accuracy_radius` &lt;= #{where.accuracyRadiusEd} and
+            </if>
+        </trim>
+    </update>
+
+
+    <resultMap type="org.bran.branproxy.model.CityBlockIpv4" id="CityBlockIpv4Map">
+        <result property="id" column="id"/>
+        <result property="network" column="network"/>
+        <result property="geonameId" column="geoname_id"/>
+        <result property="registeredCountryGeonameId" column="registered_country_geoname_id"/>
+        <result property="representedCountryGeonameId" column="represented_country_geoname_id"/>
+        <result property="isAnonymousProxy" column="is_anonymous_proxy"/>
+        <result property="isSatelliteProvider" column="is_satellite_provider"/>
+        <result property="postalCode" column="postal_code"/>
+        <result property="latitude" column="latitude"/>
+        <result property="longitude" column="longitude"/>
+        <result property="accuracyRadius" column="accuracy_radius"/>
+    </resultMap>
+
+
+    <select id="queryCityBlockIpv4" resultMap="CityBlockIpv4Map">
+        select
+        <include refid="baseResult"></include>
+        from  `city_block_ipv4`
+        <trim prefix="where" suffixOverrides="and | or">
+            <if test="id != null">
+                `id` = #{id} and
+            </if>
+            <if test="network != null and network!=''">
+                `network` = #{network} and
+            </if>
+            <if test="geonameId != null">
+                `geoname_id` = #{geonameId} and
+            </if>
+            <if test="registeredCountryGeonameId != null">
+                `registered_country_geoname_id` = #{registeredCountryGeonameId} and
+            </if>
+            <if test="representedCountryGeonameId != null">
+                `represented_country_geoname_id` = #{representedCountryGeonameId} and
+            </if>
+            <if test="isAnonymousProxy != null">
+                `is_anonymous_proxy` = #{isAnonymousProxy} and
+            </if>
+            <if test="isSatelliteProvider != null">
+                `is_satellite_provider` = #{isSatelliteProvider} and
+            </if>
+            <if test="postalCode != null and postalCode!=''">
+                `postal_code` = #{postalCode} and
+            </if>
+            <if test="latitude != null">
+                `latitude` = #{latitude} and
+            </if>
+            <if test="longitude != null">
+                `longitude` = #{longitude} and
+            </if>
+            <if test="accuracyRadius != null">
+                `accuracy_radius` = #{accuracyRadius} and
+            </if>
+            <if test = "(_parameter instanceof org.bran.branproxy.model.CityBlockIpv4$QueryBuilder) == true">
+                <if test="idList != null">
+                    `id` in
+                    <foreach collection="idList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+                <if test="idSt !=null">
+                    `id` >= #{idSt} and
+                </if>
+                <if test="idEd!=null">
+                    `id` &lt;= #{idEd} and
+                </if>
+                <if test="networkList != null">
+                    `network` in
+                    <foreach collection="networkList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+                <if test ="fuzzyNetwork!=null and fuzzyNetwork.size()>0">
+                    (
+                    <foreach collection="fuzzyNetwork"  separator="or" item="item">
+                        `Network` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzyNetwork!=null and rightFuzzyNetwork.size()>0">
+                    (
+                    <foreach collection="rightFuzzyNetwork"  separator="or" item="item">
+                        `Network` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test="geonameIdList != null">
+                    `geoname_id` in
+                    <foreach collection="geonameIdList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+                <if test="geonameIdSt !=null">
+                    `geoname_id` >= #{geonameIdSt} and
+                </if>
+                <if test="geonameIdEd!=null">
+                    `geoname_id` &lt;= #{geonameIdEd} and
+                </if>
+                <if test="registeredCountryGeonameIdList != null">
+                    `registered_country_geoname_id` in
+                    <foreach collection="registeredCountryGeonameIdList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+                <if test="registeredCountryGeonameIdSt !=null">
+                    `registered_country_geoname_id` >= #{registeredCountryGeonameIdSt} and
+                </if>
+                <if test="registeredCountryGeonameIdEd!=null">
+                    `registered_country_geoname_id` &lt;= #{registeredCountryGeonameIdEd} and
+                </if>
+                <if test="representedCountryGeonameIdList != null">
+                    `represented_country_geoname_id` in
+                    <foreach collection="representedCountryGeonameIdList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+                <if test="representedCountryGeonameIdSt !=null">
+                    `represented_country_geoname_id` >= #{representedCountryGeonameIdSt} and
+                </if>
+                <if test="representedCountryGeonameIdEd!=null">
+                    `represented_country_geoname_id` &lt;= #{representedCountryGeonameIdEd} and
+                </if>
+                <if test="isAnonymousProxyList != null">
+                    `is_anonymous_proxy` in
+                    <foreach collection="isAnonymousProxyList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+                <if test="isAnonymousProxySt !=null">
+                    `is_anonymous_proxy` >= #{isAnonymousProxySt} and
+                </if>
+                <if test="isAnonymousProxyEd!=null">
+                    `is_anonymous_proxy` &lt;= #{isAnonymousProxyEd} and
+                </if>
+                <if test="isSatelliteProviderList != null">
+                    `is_satellite_provider` in
+                    <foreach collection="isSatelliteProviderList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+                <if test="isSatelliteProviderSt !=null">
+                    `is_satellite_provider` >= #{isSatelliteProviderSt} and
+                </if>
+                <if test="isSatelliteProviderEd!=null">
+                    `is_satellite_provider` &lt;= #{isSatelliteProviderEd} and
+                </if>
+                <if test="postalCodeList != null">
+                    `postal_code` in
+                    <foreach collection="postalCodeList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+                <if test ="fuzzyPostalCode!=null and fuzzyPostalCode.size()>0">
+                    (
+                    <foreach collection="fuzzyPostalCode"  separator="or" item="item">
+                        `Postal_code` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzyPostalCode!=null and rightFuzzyPostalCode.size()>0">
+                    (
+                    <foreach collection="rightFuzzyPostalCode"  separator="or" item="item">
+                        `Postal_code` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test="latitudeList != null">
+                    `latitude` in
+                    <foreach collection="latitudeList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+                <if test="latitudeSt !=null">
+                    `latitude` >= #{latitudeSt} and
+                </if>
+                <if test="latitudeEd!=null">
+                    `latitude` &lt;= #{latitudeEd} and
+                </if>
+                <if test="longitudeList != null">
+                    `longitude` in
+                    <foreach collection="longitudeList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+                <if test="longitudeSt !=null">
+                    `longitude` >= #{longitudeSt} and
+                </if>
+                <if test="longitudeEd!=null">
+                    `longitude` &lt;= #{longitudeEd} and
+                </if>
+                <if test="accuracyRadiusList != null">
+                    `accuracy_radius` in
+                    <foreach collection="accuracyRadiusList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+                <if test="accuracyRadiusSt !=null">
+                    `accuracy_radius` >= #{accuracyRadiusSt} and
+                </if>
+                <if test="accuracyRadiusEd!=null">
+                    `accuracy_radius` &lt;= #{accuracyRadiusEd} and
+                </if>
+            </if>
+        </trim>
+    </select>
+
+    <select id="queryCityBlockIpv4Limit1" resultMap="CityBlockIpv4Map">
+        select
+        <include refid="baseResult"></include>
+        from  `city_block_ipv4`
+        <trim prefix="where" suffixOverrides="and | or">
+            <if test="id != null">
+                `id` = #{id} and
+            </if>
+            <if test="network != null and network!=''">
+                `network` = #{network} and
+            </if>
+            <if test="geonameId != null">
+                `geoname_id` = #{geonameId} and
+            </if>
+            <if test="registeredCountryGeonameId != null">
+                `registered_country_geoname_id` = #{registeredCountryGeonameId} and
+            </if>
+            <if test="representedCountryGeonameId != null">
+                `represented_country_geoname_id` = #{representedCountryGeonameId} and
+            </if>
+            <if test="isAnonymousProxy != null">
+                `is_anonymous_proxy` = #{isAnonymousProxy} and
+            </if>
+            <if test="isSatelliteProvider != null">
+                `is_satellite_provider` = #{isSatelliteProvider} and
+            </if>
+            <if test="postalCode != null and postalCode!=''">
+                `postal_code` = #{postalCode} and
+            </if>
+            <if test="latitude != null">
+                `latitude` = #{latitude} and
+            </if>
+            <if test="longitude != null">
+                `longitude` = #{longitude} and
+            </if>
+            <if test="accuracyRadius != null">
+                `accuracy_radius` = #{accuracyRadius} and
+            </if>
+            <if test = "(_parameter instanceof org.bran.branproxy.model.CityBlockIpv4$QueryBuilder) == true">
+                    <if test="idList != null">
+                        `id` in
+                        <foreach collection="idList" close=")" open="(" separator="," item="item">
+                            #{item}
+                        </foreach> and
+                    </if>
+                <if test="idSt !=null">
+                    `id` >= #{idSt} and
+                </if>
+                <if test="idEd!=null">
+                    `id` &lt;= #{idEd} and
+                </if>
+                    <if test="networkList != null">
+                        `network` in
+                        <foreach collection="networkList" close=")" open="(" separator="," item="item">
+                            #{item}
+                        </foreach> and
+                    </if>
+                <if test ="fuzzyNetwork!=null and fuzzyNetwork.size()>0">
+                    (
+                    <foreach collection="fuzzyNetwork"  separator="or" item="item">
+                        `Network` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzyNetwork!=null and rightFuzzyNetwork.size()>0">
+                    (
+                    <foreach collection="rightFuzzyNetwork"  separator="or" item="item">
+                        `Network` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                    <if test="geonameIdList != null">
+                        `geoname_id` in
+                        <foreach collection="geonameIdList" close=")" open="(" separator="," item="item">
+                            #{item}
+                        </foreach> and
+                    </if>
+                <if test="geonameIdSt !=null">
+                    `geoname_id` >= #{geonameIdSt} and
+                </if>
+                <if test="geonameIdEd!=null">
+                    `geoname_id` &lt;= #{geonameIdEd} and
+                </if>
+                    <if test="registeredCountryGeonameIdList != null">
+                        `registered_country_geoname_id` in
+                        <foreach collection="registeredCountryGeonameIdList" close=")" open="(" separator="," item="item">
+                            #{item}
+                        </foreach> and
+                    </if>
+                <if test="registeredCountryGeonameIdSt !=null">
+                    `registered_country_geoname_id` >= #{registeredCountryGeonameIdSt} and
+                </if>
+                <if test="registeredCountryGeonameIdEd!=null">
+                    `registered_country_geoname_id` &lt;= #{registeredCountryGeonameIdEd} and
+                </if>
+                    <if test="representedCountryGeonameIdList != null">
+                        `represented_country_geoname_id` in
+                        <foreach collection="representedCountryGeonameIdList" close=")" open="(" separator="," item="item">
+                            #{item}
+                        </foreach> and
+                    </if>
+                <if test="representedCountryGeonameIdSt !=null">
+                    `represented_country_geoname_id` >= #{representedCountryGeonameIdSt} and
+                </if>
+                <if test="representedCountryGeonameIdEd!=null">
+                    `represented_country_geoname_id` &lt;= #{representedCountryGeonameIdEd} and
+                </if>
+                    <if test="isAnonymousProxyList != null">
+                        `is_anonymous_proxy` in
+                        <foreach collection="isAnonymousProxyList" close=")" open="(" separator="," item="item">
+                            #{item}
+                        </foreach> and
+                    </if>
+                <if test="isAnonymousProxySt !=null">
+                    `is_anonymous_proxy` >= #{isAnonymousProxySt} and
+                </if>
+                <if test="isAnonymousProxyEd!=null">
+                    `is_anonymous_proxy` &lt;= #{isAnonymousProxyEd} and
+                </if>
+                    <if test="isSatelliteProviderList != null">
+                        `is_satellite_provider` in
+                        <foreach collection="isSatelliteProviderList" close=")" open="(" separator="," item="item">
+                            #{item}
+                        </foreach> and
+                    </if>
+                <if test="isSatelliteProviderSt !=null">
+                    `is_satellite_provider` >= #{isSatelliteProviderSt} and
+                </if>
+                <if test="isSatelliteProviderEd!=null">
+                    `is_satellite_provider` &lt;= #{isSatelliteProviderEd} and
+                </if>
+                    <if test="postalCodeList != null">
+                        `postal_code` in
+                        <foreach collection="postalCodeList" close=")" open="(" separator="," item="item">
+                            #{item}
+                        </foreach> and
+                    </if>
+                <if test ="fuzzyPostalCode!=null and fuzzyPostalCode.size()>0">
+                    (
+                    <foreach collection="fuzzyPostalCode"  separator="or" item="item">
+                        `Postal_code` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzyPostalCode!=null and rightFuzzyPostalCode.size()>0">
+                    (
+                    <foreach collection="rightFuzzyPostalCode"  separator="or" item="item">
+                        `Postal_code` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                    <if test="latitudeList != null">
+                        `latitude` in
+                        <foreach collection="latitudeList" close=")" open="(" separator="," item="item">
+                            #{item}
+                        </foreach> and
+                    </if>
+                <if test="latitudeSt !=null">
+                    `latitude` >= #{latitudeSt} and
+                </if>
+                <if test="latitudeEd!=null">
+                    `latitude` &lt;= #{latitudeEd} and
+                </if>
+                    <if test="longitudeList != null">
+                        `longitude` in
+                        <foreach collection="longitudeList" close=")" open="(" separator="," item="item">
+                            #{item}
+                        </foreach> and
+                    </if>
+                <if test="longitudeSt !=null">
+                    `longitude` >= #{longitudeSt} and
+                </if>
+                <if test="longitudeEd!=null">
+                    `longitude` &lt;= #{longitudeEd} and
+                </if>
+                    <if test="accuracyRadiusList != null">
+                        `accuracy_radius` in
+                        <foreach collection="accuracyRadiusList" close=")" open="(" separator="," item="item">
+                            #{item}
+                        </foreach> and
+                    </if>
+                <if test="accuracyRadiusSt !=null">
+                    `accuracy_radius` >= #{accuracyRadiusSt} and
+                </if>
+                <if test="accuracyRadiusEd!=null">
+                    `accuracy_radius` &lt;= #{accuracyRadiusEd} and
+                </if>
+            </if>
+        </trim>
+        limit 1
+    </select>
+
+    <sql id="allResult">
+        <trim suffixOverrides=",">
+        `id`,
+        `network`,
+        `geoname_id`,
+        `registered_country_geoname_id`,
+        `represented_country_geoname_id`,
+        `is_anonymous_proxy`,
+        `is_satellite_provider`,
+        `postal_code`,
+        `latitude`,
+        `longitude`,
+        `accuracy_radius`,
+        </trim>
+    </sql>
+
+
+
+    <sql id="baseResult">
+        <trim suffixOverrides=",">
+            <if test = "(_parameter instanceof org.bran.branproxy.model.CityBlockIpv4$QueryBuilder) == true">
+
+                <if test="fetchFields==null">
+                    <include refid="allResult"></include>
+                </if>
+                <if test="fetchFields!=null">
+                    <if test="fetchFields.AllFields !=null">
+                        <include refid="allResult"></include>
+                    </if>
+                    <if test="fetchFields.AllFields ==null and fetchFields.fetchFields==null and fetchFields.excludeFields==null and fetchFields.otherFields==null">
+                        <include refid="allResult"></include>
+                    </if>
+                    <if test="fetchFields.AllFields==null and fetchFields.fetchFields!=null">
+                    <if test="fetchFields.fetchFields.id==true">
+                        `id`,
+                    </if>
+                    <if test="fetchFields.fetchFields.network==true">
+                        `network`,
+                    </if>
+                    <if test="fetchFields.fetchFields.geonameId==true">
+                        `geoname_id`,
+                    </if>
+                    <if test="fetchFields.fetchFields.registeredCountryGeonameId==true">
+                        `registered_country_geoname_id`,
+                    </if>
+                    <if test="fetchFields.fetchFields.representedCountryGeonameId==true">
+                        `represented_country_geoname_id`,
+                    </if>
+                    <if test="fetchFields.fetchFields.isAnonymousProxy==true">
+                        `is_anonymous_proxy`,
+                    </if>
+                    <if test="fetchFields.fetchFields.isSatelliteProvider==true">
+                        `is_satellite_provider`,
+                    </if>
+                    <if test="fetchFields.fetchFields.postalCode==true">
+                        `postal_code`,
+                    </if>
+                    <if test="fetchFields.fetchFields.latitude==true">
+                        `latitude`,
+                    </if>
+                    <if test="fetchFields.fetchFields.longitude==true">
+                        `longitude`,
+                    </if>
+                    <if test="fetchFields.fetchFields.accuracyRadius==true">
+                        `accuracy_radius`,
+                    </if>
+                    </if>
+                    <if test="fetchFields.AllFields==null and fetchFields.excludeFields!=null">
+                    <if test="fetchFields.excludeFields.id==null">
+                        `id`,
+                    </if>
+                    <if test="fetchFields.excludeFields.network==null">
+                        `network`,
+                    </if>
+                    <if test="fetchFields.excludeFields.geonameId==null">
+                        `geoname_id`,
+                    </if>
+                    <if test="fetchFields.excludeFields.registeredCountryGeonameId==null">
+                        `registered_country_geoname_id`,
+                    </if>
+                    <if test="fetchFields.excludeFields.representedCountryGeonameId==null">
+                        `represented_country_geoname_id`,
+                    </if>
+                    <if test="fetchFields.excludeFields.isAnonymousProxy==null">
+                        `is_anonymous_proxy`,
+                    </if>
+                    <if test="fetchFields.excludeFields.isSatelliteProvider==null">
+                        `is_satellite_provider`,
+                    </if>
+                    <if test="fetchFields.excludeFields.postalCode==null">
+                        `postal_code`,
+                    </if>
+                    <if test="fetchFields.excludeFields.latitude==null">
+                        `latitude`,
+                    </if>
+                    <if test="fetchFields.excludeFields.longitude==null">
+                        `longitude`,
+                    </if>
+                    <if test="fetchFields.excludeFields.accuracyRadius==null">
+                        `accuracy_radius`,
+                    </if>
+                    </if>
+                    <if test="fetchFields.otherFields!=null and fetchFields.otherFields.size>0">
+                        <foreach collection="fetchFields.otherFields" index="index" item="item" separator=",">
+                        `#{item}`
+                        </foreach>
+                    </if>
+                </if>
+            </if>
+            <if test="(_parameter instanceof org.bran.branproxy.model.CityBlockIpv4$QueryBuilder) == false" >
+                <include refid="allResult"></include>
+            </if>
+
+        </trim>
+    </sql>
+
+
+</mapper>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.bran.branproxy.dao.IpProxyModelMapper">
+
+    <sql id="batchInsertField">
+        <trim suffixOverrides=",">
+            ip ,
+            port ,
+            address ,
+            anonymity ,
+            `type` ,
+            timeout ,
+        </trim>
+    </sql>
+
+    <sql id="batchInsertValues">
+        <trim suffixOverrides=",">
+            #{obj.ip},
+            #{obj.port},
+            #{obj.address},
+            #{obj.anonymity},
+            #{obj.type},
+            #{obj.timeout},
+        </trim>
+    </sql>
+
+    <insert id="insertBatch" parameterType="list">
+        <if test="list != null and list.size()>0 ">
+            insert into ip_proxy (<include refid="batchInsertField"/>)
+            values
+            <foreach collection="list" item="obj" index="index" separator=",">
+                (<include refid="batchInsertValues"/>)
+            </foreach>
+        </if>
+    </insert>
+
+</mapper>
