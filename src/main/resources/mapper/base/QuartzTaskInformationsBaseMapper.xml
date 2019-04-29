@@ -1,0 +1,1249 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.bran.branproxy.dao.base.QuartzTaskInformationsBaseMapper">
+
+
+    <insert id="insertQuartzTaskInformations"  useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO `quartz_task_informations`
+        (
+        <trim suffixOverrides=",">
+                    <if test="id!=null">
+                        `id`,
+                    </if>
+                    <if test="version!=null">
+                        `version`,
+                    </if>
+                    <if test="taskNo!=null">
+                        `task_no`,
+                    </if>
+                    <if test="taskName!=null">
+                        `task_name`,
+                    </if>
+                    <if test="schedulerRule!=null">
+                        `scheduler_rule`,
+                    </if>
+                    <if test="frozenStatus!=null">
+                        `frozen_status`,
+                    </if>
+                    <if test="executorNo!=null">
+                        `executor_no`,
+                    </if>
+                    <if test="frozenTime!=null">
+                        `frozen_time`,
+                    </if>
+                    <if test="unfrozenTime!=null">
+                        `unfrozen_time`,
+                    </if>
+                    <if test="createTime!=null">
+                        `create_time`,
+                    </if>
+                    <if test="lastModifyTime!=null">
+                        `last_modify_time`,
+                    </if>
+                    <if test="sendType!=null">
+                        `send_type`,
+                    </if>
+                    <if test="url!=null">
+                        `url`,
+                    </if>
+                    <if test="executeParamter!=null">
+                        `execute_paramter`,
+                    </if>
+                    <if test="timeKey!=null">
+                        `time_key`,
+                    </if>
+        </trim>
+        )
+        VALUES
+        (
+        <trim suffixOverrides=",">
+                <if test="id!=null">
+                    #{id},
+                </if>
+                <if test="version!=null">
+                    #{version},
+                </if>
+                <if test="taskNo!=null">
+                    #{taskNo},
+                </if>
+                <if test="taskName!=null">
+                    #{taskName},
+                </if>
+                <if test="schedulerRule!=null">
+                    #{schedulerRule},
+                </if>
+                <if test="frozenStatus!=null">
+                    #{frozenStatus},
+                </if>
+                <if test="executorNo!=null">
+                    #{executorNo},
+                </if>
+                <if test="frozenTime!=null">
+                    #{frozenTime},
+                </if>
+                <if test="unfrozenTime!=null">
+                    #{unfrozenTime},
+                </if>
+                <if test="createTime!=null">
+                    #{createTime},
+                </if>
+                <if test="lastModifyTime!=null">
+                    #{lastModifyTime},
+                </if>
+                <if test="sendType!=null">
+                    #{sendType},
+                </if>
+                <if test="url!=null">
+                    #{url},
+                </if>
+                <if test="executeParamter!=null">
+                    #{executeParamter},
+                </if>
+                <if test="timeKey!=null">
+                    #{timeKey},
+                </if>
+        </trim>
+        )
+    </insert>
+
+
+
+
+    <update id="updateQuartzTaskInformations">
+        UPDATE `quartz_task_informations`
+        SET
+        <trim suffixOverrides=",">
+            <if test="version != null">
+                `version` = #{version},
+            </if>
+            <if test="taskNo != null and taskNo!=''">
+                `task_no` = #{taskNo},
+            </if>
+            <if test="taskName != null and taskName!=''">
+                `task_name` = #{taskName},
+            </if>
+            <if test="schedulerRule != null and schedulerRule!=''">
+                `scheduler_rule` = #{schedulerRule},
+            </if>
+            <if test="frozenStatus != null and frozenStatus!=''">
+                `frozen_status` = #{frozenStatus},
+            </if>
+            <if test="executorNo != null and executorNo!=''">
+                `executor_no` = #{executorNo},
+            </if>
+            <if test="frozenTime != null">
+                `frozen_time` = #{frozenTime},
+            </if>
+            <if test="unfrozenTime != null">
+                `unfrozen_time` = #{unfrozenTime},
+            </if>
+            <if test="createTime != null">
+                `create_time` = #{createTime},
+            </if>
+            <if test="lastModifyTime != null">
+                `last_modify_time` = #{lastModifyTime},
+            </if>
+            <if test="sendType != null and sendType!=''">
+                `send_type` = #{sendType},
+            </if>
+            <if test="url != null and url!=''">
+                `url` = #{url},
+            </if>
+            <if test="executeParamter != null and executeParamter!=''">
+                `execute_paramter` = #{executeParamter},
+            </if>
+            <if test="timeKey != null and timeKey!=''">
+                `time_key` = #{timeKey},
+            </if>
+        </trim>
+        WHERE
+        <trim suffixOverrides="and">
+                `id` = #{id} and
+        </trim>
+    </update>
+
+    <update id="update">
+        UPDATE `quartz_task_informations`
+        SET
+        <trim suffixOverrides=",">
+        <if test="set.version != null">
+            `version` = #{set.version},
+        </if>
+        <if test="set.taskNo != null and set.taskNo!=''">
+            `task_no` = #{set.taskNo},
+        </if>
+        <if test="set.taskName != null and set.taskName!=''">
+            `task_name` = #{set.taskName},
+        </if>
+        <if test="set.schedulerRule != null and set.schedulerRule!=''">
+            `scheduler_rule` = #{set.schedulerRule},
+        </if>
+        <if test="set.frozenStatus != null and set.frozenStatus!=''">
+            `frozen_status` = #{set.frozenStatus},
+        </if>
+        <if test="set.executorNo != null and set.executorNo!=''">
+            `executor_no` = #{set.executorNo},
+        </if>
+        <if test="set.frozenTime != null">
+            `frozen_time` = #{set.frozenTime},
+        </if>
+        <if test="set.unfrozenTime != null">
+            `unfrozen_time` = #{set.unfrozenTime},
+        </if>
+        <if test="set.createTime != null">
+            `create_time` = #{set.createTime},
+        </if>
+        <if test="set.lastModifyTime != null">
+            `last_modify_time` = #{set.lastModifyTime},
+        </if>
+        <if test="set.sendType != null and set.sendType!=''">
+            `send_type` = #{set.sendType},
+        </if>
+        <if test="set.url != null and set.url!=''">
+            `url` = #{set.url},
+        </if>
+        <if test="set.executeParamter != null and set.executeParamter!=''">
+            `execute_paramter` = #{set.executeParamter},
+        </if>
+        <if test="set.timeKey != null and set.timeKey!=''">
+            `time_key` = #{set.timeKey},
+        </if>
+        </trim>
+        <trim prefix="where" suffixOverrides="and | or">
+                <if test="where.idList != null">
+                    `id` in
+                    <foreach collection="where.idList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+            <if test="where.idSt !=null">
+                `id` >= #{where.idSt} and
+            </if>
+            <if test="where.idEd!=null">
+                `id` &lt;= #{where.idEd} and
+            </if>
+                <if test="where.versionList != null">
+                    `version` in
+                    <foreach collection="where.versionList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+            <if test="where.versionSt !=null">
+                `version` >= #{where.versionSt} and
+            </if>
+            <if test="where.versionEd!=null">
+                `version` &lt;= #{where.versionEd} and
+            </if>
+                <if test="where.taskNoList != null">
+                    `task_no` in
+                    <foreach collection="where.taskNoList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+            <if test ="where.fuzzyTaskNo!=null and where.fuzzyTaskNo.size()>0">
+                (
+                <foreach collection="where.fuzzyTaskNo"  separator="or" item="item">
+                    `Task_no` like concat('%',#{item},'%')
+                </foreach>
+                ) and
+            </if>
+            <if test ="where.rightFuzzyTaskNo!=null and where.rightFuzzyTaskNo.size()>0">
+                (
+                <foreach collection="where.rightFuzzyTaskNo"  separator="or" item="item">
+                    `Task_no` like concat(#{item},'%')
+                </foreach>
+                ) and
+            </if>
+                <if test="where.taskNameList != null">
+                    `task_name` in
+                    <foreach collection="where.taskNameList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+            <if test ="where.fuzzyTaskName!=null and where.fuzzyTaskName.size()>0">
+                (
+                <foreach collection="where.fuzzyTaskName"  separator="or" item="item">
+                    `Task_name` like concat('%',#{item},'%')
+                </foreach>
+                ) and
+            </if>
+            <if test ="where.rightFuzzyTaskName!=null and where.rightFuzzyTaskName.size()>0">
+                (
+                <foreach collection="where.rightFuzzyTaskName"  separator="or" item="item">
+                    `Task_name` like concat(#{item},'%')
+                </foreach>
+                ) and
+            </if>
+                <if test="where.schedulerRuleList != null">
+                    `scheduler_rule` in
+                    <foreach collection="where.schedulerRuleList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+            <if test ="where.fuzzySchedulerRule!=null and where.fuzzySchedulerRule.size()>0">
+                (
+                <foreach collection="where.fuzzySchedulerRule"  separator="or" item="item">
+                    `Scheduler_rule` like concat('%',#{item},'%')
+                </foreach>
+                ) and
+            </if>
+            <if test ="where.rightFuzzySchedulerRule!=null and where.rightFuzzySchedulerRule.size()>0">
+                (
+                <foreach collection="where.rightFuzzySchedulerRule"  separator="or" item="item">
+                    `Scheduler_rule` like concat(#{item},'%')
+                </foreach>
+                ) and
+            </if>
+                <if test="where.frozenStatusList != null">
+                    `frozen_status` in
+                    <foreach collection="where.frozenStatusList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+            <if test ="where.fuzzyFrozenStatus!=null and where.fuzzyFrozenStatus.size()>0">
+                (
+                <foreach collection="where.fuzzyFrozenStatus"  separator="or" item="item">
+                    `Frozen_status` like concat('%',#{item},'%')
+                </foreach>
+                ) and
+            </if>
+            <if test ="where.rightFuzzyFrozenStatus!=null and where.rightFuzzyFrozenStatus.size()>0">
+                (
+                <foreach collection="where.rightFuzzyFrozenStatus"  separator="or" item="item">
+                    `Frozen_status` like concat(#{item},'%')
+                </foreach>
+                ) and
+            </if>
+                <if test="where.executorNoList != null">
+                    `executor_no` in
+                    <foreach collection="where.executorNoList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+            <if test ="where.fuzzyExecutorNo!=null and where.fuzzyExecutorNo.size()>0">
+                (
+                <foreach collection="where.fuzzyExecutorNo"  separator="or" item="item">
+                    `Executor_no` like concat('%',#{item},'%')
+                </foreach>
+                ) and
+            </if>
+            <if test ="where.rightFuzzyExecutorNo!=null and where.rightFuzzyExecutorNo.size()>0">
+                (
+                <foreach collection="where.rightFuzzyExecutorNo"  separator="or" item="item">
+                    `Executor_no` like concat(#{item},'%')
+                </foreach>
+                ) and
+            </if>
+                <if test="where.frozenTimeList != null">
+                    `frozen_time` in
+                    <foreach collection="where.frozenTimeList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+            <if test="where.frozenTimeSt !=null">
+                `frozen_time` >= #{where.frozenTimeSt} and
+            </if>
+            <if test="where.frozenTimeEd!=null">
+                `frozen_time` &lt;= #{where.frozenTimeEd} and
+            </if>
+                <if test="where.unfrozenTimeList != null">
+                    `unfrozen_time` in
+                    <foreach collection="where.unfrozenTimeList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+            <if test="where.unfrozenTimeSt !=null">
+                `unfrozen_time` >= #{where.unfrozenTimeSt} and
+            </if>
+            <if test="where.unfrozenTimeEd!=null">
+                `unfrozen_time` &lt;= #{where.unfrozenTimeEd} and
+            </if>
+                <if test="where.createTimeList != null">
+                    `create_time` in
+                    <foreach collection="where.createTimeList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+            <if test="where.createTimeSt !=null">
+                `create_time` >= #{where.createTimeSt} and
+            </if>
+            <if test="where.createTimeEd!=null">
+                `create_time` &lt;= #{where.createTimeEd} and
+            </if>
+                <if test="where.lastModifyTimeList != null">
+                    `last_modify_time` in
+                    <foreach collection="where.lastModifyTimeList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+            <if test="where.lastModifyTimeSt !=null">
+                `last_modify_time` >= #{where.lastModifyTimeSt} and
+            </if>
+            <if test="where.lastModifyTimeEd!=null">
+                `last_modify_time` &lt;= #{where.lastModifyTimeEd} and
+            </if>
+                <if test="where.sendTypeList != null">
+                    `send_type` in
+                    <foreach collection="where.sendTypeList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+            <if test ="where.fuzzySendType!=null and where.fuzzySendType.size()>0">
+                (
+                <foreach collection="where.fuzzySendType"  separator="or" item="item">
+                    `Send_type` like concat('%',#{item},'%')
+                </foreach>
+                ) and
+            </if>
+            <if test ="where.rightFuzzySendType!=null and where.rightFuzzySendType.size()>0">
+                (
+                <foreach collection="where.rightFuzzySendType"  separator="or" item="item">
+                    `Send_type` like concat(#{item},'%')
+                </foreach>
+                ) and
+            </if>
+                <if test="where.urlList != null">
+                    `url` in
+                    <foreach collection="where.urlList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+            <if test ="where.fuzzyUrl!=null and where.fuzzyUrl.size()>0">
+                (
+                <foreach collection="where.fuzzyUrl"  separator="or" item="item">
+                    `Url` like concat('%',#{item},'%')
+                </foreach>
+                ) and
+            </if>
+            <if test ="where.rightFuzzyUrl!=null and where.rightFuzzyUrl.size()>0">
+                (
+                <foreach collection="where.rightFuzzyUrl"  separator="or" item="item">
+                    `Url` like concat(#{item},'%')
+                </foreach>
+                ) and
+            </if>
+                <if test="where.executeParamterList != null">
+                    `execute_paramter` in
+                    <foreach collection="where.executeParamterList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+            <if test ="where.fuzzyExecuteParamter!=null and where.fuzzyExecuteParamter.size()>0">
+                (
+                <foreach collection="where.fuzzyExecuteParamter"  separator="or" item="item">
+                    `Execute_paramter` like concat('%',#{item},'%')
+                </foreach>
+                ) and
+            </if>
+            <if test ="where.rightFuzzyExecuteParamter!=null and where.rightFuzzyExecuteParamter.size()>0">
+                (
+                <foreach collection="where.rightFuzzyExecuteParamter"  separator="or" item="item">
+                    `Execute_paramter` like concat(#{item},'%')
+                </foreach>
+                ) and
+            </if>
+                <if test="where.timeKeyList != null">
+                    `time_key` in
+                    <foreach collection="where.timeKeyList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+            <if test ="where.fuzzyTimeKey!=null and where.fuzzyTimeKey.size()>0">
+                (
+                <foreach collection="where.fuzzyTimeKey"  separator="or" item="item">
+                    `Time_key` like concat('%',#{item},'%')
+                </foreach>
+                ) and
+            </if>
+            <if test ="where.rightFuzzyTimeKey!=null and where.rightFuzzyTimeKey.size()>0">
+                (
+                <foreach collection="where.rightFuzzyTimeKey"  separator="or" item="item">
+                    `Time_key` like concat(#{item},'%')
+                </foreach>
+                ) and
+            </if>
+        </trim>
+    </update>
+
+
+    <resultMap type="org.bran.branproxy.model.QuartzTaskInformations" id="QuartzTaskInformationsMap">
+        <result property="id" column="id"/>
+        <result property="version" column="version"/>
+        <result property="taskNo" column="task_no"/>
+        <result property="taskName" column="task_name"/>
+        <result property="schedulerRule" column="scheduler_rule"/>
+        <result property="frozenStatus" column="frozen_status"/>
+        <result property="executorNo" column="executor_no"/>
+        <result property="frozenTime" column="frozen_time"/>
+        <result property="unfrozenTime" column="unfrozen_time"/>
+        <result property="createTime" column="create_time"/>
+        <result property="lastModifyTime" column="last_modify_time"/>
+        <result property="sendType" column="send_type"/>
+        <result property="url" column="url"/>
+        <result property="executeParamter" column="execute_paramter"/>
+        <result property="timeKey" column="time_key"/>
+    </resultMap>
+
+
+    <select id="queryQuartzTaskInformations" resultMap="QuartzTaskInformationsMap">
+        select
+        <include refid="baseResult"></include>
+        from  `quartz_task_informations`
+        <trim prefix="where" suffixOverrides="and | or">
+            <if test="id != null">
+                `id` = #{id} and
+            </if>
+            <if test="version != null">
+                `version` = #{version} and
+            </if>
+            <if test="taskNo != null and taskNo!=''">
+                `task_no` = #{taskNo} and
+            </if>
+            <if test="taskName != null and taskName!=''">
+                `task_name` = #{taskName} and
+            </if>
+            <if test="schedulerRule != null and schedulerRule!=''">
+                `scheduler_rule` = #{schedulerRule} and
+            </if>
+            <if test="frozenStatus != null and frozenStatus!=''">
+                `frozen_status` = #{frozenStatus} and
+            </if>
+            <if test="executorNo != null and executorNo!=''">
+                `executor_no` = #{executorNo} and
+            </if>
+            <if test="frozenTime != null">
+                `frozen_time` = #{frozenTime} and
+            </if>
+            <if test="unfrozenTime != null">
+                `unfrozen_time` = #{unfrozenTime} and
+            </if>
+            <if test="createTime != null">
+                `create_time` = #{createTime} and
+            </if>
+            <if test="lastModifyTime != null">
+                `last_modify_time` = #{lastModifyTime} and
+            </if>
+            <if test="sendType != null and sendType!=''">
+                `send_type` = #{sendType} and
+            </if>
+            <if test="url != null and url!=''">
+                `url` = #{url} and
+            </if>
+            <if test="executeParamter != null and executeParamter!=''">
+                `execute_paramter` = #{executeParamter} and
+            </if>
+            <if test="timeKey != null and timeKey!=''">
+                `time_key` = #{timeKey} and
+            </if>
+            <if test = "(_parameter instanceof org.bran.branproxy.model.QuartzTaskInformations$QueryBuilder) == true">
+                <if test="idList != null">
+                    `id` in
+                    <foreach collection="idList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+                <if test="idSt !=null">
+                    `id` >= #{idSt} and
+                </if>
+                <if test="idEd!=null">
+                    `id` &lt;= #{idEd} and
+                </if>
+                <if test="versionList != null">
+                    `version` in
+                    <foreach collection="versionList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+                <if test="versionSt !=null">
+                    `version` >= #{versionSt} and
+                </if>
+                <if test="versionEd!=null">
+                    `version` &lt;= #{versionEd} and
+                </if>
+                <if test="taskNoList != null">
+                    `task_no` in
+                    <foreach collection="taskNoList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+                <if test ="fuzzyTaskNo!=null and fuzzyTaskNo.size()>0">
+                    (
+                    <foreach collection="fuzzyTaskNo"  separator="or" item="item">
+                        `Task_no` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzyTaskNo!=null and rightFuzzyTaskNo.size()>0">
+                    (
+                    <foreach collection="rightFuzzyTaskNo"  separator="or" item="item">
+                        `Task_no` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test="taskNameList != null">
+                    `task_name` in
+                    <foreach collection="taskNameList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+                <if test ="fuzzyTaskName!=null and fuzzyTaskName.size()>0">
+                    (
+                    <foreach collection="fuzzyTaskName"  separator="or" item="item">
+                        `Task_name` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzyTaskName!=null and rightFuzzyTaskName.size()>0">
+                    (
+                    <foreach collection="rightFuzzyTaskName"  separator="or" item="item">
+                        `Task_name` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test="schedulerRuleList != null">
+                    `scheduler_rule` in
+                    <foreach collection="schedulerRuleList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+                <if test ="fuzzySchedulerRule!=null and fuzzySchedulerRule.size()>0">
+                    (
+                    <foreach collection="fuzzySchedulerRule"  separator="or" item="item">
+                        `Scheduler_rule` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzySchedulerRule!=null and rightFuzzySchedulerRule.size()>0">
+                    (
+                    <foreach collection="rightFuzzySchedulerRule"  separator="or" item="item">
+                        `Scheduler_rule` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test="frozenStatusList != null">
+                    `frozen_status` in
+                    <foreach collection="frozenStatusList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+                <if test ="fuzzyFrozenStatus!=null and fuzzyFrozenStatus.size()>0">
+                    (
+                    <foreach collection="fuzzyFrozenStatus"  separator="or" item="item">
+                        `Frozen_status` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzyFrozenStatus!=null and rightFuzzyFrozenStatus.size()>0">
+                    (
+                    <foreach collection="rightFuzzyFrozenStatus"  separator="or" item="item">
+                        `Frozen_status` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test="executorNoList != null">
+                    `executor_no` in
+                    <foreach collection="executorNoList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+                <if test ="fuzzyExecutorNo!=null and fuzzyExecutorNo.size()>0">
+                    (
+                    <foreach collection="fuzzyExecutorNo"  separator="or" item="item">
+                        `Executor_no` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzyExecutorNo!=null and rightFuzzyExecutorNo.size()>0">
+                    (
+                    <foreach collection="rightFuzzyExecutorNo"  separator="or" item="item">
+                        `Executor_no` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test="frozenTimeList != null">
+                    `frozen_time` in
+                    <foreach collection="frozenTimeList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+                <if test="frozenTimeSt !=null">
+                    `frozen_time` >= #{frozenTimeSt} and
+                </if>
+                <if test="frozenTimeEd!=null">
+                    `frozen_time` &lt;= #{frozenTimeEd} and
+                </if>
+                <if test="unfrozenTimeList != null">
+                    `unfrozen_time` in
+                    <foreach collection="unfrozenTimeList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+                <if test="unfrozenTimeSt !=null">
+                    `unfrozen_time` >= #{unfrozenTimeSt} and
+                </if>
+                <if test="unfrozenTimeEd!=null">
+                    `unfrozen_time` &lt;= #{unfrozenTimeEd} and
+                </if>
+                <if test="createTimeList != null">
+                    `create_time` in
+                    <foreach collection="createTimeList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+                <if test="createTimeSt !=null">
+                    `create_time` >= #{createTimeSt} and
+                </if>
+                <if test="createTimeEd!=null">
+                    `create_time` &lt;= #{createTimeEd} and
+                </if>
+                <if test="lastModifyTimeList != null">
+                    `last_modify_time` in
+                    <foreach collection="lastModifyTimeList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+                <if test="lastModifyTimeSt !=null">
+                    `last_modify_time` >= #{lastModifyTimeSt} and
+                </if>
+                <if test="lastModifyTimeEd!=null">
+                    `last_modify_time` &lt;= #{lastModifyTimeEd} and
+                </if>
+                <if test="sendTypeList != null">
+                    `send_type` in
+                    <foreach collection="sendTypeList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+                <if test ="fuzzySendType!=null and fuzzySendType.size()>0">
+                    (
+                    <foreach collection="fuzzySendType"  separator="or" item="item">
+                        `Send_type` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzySendType!=null and rightFuzzySendType.size()>0">
+                    (
+                    <foreach collection="rightFuzzySendType"  separator="or" item="item">
+                        `Send_type` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test="urlList != null">
+                    `url` in
+                    <foreach collection="urlList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+                <if test ="fuzzyUrl!=null and fuzzyUrl.size()>0">
+                    (
+                    <foreach collection="fuzzyUrl"  separator="or" item="item">
+                        `Url` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzyUrl!=null and rightFuzzyUrl.size()>0">
+                    (
+                    <foreach collection="rightFuzzyUrl"  separator="or" item="item">
+                        `Url` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test="executeParamterList != null">
+                    `execute_paramter` in
+                    <foreach collection="executeParamterList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+                <if test ="fuzzyExecuteParamter!=null and fuzzyExecuteParamter.size()>0">
+                    (
+                    <foreach collection="fuzzyExecuteParamter"  separator="or" item="item">
+                        `Execute_paramter` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzyExecuteParamter!=null and rightFuzzyExecuteParamter.size()>0">
+                    (
+                    <foreach collection="rightFuzzyExecuteParamter"  separator="or" item="item">
+                        `Execute_paramter` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test="timeKeyList != null">
+                    `time_key` in
+                    <foreach collection="timeKeyList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+                <if test ="fuzzyTimeKey!=null and fuzzyTimeKey.size()>0">
+                    (
+                    <foreach collection="fuzzyTimeKey"  separator="or" item="item">
+                        `Time_key` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzyTimeKey!=null and rightFuzzyTimeKey.size()>0">
+                    (
+                    <foreach collection="rightFuzzyTimeKey"  separator="or" item="item">
+                        `Time_key` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+            </if>
+        </trim>
+    </select>
+
+    <select id="queryQuartzTaskInformationsLimit1" resultMap="QuartzTaskInformationsMap">
+        select
+        <include refid="baseResult"></include>
+        from  `quartz_task_informations`
+        <trim prefix="where" suffixOverrides="and | or">
+            <if test="id != null">
+                `id` = #{id} and
+            </if>
+            <if test="version != null">
+                `version` = #{version} and
+            </if>
+            <if test="taskNo != null and taskNo!=''">
+                `task_no` = #{taskNo} and
+            </if>
+            <if test="taskName != null and taskName!=''">
+                `task_name` = #{taskName} and
+            </if>
+            <if test="schedulerRule != null and schedulerRule!=''">
+                `scheduler_rule` = #{schedulerRule} and
+            </if>
+            <if test="frozenStatus != null and frozenStatus!=''">
+                `frozen_status` = #{frozenStatus} and
+            </if>
+            <if test="executorNo != null and executorNo!=''">
+                `executor_no` = #{executorNo} and
+            </if>
+            <if test="frozenTime != null">
+                `frozen_time` = #{frozenTime} and
+            </if>
+            <if test="unfrozenTime != null">
+                `unfrozen_time` = #{unfrozenTime} and
+            </if>
+            <if test="createTime != null">
+                `create_time` = #{createTime} and
+            </if>
+            <if test="lastModifyTime != null">
+                `last_modify_time` = #{lastModifyTime} and
+            </if>
+            <if test="sendType != null and sendType!=''">
+                `send_type` = #{sendType} and
+            </if>
+            <if test="url != null and url!=''">
+                `url` = #{url} and
+            </if>
+            <if test="executeParamter != null and executeParamter!=''">
+                `execute_paramter` = #{executeParamter} and
+            </if>
+            <if test="timeKey != null and timeKey!=''">
+                `time_key` = #{timeKey} and
+            </if>
+            <if test = "(_parameter instanceof org.bran.branproxy.model.QuartzTaskInformations$QueryBuilder) == true">
+                    <if test="idList != null">
+                        `id` in
+                        <foreach collection="idList" close=")" open="(" separator="," item="item">
+                            #{item}
+                        </foreach> and
+                    </if>
+                <if test="idSt !=null">
+                    `id` >= #{idSt} and
+                </if>
+                <if test="idEd!=null">
+                    `id` &lt;= #{idEd} and
+                </if>
+                    <if test="versionList != null">
+                        `version` in
+                        <foreach collection="versionList" close=")" open="(" separator="," item="item">
+                            #{item}
+                        </foreach> and
+                    </if>
+                <if test="versionSt !=null">
+                    `version` >= #{versionSt} and
+                </if>
+                <if test="versionEd!=null">
+                    `version` &lt;= #{versionEd} and
+                </if>
+                    <if test="taskNoList != null">
+                        `task_no` in
+                        <foreach collection="taskNoList" close=")" open="(" separator="," item="item">
+                            #{item}
+                        </foreach> and
+                    </if>
+                <if test ="fuzzyTaskNo!=null and fuzzyTaskNo.size()>0">
+                    (
+                    <foreach collection="fuzzyTaskNo"  separator="or" item="item">
+                        `Task_no` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzyTaskNo!=null and rightFuzzyTaskNo.size()>0">
+                    (
+                    <foreach collection="rightFuzzyTaskNo"  separator="or" item="item">
+                        `Task_no` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                    <if test="taskNameList != null">
+                        `task_name` in
+                        <foreach collection="taskNameList" close=")" open="(" separator="," item="item">
+                            #{item}
+                        </foreach> and
+                    </if>
+                <if test ="fuzzyTaskName!=null and fuzzyTaskName.size()>0">
+                    (
+                    <foreach collection="fuzzyTaskName"  separator="or" item="item">
+                        `Task_name` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzyTaskName!=null and rightFuzzyTaskName.size()>0">
+                    (
+                    <foreach collection="rightFuzzyTaskName"  separator="or" item="item">
+                        `Task_name` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                    <if test="schedulerRuleList != null">
+                        `scheduler_rule` in
+                        <foreach collection="schedulerRuleList" close=")" open="(" separator="," item="item">
+                            #{item}
+                        </foreach> and
+                    </if>
+                <if test ="fuzzySchedulerRule!=null and fuzzySchedulerRule.size()>0">
+                    (
+                    <foreach collection="fuzzySchedulerRule"  separator="or" item="item">
+                        `Scheduler_rule` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzySchedulerRule!=null and rightFuzzySchedulerRule.size()>0">
+                    (
+                    <foreach collection="rightFuzzySchedulerRule"  separator="or" item="item">
+                        `Scheduler_rule` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                    <if test="frozenStatusList != null">
+                        `frozen_status` in
+                        <foreach collection="frozenStatusList" close=")" open="(" separator="," item="item">
+                            #{item}
+                        </foreach> and
+                    </if>
+                <if test ="fuzzyFrozenStatus!=null and fuzzyFrozenStatus.size()>0">
+                    (
+                    <foreach collection="fuzzyFrozenStatus"  separator="or" item="item">
+                        `Frozen_status` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzyFrozenStatus!=null and rightFuzzyFrozenStatus.size()>0">
+                    (
+                    <foreach collection="rightFuzzyFrozenStatus"  separator="or" item="item">
+                        `Frozen_status` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                    <if test="executorNoList != null">
+                        `executor_no` in
+                        <foreach collection="executorNoList" close=")" open="(" separator="," item="item">
+                            #{item}
+                        </foreach> and
+                    </if>
+                <if test ="fuzzyExecutorNo!=null and fuzzyExecutorNo.size()>0">
+                    (
+                    <foreach collection="fuzzyExecutorNo"  separator="or" item="item">
+                        `Executor_no` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzyExecutorNo!=null and rightFuzzyExecutorNo.size()>0">
+                    (
+                    <foreach collection="rightFuzzyExecutorNo"  separator="or" item="item">
+                        `Executor_no` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                    <if test="frozenTimeList != null">
+                        `frozen_time` in
+                        <foreach collection="frozenTimeList" close=")" open="(" separator="," item="item">
+                            #{item}
+                        </foreach> and
+                    </if>
+                <if test="frozenTimeSt !=null">
+                    `frozen_time` >= #{frozenTimeSt} and
+                </if>
+                <if test="frozenTimeEd!=null">
+                    `frozen_time` &lt;= #{frozenTimeEd} and
+                </if>
+                    <if test="unfrozenTimeList != null">
+                        `unfrozen_time` in
+                        <foreach collection="unfrozenTimeList" close=")" open="(" separator="," item="item">
+                            #{item}
+                        </foreach> and
+                    </if>
+                <if test="unfrozenTimeSt !=null">
+                    `unfrozen_time` >= #{unfrozenTimeSt} and
+                </if>
+                <if test="unfrozenTimeEd!=null">
+                    `unfrozen_time` &lt;= #{unfrozenTimeEd} and
+                </if>
+                    <if test="createTimeList != null">
+                        `create_time` in
+                        <foreach collection="createTimeList" close=")" open="(" separator="," item="item">
+                            #{item}
+                        </foreach> and
+                    </if>
+                <if test="createTimeSt !=null">
+                    `create_time` >= #{createTimeSt} and
+                </if>
+                <if test="createTimeEd!=null">
+                    `create_time` &lt;= #{createTimeEd} and
+                </if>
+                    <if test="lastModifyTimeList != null">
+                        `last_modify_time` in
+                        <foreach collection="lastModifyTimeList" close=")" open="(" separator="," item="item">
+                            #{item}
+                        </foreach> and
+                    </if>
+                <if test="lastModifyTimeSt !=null">
+                    `last_modify_time` >= #{lastModifyTimeSt} and
+                </if>
+                <if test="lastModifyTimeEd!=null">
+                    `last_modify_time` &lt;= #{lastModifyTimeEd} and
+                </if>
+                    <if test="sendTypeList != null">
+                        `send_type` in
+                        <foreach collection="sendTypeList" close=")" open="(" separator="," item="item">
+                            #{item}
+                        </foreach> and
+                    </if>
+                <if test ="fuzzySendType!=null and fuzzySendType.size()>0">
+                    (
+                    <foreach collection="fuzzySendType"  separator="or" item="item">
+                        `Send_type` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzySendType!=null and rightFuzzySendType.size()>0">
+                    (
+                    <foreach collection="rightFuzzySendType"  separator="or" item="item">
+                        `Send_type` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                    <if test="urlList != null">
+                        `url` in
+                        <foreach collection="urlList" close=")" open="(" separator="," item="item">
+                            #{item}
+                        </foreach> and
+                    </if>
+                <if test ="fuzzyUrl!=null and fuzzyUrl.size()>0">
+                    (
+                    <foreach collection="fuzzyUrl"  separator="or" item="item">
+                        `Url` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzyUrl!=null and rightFuzzyUrl.size()>0">
+                    (
+                    <foreach collection="rightFuzzyUrl"  separator="or" item="item">
+                        `Url` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                    <if test="executeParamterList != null">
+                        `execute_paramter` in
+                        <foreach collection="executeParamterList" close=")" open="(" separator="," item="item">
+                            #{item}
+                        </foreach> and
+                    </if>
+                <if test ="fuzzyExecuteParamter!=null and fuzzyExecuteParamter.size()>0">
+                    (
+                    <foreach collection="fuzzyExecuteParamter"  separator="or" item="item">
+                        `Execute_paramter` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzyExecuteParamter!=null and rightFuzzyExecuteParamter.size()>0">
+                    (
+                    <foreach collection="rightFuzzyExecuteParamter"  separator="or" item="item">
+                        `Execute_paramter` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                    <if test="timeKeyList != null">
+                        `time_key` in
+                        <foreach collection="timeKeyList" close=")" open="(" separator="," item="item">
+                            #{item}
+                        </foreach> and
+                    </if>
+                <if test ="fuzzyTimeKey!=null and fuzzyTimeKey.size()>0">
+                    (
+                    <foreach collection="fuzzyTimeKey"  separator="or" item="item">
+                        `Time_key` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzyTimeKey!=null and rightFuzzyTimeKey.size()>0">
+                    (
+                    <foreach collection="rightFuzzyTimeKey"  separator="or" item="item">
+                        `Time_key` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+            </if>
+        </trim>
+        limit 1
+    </select>
+
+    <sql id="allResult">
+        <trim suffixOverrides=",">
+        `id`,
+        `version`,
+        `task_no`,
+        `task_name`,
+        `scheduler_rule`,
+        `frozen_status`,
+        `executor_no`,
+        `frozen_time`,
+        `unfrozen_time`,
+        `create_time`,
+        `last_modify_time`,
+        `send_type`,
+        `url`,
+        `execute_paramter`,
+        `time_key`,
+        </trim>
+    </sql>
+
+
+
+    <sql id="baseResult">
+        <trim suffixOverrides=",">
+            <if test = "(_parameter instanceof org.bran.branproxy.model.QuartzTaskInformations$QueryBuilder) == true">
+
+                <if test="fetchFields==null">
+                    <include refid="allResult"></include>
+                </if>
+                <if test="fetchFields!=null">
+                    <if test="fetchFields.AllFields !=null">
+                        <include refid="allResult"></include>
+                    </if>
+                    <if test="fetchFields.AllFields ==null and fetchFields.fetchFields==null and fetchFields.excludeFields==null and fetchFields.otherFields==null">
+                        <include refid="allResult"></include>
+                    </if>
+                    <if test="fetchFields.AllFields==null and fetchFields.fetchFields!=null">
+                    <if test="fetchFields.fetchFields.id==true">
+                        `id`,
+                    </if>
+                    <if test="fetchFields.fetchFields.version==true">
+                        `version`,
+                    </if>
+                    <if test="fetchFields.fetchFields.taskNo==true">
+                        `task_no`,
+                    </if>
+                    <if test="fetchFields.fetchFields.taskName==true">
+                        `task_name`,
+                    </if>
+                    <if test="fetchFields.fetchFields.schedulerRule==true">
+                        `scheduler_rule`,
+                    </if>
+                    <if test="fetchFields.fetchFields.frozenStatus==true">
+                        `frozen_status`,
+                    </if>
+                    <if test="fetchFields.fetchFields.executorNo==true">
+                        `executor_no`,
+                    </if>
+                    <if test="fetchFields.fetchFields.frozenTime==true">
+                        `frozen_time`,
+                    </if>
+                    <if test="fetchFields.fetchFields.unfrozenTime==true">
+                        `unfrozen_time`,
+                    </if>
+                    <if test="fetchFields.fetchFields.createTime==true">
+                        `create_time`,
+                    </if>
+                    <if test="fetchFields.fetchFields.lastModifyTime==true">
+                        `last_modify_time`,
+                    </if>
+                    <if test="fetchFields.fetchFields.sendType==true">
+                        `send_type`,
+                    </if>
+                    <if test="fetchFields.fetchFields.url==true">
+                        `url`,
+                    </if>
+                    <if test="fetchFields.fetchFields.executeParamter==true">
+                        `execute_paramter`,
+                    </if>
+                    <if test="fetchFields.fetchFields.timeKey==true">
+                        `time_key`,
+                    </if>
+                    </if>
+                    <if test="fetchFields.AllFields==null and fetchFields.excludeFields!=null">
+                    <if test="fetchFields.excludeFields.id==null">
+                        `id`,
+                    </if>
+                    <if test="fetchFields.excludeFields.version==null">
+                        `version`,
+                    </if>
+                    <if test="fetchFields.excludeFields.taskNo==null">
+                        `task_no`,
+                    </if>
+                    <if test="fetchFields.excludeFields.taskName==null">
+                        `task_name`,
+                    </if>
+                    <if test="fetchFields.excludeFields.schedulerRule==null">
+                        `scheduler_rule`,
+                    </if>
+                    <if test="fetchFields.excludeFields.frozenStatus==null">
+                        `frozen_status`,
+                    </if>
+                    <if test="fetchFields.excludeFields.executorNo==null">
+                        `executor_no`,
+                    </if>
+                    <if test="fetchFields.excludeFields.frozenTime==null">
+                        `frozen_time`,
+                    </if>
+                    <if test="fetchFields.excludeFields.unfrozenTime==null">
+                        `unfrozen_time`,
+                    </if>
+                    <if test="fetchFields.excludeFields.createTime==null">
+                        `create_time`,
+                    </if>
+                    <if test="fetchFields.excludeFields.lastModifyTime==null">
+                        `last_modify_time`,
+                    </if>
+                    <if test="fetchFields.excludeFields.sendType==null">
+                        `send_type`,
+                    </if>
+                    <if test="fetchFields.excludeFields.url==null">
+                        `url`,
+                    </if>
+                    <if test="fetchFields.excludeFields.executeParamter==null">
+                        `execute_paramter`,
+                    </if>
+                    <if test="fetchFields.excludeFields.timeKey==null">
+                        `time_key`,
+                    </if>
+                    </if>
+                    <if test="fetchFields.otherFields!=null and fetchFields.otherFields.size>0">
+                        <foreach collection="fetchFields.otherFields" index="index" item="item" separator=",">
+                        `#{item}`
+                        </foreach>
+                    </if>
+                </if>
+            </if>
+            <if test="(_parameter instanceof org.bran.branproxy.model.QuartzTaskInformations$QueryBuilder) == false" >
+                <include refid="allResult"></include>
+            </if>
+
+        </trim>
+    </sql>
+
+
+</mapper>

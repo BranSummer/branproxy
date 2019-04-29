@@ -1,0 +1,757 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.bran.branproxy.dao.base.QuartzTaskRecordsBaseMapper">
+
+
+    <insert id="insertQuartzTaskRecords"  useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO `quartz_task_records`
+        (
+        <trim suffixOverrides=",">
+                    <if test="id!=null">
+                        `id`,
+                    </if>
+                    <if test="taskNo!=null">
+                        `task_no`,
+                    </if>
+                    <if test="timeKeyValue!=null">
+                        `time_key_value`,
+                    </if>
+                    <if test="executeTime!=null">
+                        `execute_time`,
+                    </if>
+                    <if test="taskStatus!=null">
+                        `task_status`,
+                    </if>
+                    <if test="failcount!=null">
+                        `failcount`,
+                    </if>
+                    <if test="failReason!=null">
+                        `fail_reason`,
+                    </if>
+                    <if test="createTime!=null">
+                        `create_time`,
+                    </if>
+                    <if test="lastModifyTime!=null">
+                        `last_modify_time`,
+                    </if>
+        </trim>
+        )
+        VALUES
+        (
+        <trim suffixOverrides=",">
+                <if test="id!=null">
+                    #{id},
+                </if>
+                <if test="taskNo!=null">
+                    #{taskNo},
+                </if>
+                <if test="timeKeyValue!=null">
+                    #{timeKeyValue},
+                </if>
+                <if test="executeTime!=null">
+                    #{executeTime},
+                </if>
+                <if test="taskStatus!=null">
+                    #{taskStatus},
+                </if>
+                <if test="failcount!=null">
+                    #{failcount},
+                </if>
+                <if test="failReason!=null">
+                    #{failReason},
+                </if>
+                <if test="createTime!=null">
+                    #{createTime},
+                </if>
+                <if test="lastModifyTime!=null">
+                    #{lastModifyTime},
+                </if>
+        </trim>
+        )
+    </insert>
+
+
+
+
+    <update id="updateQuartzTaskRecords">
+        UPDATE `quartz_task_records`
+        SET
+        <trim suffixOverrides=",">
+            <if test="taskNo != null and taskNo!=''">
+                `task_no` = #{taskNo},
+            </if>
+            <if test="timeKeyValue != null and timeKeyValue!=''">
+                `time_key_value` = #{timeKeyValue},
+            </if>
+            <if test="executeTime != null">
+                `execute_time` = #{executeTime},
+            </if>
+            <if test="taskStatus != null and taskStatus!=''">
+                `task_status` = #{taskStatus},
+            </if>
+            <if test="failcount != null">
+                `failcount` = #{failcount},
+            </if>
+            <if test="failReason != null and failReason!=''">
+                `fail_reason` = #{failReason},
+            </if>
+            <if test="createTime != null">
+                `create_time` = #{createTime},
+            </if>
+            <if test="lastModifyTime != null">
+                `last_modify_time` = #{lastModifyTime},
+            </if>
+        </trim>
+        WHERE
+        <trim suffixOverrides="and">
+                `id` = #{id} and
+        </trim>
+    </update>
+
+    <update id="update">
+        UPDATE `quartz_task_records`
+        SET
+        <trim suffixOverrides=",">
+        <if test="set.taskNo != null and set.taskNo!=''">
+            `task_no` = #{set.taskNo},
+        </if>
+        <if test="set.timeKeyValue != null and set.timeKeyValue!=''">
+            `time_key_value` = #{set.timeKeyValue},
+        </if>
+        <if test="set.executeTime != null">
+            `execute_time` = #{set.executeTime},
+        </if>
+        <if test="set.taskStatus != null and set.taskStatus!=''">
+            `task_status` = #{set.taskStatus},
+        </if>
+        <if test="set.failcount != null">
+            `failcount` = #{set.failcount},
+        </if>
+        <if test="set.failReason != null and set.failReason!=''">
+            `fail_reason` = #{set.failReason},
+        </if>
+        <if test="set.createTime != null">
+            `create_time` = #{set.createTime},
+        </if>
+        <if test="set.lastModifyTime != null">
+            `last_modify_time` = #{set.lastModifyTime},
+        </if>
+        </trim>
+        <trim prefix="where" suffixOverrides="and | or">
+                <if test="where.idList != null">
+                    `id` in
+                    <foreach collection="where.idList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+            <if test="where.idSt !=null">
+                `id` >= #{where.idSt} and
+            </if>
+            <if test="where.idEd!=null">
+                `id` &lt;= #{where.idEd} and
+            </if>
+                <if test="where.taskNoList != null">
+                    `task_no` in
+                    <foreach collection="where.taskNoList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+            <if test ="where.fuzzyTaskNo!=null and where.fuzzyTaskNo.size()>0">
+                (
+                <foreach collection="where.fuzzyTaskNo"  separator="or" item="item">
+                    `Task_no` like concat('%',#{item},'%')
+                </foreach>
+                ) and
+            </if>
+            <if test ="where.rightFuzzyTaskNo!=null and where.rightFuzzyTaskNo.size()>0">
+                (
+                <foreach collection="where.rightFuzzyTaskNo"  separator="or" item="item">
+                    `Task_no` like concat(#{item},'%')
+                </foreach>
+                ) and
+            </if>
+                <if test="where.timeKeyValueList != null">
+                    `time_key_value` in
+                    <foreach collection="where.timeKeyValueList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+            <if test ="where.fuzzyTimeKeyValue!=null and where.fuzzyTimeKeyValue.size()>0">
+                (
+                <foreach collection="where.fuzzyTimeKeyValue"  separator="or" item="item">
+                    `Time_key_value` like concat('%',#{item},'%')
+                </foreach>
+                ) and
+            </if>
+            <if test ="where.rightFuzzyTimeKeyValue!=null and where.rightFuzzyTimeKeyValue.size()>0">
+                (
+                <foreach collection="where.rightFuzzyTimeKeyValue"  separator="or" item="item">
+                    `Time_key_value` like concat(#{item},'%')
+                </foreach>
+                ) and
+            </if>
+                <if test="where.executeTimeList != null">
+                    `execute_time` in
+                    <foreach collection="where.executeTimeList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+            <if test="where.executeTimeSt !=null">
+                `execute_time` >= #{where.executeTimeSt} and
+            </if>
+            <if test="where.executeTimeEd!=null">
+                `execute_time` &lt;= #{where.executeTimeEd} and
+            </if>
+                <if test="where.taskStatusList != null">
+                    `task_status` in
+                    <foreach collection="where.taskStatusList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+            <if test ="where.fuzzyTaskStatus!=null and where.fuzzyTaskStatus.size()>0">
+                (
+                <foreach collection="where.fuzzyTaskStatus"  separator="or" item="item">
+                    `Task_status` like concat('%',#{item},'%')
+                </foreach>
+                ) and
+            </if>
+            <if test ="where.rightFuzzyTaskStatus!=null and where.rightFuzzyTaskStatus.size()>0">
+                (
+                <foreach collection="where.rightFuzzyTaskStatus"  separator="or" item="item">
+                    `Task_status` like concat(#{item},'%')
+                </foreach>
+                ) and
+            </if>
+                <if test="where.failcountList != null">
+                    `failcount` in
+                    <foreach collection="where.failcountList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+            <if test="where.failcountSt !=null">
+                `failcount` >= #{where.failcountSt} and
+            </if>
+            <if test="where.failcountEd!=null">
+                `failcount` &lt;= #{where.failcountEd} and
+            </if>
+                <if test="where.failReasonList != null">
+                    `fail_reason` in
+                    <foreach collection="where.failReasonList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+            <if test ="where.fuzzyFailReason!=null and where.fuzzyFailReason.size()>0">
+                (
+                <foreach collection="where.fuzzyFailReason"  separator="or" item="item">
+                    `Fail_reason` like concat('%',#{item},'%')
+                </foreach>
+                ) and
+            </if>
+            <if test ="where.rightFuzzyFailReason!=null and where.rightFuzzyFailReason.size()>0">
+                (
+                <foreach collection="where.rightFuzzyFailReason"  separator="or" item="item">
+                    `Fail_reason` like concat(#{item},'%')
+                </foreach>
+                ) and
+            </if>
+                <if test="where.createTimeList != null">
+                    `create_time` in
+                    <foreach collection="where.createTimeList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+            <if test="where.createTimeSt !=null">
+                `create_time` >= #{where.createTimeSt} and
+            </if>
+            <if test="where.createTimeEd!=null">
+                `create_time` &lt;= #{where.createTimeEd} and
+            </if>
+                <if test="where.lastModifyTimeList != null">
+                    `last_modify_time` in
+                    <foreach collection="where.lastModifyTimeList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+            <if test="where.lastModifyTimeSt !=null">
+                `last_modify_time` >= #{where.lastModifyTimeSt} and
+            </if>
+            <if test="where.lastModifyTimeEd!=null">
+                `last_modify_time` &lt;= #{where.lastModifyTimeEd} and
+            </if>
+        </trim>
+    </update>
+
+
+    <resultMap type="org.bran.branproxy.model.QuartzTaskRecords" id="QuartzTaskRecordsMap">
+        <result property="id" column="id"/>
+        <result property="taskNo" column="task_no"/>
+        <result property="timeKeyValue" column="time_key_value"/>
+        <result property="executeTime" column="execute_time"/>
+        <result property="taskStatus" column="task_status"/>
+        <result property="failcount" column="failcount"/>
+        <result property="failReason" column="fail_reason"/>
+        <result property="createTime" column="create_time"/>
+        <result property="lastModifyTime" column="last_modify_time"/>
+    </resultMap>
+
+
+    <select id="queryQuartzTaskRecords" resultMap="QuartzTaskRecordsMap">
+        select
+        <include refid="baseResult"></include>
+        from  `quartz_task_records`
+        <trim prefix="where" suffixOverrides="and | or">
+            <if test="id != null">
+                `id` = #{id} and
+            </if>
+            <if test="taskNo != null and taskNo!=''">
+                `task_no` = #{taskNo} and
+            </if>
+            <if test="timeKeyValue != null and timeKeyValue!=''">
+                `time_key_value` = #{timeKeyValue} and
+            </if>
+            <if test="executeTime != null">
+                `execute_time` = #{executeTime} and
+            </if>
+            <if test="taskStatus != null and taskStatus!=''">
+                `task_status` = #{taskStatus} and
+            </if>
+            <if test="failcount != null">
+                `failcount` = #{failcount} and
+            </if>
+            <if test="failReason != null and failReason!=''">
+                `fail_reason` = #{failReason} and
+            </if>
+            <if test="createTime != null">
+                `create_time` = #{createTime} and
+            </if>
+            <if test="lastModifyTime != null">
+                `last_modify_time` = #{lastModifyTime} and
+            </if>
+            <if test = "(_parameter instanceof org.bran.branproxy.model.QuartzTaskRecords$QueryBuilder) == true">
+                <if test="idList != null">
+                    `id` in
+                    <foreach collection="idList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+                <if test="idSt !=null">
+                    `id` >= #{idSt} and
+                </if>
+                <if test="idEd!=null">
+                    `id` &lt;= #{idEd} and
+                </if>
+                <if test="taskNoList != null">
+                    `task_no` in
+                    <foreach collection="taskNoList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+                <if test ="fuzzyTaskNo!=null and fuzzyTaskNo.size()>0">
+                    (
+                    <foreach collection="fuzzyTaskNo"  separator="or" item="item">
+                        `Task_no` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzyTaskNo!=null and rightFuzzyTaskNo.size()>0">
+                    (
+                    <foreach collection="rightFuzzyTaskNo"  separator="or" item="item">
+                        `Task_no` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test="timeKeyValueList != null">
+                    `time_key_value` in
+                    <foreach collection="timeKeyValueList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+                <if test ="fuzzyTimeKeyValue!=null and fuzzyTimeKeyValue.size()>0">
+                    (
+                    <foreach collection="fuzzyTimeKeyValue"  separator="or" item="item">
+                        `Time_key_value` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzyTimeKeyValue!=null and rightFuzzyTimeKeyValue.size()>0">
+                    (
+                    <foreach collection="rightFuzzyTimeKeyValue"  separator="or" item="item">
+                        `Time_key_value` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test="executeTimeList != null">
+                    `execute_time` in
+                    <foreach collection="executeTimeList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+                <if test="executeTimeSt !=null">
+                    `execute_time` >= #{executeTimeSt} and
+                </if>
+                <if test="executeTimeEd!=null">
+                    `execute_time` &lt;= #{executeTimeEd} and
+                </if>
+                <if test="taskStatusList != null">
+                    `task_status` in
+                    <foreach collection="taskStatusList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+                <if test ="fuzzyTaskStatus!=null and fuzzyTaskStatus.size()>0">
+                    (
+                    <foreach collection="fuzzyTaskStatus"  separator="or" item="item">
+                        `Task_status` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzyTaskStatus!=null and rightFuzzyTaskStatus.size()>0">
+                    (
+                    <foreach collection="rightFuzzyTaskStatus"  separator="or" item="item">
+                        `Task_status` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test="failcountList != null">
+                    `failcount` in
+                    <foreach collection="failcountList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+                <if test="failcountSt !=null">
+                    `failcount` >= #{failcountSt} and
+                </if>
+                <if test="failcountEd!=null">
+                    `failcount` &lt;= #{failcountEd} and
+                </if>
+                <if test="failReasonList != null">
+                    `fail_reason` in
+                    <foreach collection="failReasonList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+                <if test ="fuzzyFailReason!=null and fuzzyFailReason.size()>0">
+                    (
+                    <foreach collection="fuzzyFailReason"  separator="or" item="item">
+                        `Fail_reason` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzyFailReason!=null and rightFuzzyFailReason.size()>0">
+                    (
+                    <foreach collection="rightFuzzyFailReason"  separator="or" item="item">
+                        `Fail_reason` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test="createTimeList != null">
+                    `create_time` in
+                    <foreach collection="createTimeList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+                <if test="createTimeSt !=null">
+                    `create_time` >= #{createTimeSt} and
+                </if>
+                <if test="createTimeEd!=null">
+                    `create_time` &lt;= #{createTimeEd} and
+                </if>
+                <if test="lastModifyTimeList != null">
+                    `last_modify_time` in
+                    <foreach collection="lastModifyTimeList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+                <if test="lastModifyTimeSt !=null">
+                    `last_modify_time` >= #{lastModifyTimeSt} and
+                </if>
+                <if test="lastModifyTimeEd!=null">
+                    `last_modify_time` &lt;= #{lastModifyTimeEd} and
+                </if>
+            </if>
+        </trim>
+    </select>
+
+    <select id="queryQuartzTaskRecordsLimit1" resultMap="QuartzTaskRecordsMap">
+        select
+        <include refid="baseResult"></include>
+        from  `quartz_task_records`
+        <trim prefix="where" suffixOverrides="and | or">
+            <if test="id != null">
+                `id` = #{id} and
+            </if>
+            <if test="taskNo != null and taskNo!=''">
+                `task_no` = #{taskNo} and
+            </if>
+            <if test="timeKeyValue != null and timeKeyValue!=''">
+                `time_key_value` = #{timeKeyValue} and
+            </if>
+            <if test="executeTime != null">
+                `execute_time` = #{executeTime} and
+            </if>
+            <if test="taskStatus != null and taskStatus!=''">
+                `task_status` = #{taskStatus} and
+            </if>
+            <if test="failcount != null">
+                `failcount` = #{failcount} and
+            </if>
+            <if test="failReason != null and failReason!=''">
+                `fail_reason` = #{failReason} and
+            </if>
+            <if test="createTime != null">
+                `create_time` = #{createTime} and
+            </if>
+            <if test="lastModifyTime != null">
+                `last_modify_time` = #{lastModifyTime} and
+            </if>
+            <if test = "(_parameter instanceof org.bran.branproxy.model.QuartzTaskRecords$QueryBuilder) == true">
+                    <if test="idList != null">
+                        `id` in
+                        <foreach collection="idList" close=")" open="(" separator="," item="item">
+                            #{item}
+                        </foreach> and
+                    </if>
+                <if test="idSt !=null">
+                    `id` >= #{idSt} and
+                </if>
+                <if test="idEd!=null">
+                    `id` &lt;= #{idEd} and
+                </if>
+                    <if test="taskNoList != null">
+                        `task_no` in
+                        <foreach collection="taskNoList" close=")" open="(" separator="," item="item">
+                            #{item}
+                        </foreach> and
+                    </if>
+                <if test ="fuzzyTaskNo!=null and fuzzyTaskNo.size()>0">
+                    (
+                    <foreach collection="fuzzyTaskNo"  separator="or" item="item">
+                        `Task_no` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzyTaskNo!=null and rightFuzzyTaskNo.size()>0">
+                    (
+                    <foreach collection="rightFuzzyTaskNo"  separator="or" item="item">
+                        `Task_no` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                    <if test="timeKeyValueList != null">
+                        `time_key_value` in
+                        <foreach collection="timeKeyValueList" close=")" open="(" separator="," item="item">
+                            #{item}
+                        </foreach> and
+                    </if>
+                <if test ="fuzzyTimeKeyValue!=null and fuzzyTimeKeyValue.size()>0">
+                    (
+                    <foreach collection="fuzzyTimeKeyValue"  separator="or" item="item">
+                        `Time_key_value` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzyTimeKeyValue!=null and rightFuzzyTimeKeyValue.size()>0">
+                    (
+                    <foreach collection="rightFuzzyTimeKeyValue"  separator="or" item="item">
+                        `Time_key_value` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                    <if test="executeTimeList != null">
+                        `execute_time` in
+                        <foreach collection="executeTimeList" close=")" open="(" separator="," item="item">
+                            #{item}
+                        </foreach> and
+                    </if>
+                <if test="executeTimeSt !=null">
+                    `execute_time` >= #{executeTimeSt} and
+                </if>
+                <if test="executeTimeEd!=null">
+                    `execute_time` &lt;= #{executeTimeEd} and
+                </if>
+                    <if test="taskStatusList != null">
+                        `task_status` in
+                        <foreach collection="taskStatusList" close=")" open="(" separator="," item="item">
+                            #{item}
+                        </foreach> and
+                    </if>
+                <if test ="fuzzyTaskStatus!=null and fuzzyTaskStatus.size()>0">
+                    (
+                    <foreach collection="fuzzyTaskStatus"  separator="or" item="item">
+                        `Task_status` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzyTaskStatus!=null and rightFuzzyTaskStatus.size()>0">
+                    (
+                    <foreach collection="rightFuzzyTaskStatus"  separator="or" item="item">
+                        `Task_status` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                    <if test="failcountList != null">
+                        `failcount` in
+                        <foreach collection="failcountList" close=")" open="(" separator="," item="item">
+                            #{item}
+                        </foreach> and
+                    </if>
+                <if test="failcountSt !=null">
+                    `failcount` >= #{failcountSt} and
+                </if>
+                <if test="failcountEd!=null">
+                    `failcount` &lt;= #{failcountEd} and
+                </if>
+                    <if test="failReasonList != null">
+                        `fail_reason` in
+                        <foreach collection="failReasonList" close=")" open="(" separator="," item="item">
+                            #{item}
+                        </foreach> and
+                    </if>
+                <if test ="fuzzyFailReason!=null and fuzzyFailReason.size()>0">
+                    (
+                    <foreach collection="fuzzyFailReason"  separator="or" item="item">
+                        `Fail_reason` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzyFailReason!=null and rightFuzzyFailReason.size()>0">
+                    (
+                    <foreach collection="rightFuzzyFailReason"  separator="or" item="item">
+                        `Fail_reason` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                    <if test="createTimeList != null">
+                        `create_time` in
+                        <foreach collection="createTimeList" close=")" open="(" separator="," item="item">
+                            #{item}
+                        </foreach> and
+                    </if>
+                <if test="createTimeSt !=null">
+                    `create_time` >= #{createTimeSt} and
+                </if>
+                <if test="createTimeEd!=null">
+                    `create_time` &lt;= #{createTimeEd} and
+                </if>
+                    <if test="lastModifyTimeList != null">
+                        `last_modify_time` in
+                        <foreach collection="lastModifyTimeList" close=")" open="(" separator="," item="item">
+                            #{item}
+                        </foreach> and
+                    </if>
+                <if test="lastModifyTimeSt !=null">
+                    `last_modify_time` >= #{lastModifyTimeSt} and
+                </if>
+                <if test="lastModifyTimeEd!=null">
+                    `last_modify_time` &lt;= #{lastModifyTimeEd} and
+                </if>
+            </if>
+        </trim>
+        limit 1
+    </select>
+
+    <sql id="allResult">
+        <trim suffixOverrides=",">
+        `id`,
+        `task_no`,
+        `time_key_value`,
+        `execute_time`,
+        `task_status`,
+        `failcount`,
+        `fail_reason`,
+        `create_time`,
+        `last_modify_time`,
+        </trim>
+    </sql>
+
+
+
+    <sql id="baseResult">
+        <trim suffixOverrides=",">
+            <if test = "(_parameter instanceof org.bran.branproxy.model.QuartzTaskRecords$QueryBuilder) == true">
+
+                <if test="fetchFields==null">
+                    <include refid="allResult"></include>
+                </if>
+                <if test="fetchFields!=null">
+                    <if test="fetchFields.AllFields !=null">
+                        <include refid="allResult"></include>
+                    </if>
+                    <if test="fetchFields.AllFields ==null and fetchFields.fetchFields==null and fetchFields.excludeFields==null and fetchFields.otherFields==null">
+                        <include refid="allResult"></include>
+                    </if>
+                    <if test="fetchFields.AllFields==null and fetchFields.fetchFields!=null">
+                    <if test="fetchFields.fetchFields.id==true">
+                        `id`,
+                    </if>
+                    <if test="fetchFields.fetchFields.taskNo==true">
+                        `task_no`,
+                    </if>
+                    <if test="fetchFields.fetchFields.timeKeyValue==true">
+                        `time_key_value`,
+                    </if>
+                    <if test="fetchFields.fetchFields.executeTime==true">
+                        `execute_time`,
+                    </if>
+                    <if test="fetchFields.fetchFields.taskStatus==true">
+                        `task_status`,
+                    </if>
+                    <if test="fetchFields.fetchFields.failcount==true">
+                        `failcount`,
+                    </if>
+                    <if test="fetchFields.fetchFields.failReason==true">
+                        `fail_reason`,
+                    </if>
+                    <if test="fetchFields.fetchFields.createTime==true">
+                        `create_time`,
+                    </if>
+                    <if test="fetchFields.fetchFields.lastModifyTime==true">
+                        `last_modify_time`,
+                    </if>
+                    </if>
+                    <if test="fetchFields.AllFields==null and fetchFields.excludeFields!=null">
+                    <if test="fetchFields.excludeFields.id==null">
+                        `id`,
+                    </if>
+                    <if test="fetchFields.excludeFields.taskNo==null">
+                        `task_no`,
+                    </if>
+                    <if test="fetchFields.excludeFields.timeKeyValue==null">
+                        `time_key_value`,
+                    </if>
+                    <if test="fetchFields.excludeFields.executeTime==null">
+                        `execute_time`,
+                    </if>
+                    <if test="fetchFields.excludeFields.taskStatus==null">
+                        `task_status`,
+                    </if>
+                    <if test="fetchFields.excludeFields.failcount==null">
+                        `failcount`,
+                    </if>
+                    <if test="fetchFields.excludeFields.failReason==null">
+                        `fail_reason`,
+                    </if>
+                    <if test="fetchFields.excludeFields.createTime==null">
+                        `create_time`,
+                    </if>
+                    <if test="fetchFields.excludeFields.lastModifyTime==null">
+                        `last_modify_time`,
+                    </if>
+                    </if>
+                    <if test="fetchFields.otherFields!=null and fetchFields.otherFields.size>0">
+                        <foreach collection="fetchFields.otherFields" index="index" item="item" separator=",">
+                        `#{item}`
+                        </foreach>
+                    </if>
+                </if>
+            </if>
+            <if test="(_parameter instanceof org.bran.branproxy.model.QuartzTaskRecords$QueryBuilder) == false" >
+                <include refid="allResult"></include>
+            </if>
+
+        </trim>
+    </sql>
+
+
+</mapper>
