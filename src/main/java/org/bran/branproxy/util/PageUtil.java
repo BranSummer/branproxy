@@ -24,7 +24,7 @@ public class PageUtil {
      * @param entityList 原数据列表
      * @return 分页后的列表集合
      */
-    private <T> List<List<T>> getGroupedListWithPaged(List<T> entityList,int pageSize) {
+    public static  <T> List<List<T>> getGroupedListWithPaged(List<T> entityList,int pageSize) {
         // 获取总明细数（一条供应商对应一条明细）
         int totalCount = entityList.size();
         // 总页数
@@ -48,7 +48,7 @@ public class PageUtil {
      * @param pageSize 页容量
      * @return 分页集合
      */
-    private <T> List<T> getPagedList(List<T> data, Integer pageNum, Integer pageSize) {
+    public static   <T> List<T> getPagedList(List<T> data, Integer pageNum, Integer pageSize) {
         // 起始位置
         int fromIndex = (pageNum - 1) * pageSize;
         // 起始位置超出最大长度

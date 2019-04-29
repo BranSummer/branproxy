@@ -60,7 +60,6 @@ public class KuaiDaiLiProcessor implements PageProcessor {
             model.setAnonymity(getAnonymity(list.get(2)));
             model.setType(ProtocolEnum.getProtocolFromDesc(list.get(3)).getValue());
             model.setAddress(list.get(4) + StringUtils.SPACE + list.get(5));
-            model.setTimeout(0);
             return model;
         }).filter(e -> {
             // 过滤已加入的代理

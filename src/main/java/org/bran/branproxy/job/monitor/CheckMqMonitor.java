@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
 import org.springframework.util.ObjectUtils;
 
+import javax.annotation.Resource;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -23,7 +24,7 @@ public class CheckMqMonitor {
 
     private static final String CONTAINER_NOT_EXISTS = "消息队列%s对应的监听容器不存在！";
 
-    @Autowired
+    @Resource
     private RabbitListenerEndpointRegistry rabbitListenerEndpointRegistry;
 
     /**
@@ -35,10 +36,6 @@ public class CheckMqMonitor {
      * 所有的队列监听容器Map
      */
     private final Map<String, SimpleMessageListenerContainer> allQueue2ContainerMap = new ConcurrentHashMap<>();
-
-    public boolean resetQueueConcurrentConsumer(String queueName, int concurrentConsumers) {
-        return false;
-    }
 
     /**
      * 重置消息队列并发消费者数量

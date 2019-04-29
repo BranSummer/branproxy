@@ -2,11 +2,14 @@ package org.bran.branproxy.job.crawler;
 
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.bran.branproxy.common.enums.AnonymityEnum;
+import org.bran.branproxy.common.enums.ProtocolEnum;
 import org.bran.branproxy.dao.IpProxyModelMapper;
 import org.bran.branproxy.model.IpProxyModel;
 import org.bran.branproxy.model.ProxyBaseModel;
 import org.bran.branproxy.util.UniqueUtil;
+import org.jsoup.Jsoup;
 import org.springframework.stereotype.Component;
 import us.codecraft.webmagic.Page;
 import us.codecraft.webmagic.Site;
@@ -14,6 +17,7 @@ import us.codecraft.webmagic.processor.PageProcessor;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -40,22 +44,28 @@ public class XiciProcessor implements PageProcessor {
         pages.addAll(page.getHtml().links().regex(".*/nt/.*").all());
         pages.addAll(page.getHtml().links().regex(".*/wn/.*").all());
         pages.addAll(page.getHtml().links().regex(".*/wt/.*").all());
+        page.addTargetRequests(pages);
         List<String> proxyStrs = page.getHtml().xpath(PROXY_XPATH).all();
+
+
 
         List<IpProxyModel> ipProxyModels = new ArrayList<>();
         for (int i = 1; i < proxyStrs.size(); i++) {
+
+            String strVal = Jsoup.parseBodyFragment(proxyStrs.get(i)).body().text();
+            List<String> list = Arrays.asList(strVal.split(StringUtils.SPACE));
+
             // 过滤已加入的代理
             ProxyBaseModel model = new ProxyBaseModel();
-            model.setIp(proxyStrs.get(0));
-            model.setPort(Integer.parseInt(proxyStrs.get(1)));
+            model.setIp(list.get(0));
+            model.setPort(Integer.parseInt(list.get(1)));
             if(!uniqueUtil.isDuplicateWithSet(model)){
                 IpProxyModel proxyModel = new IpProxyModel();
-                proxyModel.setIp(proxyStrs.get(0));
-                proxyModel.setPort(Integer.parseInt(proxyStrs.get(1)));
-                proxyModel.setAddress(proxyStrs.get(2));
-                proxyModel.setAnonymity(getAnonymity(proxyStrs.get(3)));
-                proxyModel.setType(getProtocolType(proxyStrs.get(4)));
-                proxyModel.setTimeout(0);
+                proxyModel.setIp(list.get(0));
+                proxyModel.setPort(Integer.parseInt(list.get(1)));
+                proxyModel.setAddress(list.get(2));
+                proxyModel.setAnonymity(getAnonymity(list.get(3)));
+                proxyModel.setType(getProtocolType(list.get(4)));
                 ipProxyModels.add(proxyModel);
             }
         }
@@ -75,17 +85,28 @@ public class XiciProcessor implements PageProcessor {
     private int getAnonymity(String anonymityStr){
         if(anonymityStr.equalsIgnoreCase("高匿")){
             return AnonymityEnum.ELITE.getValue();
-        }else if(anonymityStr.equalsIgnoreCase("")){
+        }else if(anonymityStr.equalsIgnoreCase("透明")){
+            return AnonymityEnum.TRANSPARENT.getValue();
+        }else {
+            return 0;
         }
-        return 0;
     }
 
     /**
-     * TODO
      * @param typeStr
      * @return
      */
     private int getProtocolType(String typeStr){
-        return 0;
+        switch (typeStr){
+            case "HTTPS":
+                return ProtocolEnum.HTTPS.getValue();
+            case "HTTP":
+                return ProtocolEnum.HTTP.getValue();
+            case "socks4/5":
+                return ProtocolEnum.SOCKS.getValue();
+            default:
+                return ProtocolEnum.UNKNOW.getValue();
+        }
+
     }
 }

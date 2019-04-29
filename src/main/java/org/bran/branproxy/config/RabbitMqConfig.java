@@ -57,8 +57,8 @@ public class RabbitMqConfig {
         return new ProxyCheckReceiver();
     }
 
-    @Bean
+ /*   @Bean
     public ProxyCheckReceiver proxyCheckReceiverE() {
         return new ProxyCheckReceiver();
-    }
+    }*/
 }

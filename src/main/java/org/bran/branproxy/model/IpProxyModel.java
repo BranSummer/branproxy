@@ -1,9 +1,9 @@
 package org.bran.branproxy.model;
+import org.apache.commons.lang3.StringUtils;
+
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.List;
+import java.util.*;
+
 /**
 *
 *  @author bran
@@ -103,7 +103,12 @@ public class IpProxyModel implements Serializable {
 
     public Integer getStatus(){return this.status;}
 
-    public void setAddress(String address){this.address = address;}
+    public void setAddress(String address){
+        if(Objects.isNull(address)){
+            address = StringUtils.EMPTY;
+        }
+        this.address = address.trim();
+    }
 
     public String getAddress(){return this.address;}
 

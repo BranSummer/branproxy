@@ -44,7 +44,7 @@ public class PageProcessorTest extends BranproxyApplicationTests {
     @Test
     public void testXici() {
         Site site = Site.me()
-                .setDomain("https://www.xicidaili.com/nn/")
+                .setDomain("https://www.xicidaili.com/")
                 .setRetryTimes(3)
                 .setSleepTime(5000)
                 .setCharset("utf8")
@@ -52,10 +52,9 @@ public class PageProcessorTest extends BranproxyApplicationTests {
                 .addHeader("Accept","text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3")
                 .addHeader("Host","www.xicidaili.com")
                 .addHeader("Upgrade-Insecure-Requests","1")
-                .addHeader("_free_proxy_session","BAh7B0kiD3Nlc3Npb25faWQGOgZFVEkiJWVlNTZlNWMyNTM5ZDBjYTY2MWQ1NGYyYzVlYjlhMjNlBjsAVEkiEF9jc3JmX3Rva2VuBjsARkkiMWVNYjVXeEVLMytiekNMRFRvMDJaZVNNdklKZGt0czdsNlJwaHpLTm9mT3M9BjsARg%3D%3D--34f8d911398d3311e32d5b1292415537ab76cde1")
                 .addHeader("Cache-Control","max-age=0");
         xiciProcessor.setSite(site);
-        Spider.create(xiciProcessor).addUrl("https://www.xicidaili.com/nn/").thread(1).run();
+        Spider.create(xiciProcessor).addUrl("https://www.xicidaili.com/nn/").thread(2).run();
     }
 
     @Test
@@ -79,23 +78,23 @@ public class PageProcessorTest extends BranproxyApplicationTests {
     public void testXiciJsoup(){
         String trStr = "<tr class=\"odd\"> \n" +
                 " <td class=\"country\"><img src=\"//fs.xicidaili.com/images/flag/cn.png\" alt=\"Cn\"></td> \n" +
-                " <td>183.148.131.184</td> \n" +
+                " <td>112.85.129.85</td> \n" +
                 " <td>9999</td> \n" +
-                " <td> <a href=\"/2019-04-25/zhejiang\">浙江台州</a> </td> \n" +
+                " <td> <a href=\"/2019-04-26/jiangsu\">江苏南通</a> </td> \n" +
                 " <td class=\"country\">高匿</td> \n" +
                 " <td>HTTPS</td> \n" +
                 " <td class=\"country\"> \n" +
-                "  <div title=\"0.442秒\" class=\"bar\"> \n" +
-                "   <div class=\"bar_inner fast\" style=\"width:91%\"> \n" +
+                "  <div title=\"0.144秒\" class=\"bar\"> \n" +
+                "   <div class=\"bar_inner fast\" style=\"width:89%\"> \n" +
                 "   </div> \n" +
                 "  </div> </td> \n" +
                 " <td class=\"country\"> \n" +
-                "  <div title=\"0.088秒\" class=\"bar\"> \n" +
-                "   <div class=\"bar_inner fast\" style=\"width:95%\"> \n" +
+                "  <div title=\"0.028秒\" class=\"bar\"> \n" +
+                "   <div class=\"bar_inner fast\" style=\"width:98%\"> \n" +
                 "   </div> \n" +
                 "  </div> </td> \n" +
                 " <td>1分钟</td> \n" +
-                " <td>19-04-25 16:00</td> \n" +
+                " <td>19-04-26 10:00</td> \n" +
                 "</tr>";
         Document document = Jsoup.parse(trStr);
         String str =  document.body().text();
