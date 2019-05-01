@@ -14,4 +14,6 @@ public class BasePageVo<T> {
     private Integer count = 0;
 
     private List<T> list = new ArrayList<>();
+
+
 }

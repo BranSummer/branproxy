@@ -78,4 +78,12 @@ public class RouteController {
     public String monitorPage() {
         return "monitor";
     }
+
+    /**
+     * 定时任务
+     */
+    @GetMapping("/schedule/index")
+    public String schedulePage() {
+        return "/schedule/index";
+    }
 }

@@ -15,7 +15,6 @@ public class User implements Serializable {
 
     /**
     * 主键
-    * 主键
     * isNullAble:0
     */
     private Long id;

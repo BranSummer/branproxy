@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.bran.branproxy.dao.ScheduleJobMapper">
+
+    <sql id="fields">
+        job_id, bean_name, method_name, params, cron_expression, status, remark, create_time
+    </sql>
+
+    <sql id="insertFields">
+        <trim suffixOverrides=",">
+            <if test="jobId!=null">job_id,</if>
+            <if test="beanName != null">bean_name,</if>
+            <if test="methodName != null">method_name,</if>
+            <if test="params != null">params,</if>
+            <if test="cronExpression != null">cron_expression,</if>
+            <if test="status != null">status,</if>
+            <if test="remark != null">remark,</if>
+            <if test="createTime != null">create_time,</if>
+        </trim>
+    </sql>
+
+    <sql id="insertValues">
+        <trim suffixOverrides=",">
+            <if test="jobId!=null">#{jobId},</if>
+            <if test="beanName != null">#{beanName},</if>
+            <if test="methodName != null">#{methodName},</if>
+            <if test="params != null">#{params},</if>
+            <if test="cronExpression != null">#{cronExpression},</if>
+            <if test="status != null">#{status},</if>
+            <if test="remark != null">#{remark},</if>
+            <if test="createTime != null">#{createTime},</if>
+        </trim>
+    </sql>
+
+    <sql id="sets">
+        <trim suffixOverrides=",">
+            <if test="jobId!=null">job_id = #{jobId},</if>
+            <if test="beanName != null">bean_name = #{beanName},</if>
+            <if test="methodName != null">method_name = #{methodName},</if>
+            <if test="params != null">params = #{params},</if>
+            <if test="cronExpression != null">cron_expression = #{cronExpression},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="remark != null">remark = #{remark},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+        </trim>
+    </sql>
+
+    <select id="queryList" resultType="org.bran.branproxy.model.ScheduleJobEntity" parameterType="object">
+        select
+        <include refid="fields"/>
+        from schedule_job
+        <where>
+            <if test="beanName != null and beanName.trim() != ''">
+                bean_name like concat('%', #{beanName}, '%')
+            </if>
+        </where>
+        <if test="offset != null and limit != null ">
+            limit #{offset}, #{limit}
+        </if>
+    </select>
+
+    <select id="queryTotal" resultType="int">
+        select count(1) from schedule_job
+        <where>
+            <if test="beanName != null and beanName.trim() != ''">
+                bean_name like concat('%', #{beanName}, '%')
+            </if>
+        </where>
+    </select>
+
+    <insert id="insert" parameterType="org.bran.branproxy.model.ScheduleJobEntity"
+            useGeneratedKeys="true" keyProperty="jobId">
+        insert into schedule_job (<include refid="insertFields"/>)
+        values (<include refid="insertValues"/>)
+    </insert>
+
+    <update id="update" parameterType="org.bran.branproxy.model.ScheduleJobEntity">
+        update schedule_job
+        set <include refid="sets"/>
+        where job_id = #{jobId}
+    </update>
+</mapper>
