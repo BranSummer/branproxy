@@ -65,7 +65,8 @@ public class DetectUtil {
         //设置代理IP、端口
         HttpHost proxy=new HttpHost(proxyIp,proxyPort,"http");
         //也可以设置超时时间
-        RequestConfig requestConfig=RequestConfig.custom().setProxy(proxy).setConnectTimeout(10000).build();
+        RequestConfig requestConfig=RequestConfig.custom().setProxy(proxy)
+                .setConnectTimeout(10000).setConnectionRequestTimeout(10000).setSocketTimeout(10000).build();
         httpGet.setConfig(requestConfig);
         return httpClient;
     }

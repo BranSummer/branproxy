@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Cache-control" content="no-cache">
+    <meta http-equiv="Cache" content="no-cache">
+    <meta http-Equiv="Expires" Content="0"/>
+    <title>监控列表</title>
+    <link rel="stylesheet" href="/lib/layui/css/layui.css"/>
+</head>
+
+<body>
+<div style="padding: 20px; background-color: #F2F2F2;margin-top: 50px;">
+    <div class="layui-row layui-col-space15">
+        <div class="layui-col-md12">
+            <div class="layui-card">
+                <div class="layui-card-header">
+                    <i class="layui-icon">&#xe68e;</i>
+                    <span>首页/代理列表</span>
+                </div>
+                <div class="layui-card-body">
+                    高匿代理
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <br>
+    <fieldset class="layui-elem-field layui-field-title">
+        <legend> 代理IP资源 </legend>
+    </fieldset>
+
+    <!--动态数据表格-->
+    <table class="layui-table" lay-data="{url:'/proxy/list',page:true}" lay-filter="proxyList">
+        <thead>
+        <tr>
+            <th lay-data="{field:'ip', fixed: true}">IP</th>
+            <th lay-data="{field:'port'}">PORT</th>
+            <th lay-data="{field:'address'}">ADDRESS</th>
+            <th lay-data="{field:'anonymityName'}">ANONYMITY</th>
+            <th lay-data="{field:'typeName'}">TYPE</th>
+            <th lay-data="{field:'timeout'}">TIMEOUT</th>
+            <th lay-data="{field:'lastUpdateTime'}">LAST_CHECK</th>
+        </tr>
+        </thead>
+    </table>
+
+</div>
+<script src="/lib/layui/layui.all.js"></script>
+<script src="/lib/jquery.min.js"></script>
+<script type="text/javascript">
+    //由于模块都一次性加载，因此不用执行 layui.use() 来加载对应模块，直接使用即可：
+    ;!function () {
+        var layer = layui.layer
+            , form = layui.form, element = layui.element, table = layui.table;
+
+
+    }();
+
+</script>
+</body>
+</html>

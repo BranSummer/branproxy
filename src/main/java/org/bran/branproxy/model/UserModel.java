@@ -8,12 +8,13 @@ import java.util.List;
 *
 *  @author bran
 */
-public class User implements Serializable {
+public class UserModel implements Serializable {
 
-    private static final long serialVersionUID = 1554089442441L;
+    private static final long serialVersionUID = 1556890002535L;
 
 
     /**
+    * 主键
     * 主键
     * isNullAble:0
     */
@@ -30,6 +31,12 @@ public class User implements Serializable {
     * isNullAble:0,defaultVal:
     */
     private String pwd;
+
+    /**
+    * api_key
+    * isNullAble:0,defaultVal:
+    */
+    private String apiKey;
 
     /**
     * 邮件
@@ -74,6 +81,10 @@ public class User implements Serializable {
 
     public String getPwd(){return this.pwd;}
 
+    public void setApiKey(String apiKey){this.apiKey = apiKey;}
+
+    public String getApiKey(){return this.apiKey;}
+
     public void setEmail(String email){this.email = email;}
 
     public String getEmail(){return this.email;}
@@ -95,10 +106,11 @@ public class User implements Serializable {
     public String getLastLoginAddress(){return this.lastLoginAddress;}
     @Override
     public String toString() {
-        return "User{" +
+        return "UserModel{" +
                 "id='" + id + '\'' +
                 "title='" + title + '\'' +
                 "pwd='" + pwd + '\'' +
+                "apiKey='" + apiKey + '\'' +
                 "email='" + email + '\'' +
                 "status='" + status + '\'' +
                 "isDelete='" + isDelete + '\'' +
@@ -117,16 +129,16 @@ public class User implements Serializable {
 
     public static class UpdateBuilder {
 
-        private User set;
+        private UserModel set;
 
         private ConditionBuilder where;
 
-        public UpdateBuilder set(User set){
+        public UpdateBuilder set(UserModel set){
             this.set = set;
             return this;
         }
 
-        public User getSet(){
+        public UserModel getSet(){
             return this.set;
         }
 
@@ -144,7 +156,7 @@ public class User implements Serializable {
         }
     }
 
-    public static class QueryBuilder extends User{
+    public static class QueryBuilder extends UserModel{
         /**
         * 需要返回的列
         */
@@ -188,6 +200,18 @@ public class User implements Serializable {
         private List<String> rightFuzzyPwd;
 
         public List<String> getRightFuzzyPwd(){return this.rightFuzzyPwd;}
+        private List<String> apiKeyList;
+
+        public List<String> getApiKeyList(){return this.apiKeyList;}
+
+
+        private List<String> fuzzyApiKey;
+
+        public List<String> getFuzzyApiKey(){return this.fuzzyApiKey;}
+
+        private List<String> rightFuzzyApiKey;
+
+        public List<String> getRightFuzzyApiKey(){return this.rightFuzzyApiKey;}
         private List<String> emailList;
 
         public List<String> getEmailList(){return this.emailList;}
@@ -380,6 +404,51 @@ public class User implements Serializable {
 
         public QueryBuilder excludePwd(){
             setFetchFields("excludeFields","pwd");
+            return this;
+        }
+
+        public QueryBuilder fuzzyApiKey (List<String> fuzzyApiKey){
+            this.fuzzyApiKey = fuzzyApiKey;
+            return this;
+        }
+
+        public QueryBuilder fuzzyApiKey (String ... fuzzyApiKey){
+            this.fuzzyApiKey = solveNullList(fuzzyApiKey);
+            return this;
+        }
+
+        public QueryBuilder rightFuzzyApiKey (List<String> rightFuzzyApiKey){
+            this.rightFuzzyApiKey = rightFuzzyApiKey;
+            return this;
+        }
+
+        public QueryBuilder rightFuzzyApiKey (String ... rightFuzzyApiKey){
+            this.rightFuzzyApiKey = solveNullList(rightFuzzyApiKey);
+            return this;
+        }
+
+        public QueryBuilder apiKey(String apiKey){
+            setApiKey(apiKey);
+            return this;
+        }
+
+        public QueryBuilder apiKeyList(String ... apiKey){
+            this.apiKeyList = solveNullList(apiKey);
+            return this;
+        }
+
+        public QueryBuilder apiKeyList(List<String> apiKey){
+            this.apiKeyList = apiKey;
+            return this;
+        }
+
+        public QueryBuilder fetchApiKey(){
+            setFetchFields("fetchFields","apiKey");
+            return this;
+        }
+
+        public QueryBuilder excludeApiKey(){
+            setFetchFields("excludeFields","apiKey");
             return this;
         }
 
@@ -633,7 +702,7 @@ public class User implements Serializable {
             this.fetchFields.put(key,fields);
         }
 
-        public User build(){return this;}
+        public UserModel build(){return this;}
     }
 
 
@@ -674,6 +743,18 @@ public class User implements Serializable {
         private List<String> rightFuzzyPwd;
 
         public List<String> getRightFuzzyPwd(){return this.rightFuzzyPwd;}
+        private List<String> apiKeyList;
+
+        public List<String> getApiKeyList(){return this.apiKeyList;}
+
+
+        private List<String> fuzzyApiKey;
+
+        public List<String> getFuzzyApiKey(){return this.fuzzyApiKey;}
+
+        private List<String> rightFuzzyApiKey;
+
+        public List<String> getRightFuzzyApiKey(){return this.rightFuzzyApiKey;}
         private List<String> emailList;
 
         public List<String> getEmailList(){return this.emailList;}
@@ -818,6 +899,36 @@ public class User implements Serializable {
 
         public ConditionBuilder pwdList(List<String> pwd){
             this.pwdList = pwd;
+            return this;
+        }
+
+        public ConditionBuilder fuzzyApiKey (List<String> fuzzyApiKey){
+            this.fuzzyApiKey = fuzzyApiKey;
+            return this;
+        }
+
+        public ConditionBuilder fuzzyApiKey (String ... fuzzyApiKey){
+            this.fuzzyApiKey = solveNullList(fuzzyApiKey);
+            return this;
+        }
+
+        public ConditionBuilder rightFuzzyApiKey (List<String> rightFuzzyApiKey){
+            this.rightFuzzyApiKey = rightFuzzyApiKey;
+            return this;
+        }
+
+        public ConditionBuilder rightFuzzyApiKey (String ... rightFuzzyApiKey){
+            this.rightFuzzyApiKey = solveNullList(rightFuzzyApiKey);
+            return this;
+        }
+
+        public ConditionBuilder apiKeyList(String ... apiKey){
+            this.apiKeyList = solveNullList(apiKey);
+            return this;
+        }
+
+        public ConditionBuilder apiKeyList(List<String> apiKey){
+            this.apiKeyList = apiKey;
             return this;
         }
 
@@ -977,10 +1088,10 @@ public class User implements Serializable {
 
     public static class Builder {
 
-        private User obj;
+        private UserModel obj;
 
         public Builder(){
-            this.obj = new User();
+            this.obj = new UserModel();
         }
 
         public Builder id(Long id){
@@ -993,6 +1104,10 @@ public class User implements Serializable {
         }
         public Builder pwd(String pwd){
             this.obj.setPwd(pwd);
+            return this;
+        }
+        public Builder apiKey(String apiKey){
+            this.obj.setApiKey(apiKey);
             return this;
         }
         public Builder email(String email){
@@ -1015,7 +1130,7 @@ public class User implements Serializable {
             this.obj.setLastLoginAddress(lastLoginAddress);
             return this;
         }
-        public User build(){return obj;}
+        public UserModel build(){return obj;}
     }
 
 }

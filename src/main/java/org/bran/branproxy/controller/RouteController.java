@@ -86,4 +86,19 @@ public class RouteController {
     public String schedulePage() {
         return "/schedule/index";
     }
+
+    @GetMapping("/proxy/elite")
+    public String elitePage(){
+        return "/proxyList/elite";
+    }
+
+    @GetMapping("/proxy/transparent")
+    public String transparentPage(){
+        return "/proxyList/transparent";
+    }
+
+    @GetMapping("/proxy/socks")
+    public String socksPage(){
+        return "/proxyList/socks";
+    }
 }

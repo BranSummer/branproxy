@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="org.bran.branproxy.dao.base.UserBaseMapper">
+<mapper namespace="org.bran.branproxy.dao.base.UserModelBaseMapper">
 
 
-    <insert id="insertUser"  useGeneratedKeys="true" keyProperty="id">
+    <insert id="insertUserModel"  useGeneratedKeys="true" keyProperty="id">
         INSERT INTO `p_user`
         (
         <trim suffixOverrides=",">
@@ -16,6 +16,9 @@
                     </if>
                     <if test="pwd!=null">
                         `pwd`,
+                    </if>
+                    <if test="apiKey!=null">
+                        `api_key`,
                     </if>
                     <if test="email!=null">
                         `email`,
@@ -46,6 +49,9 @@
                 <if test="pwd!=null">
                     #{pwd},
                 </if>
+                <if test="apiKey!=null">
+                    #{apiKey},
+                </if>
                 <if test="email!=null">
                     #{email},
                 </if>
@@ -68,7 +74,7 @@
 
 
 
-    <update id="updateUser">
+    <update id="updateUserModel">
         UPDATE `p_user`
         SET
         <trim suffixOverrides=",">
@@ -77,6 +83,9 @@
             </if>
             <if test="pwd != null and pwd!=''">
                 `pwd` = #{pwd},
+            </if>
+            <if test="apiKey != null and apiKey!=''">
+                `api_key` = #{apiKey},
             </if>
             <if test="email != null and email!=''">
                 `email` = #{email},
@@ -109,6 +118,9 @@
         </if>
         <if test="set.pwd != null and set.pwd!=''">
             `pwd` = #{set.pwd},
+        </if>
+        <if test="set.apiKey != null and set.apiKey!=''">
+            `api_key` = #{set.apiKey},
         </if>
         <if test="set.email != null and set.email!=''">
             `email` = #{set.email},
@@ -176,6 +188,26 @@
                 (
                 <foreach collection="where.rightFuzzyPwd"  separator="or" item="item">
                     `Pwd` like concat(#{item},'%')
+                </foreach>
+                ) and
+            </if>
+                <if test="where.apiKeyList != null">
+                    `api_key` in
+                    <foreach collection="where.apiKeyList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+            <if test ="where.fuzzyApiKey!=null and where.fuzzyApiKey.size()>0">
+                (
+                <foreach collection="where.fuzzyApiKey"  separator="or" item="item">
+                    `Api_key` like concat('%',#{item},'%')
+                </foreach>
+                ) and
+            </if>
+            <if test ="where.rightFuzzyApiKey!=null and where.rightFuzzyApiKey.size()>0">
+                (
+                <foreach collection="where.rightFuzzyApiKey"  separator="or" item="item">
+                    `Api_key` like concat(#{item},'%')
                 </foreach>
                 ) and
             </if>
@@ -259,10 +291,11 @@
     </update>
 
 
-    <resultMap type="org.bran.branproxy.model.User" id="UserMap">
+    <resultMap type="org.bran.branproxy.model.UserModel" id="UserModelMap">
         <result property="id" column="id"/>
         <result property="title" column="title"/>
         <result property="pwd" column="pwd"/>
+        <result property="apiKey" column="api_key"/>
         <result property="email" column="email"/>
         <result property="status" column="status"/>
         <result property="isDelete" column="is_delete"/>
@@ -271,7 +304,7 @@
     </resultMap>
 
 
-    <select id="queryUser" resultMap="UserMap">
+    <select id="queryUserModel" resultMap="UserModelMap">
         select
         <include refid="baseResult"></include>
         from  `p_user`
@@ -284,6 +317,9 @@
             </if>
             <if test="pwd != null and pwd!=''">
                 `pwd` = #{pwd} and
+            </if>
+            <if test="apiKey != null and apiKey!=''">
+                `api_key` = #{apiKey} and
             </if>
             <if test="email != null and email!=''">
                 `email` = #{email} and
@@ -300,7 +336,7 @@
             <if test="lastLoginAddress != null and lastLoginAddress!=''">
                 `last_login_address` = #{lastLoginAddress} and
             </if>
-            <if test = "(_parameter instanceof org.bran.branproxy.model.User$QueryBuilder) == true">
+            <if test = "(_parameter instanceof org.bran.branproxy.model.UserModel$QueryBuilder) == true">
                 <if test="idList != null">
                     `id` in
                     <foreach collection="idList" close=")" open="(" separator="," item="item">
@@ -350,6 +386,26 @@
                     (
                     <foreach collection="rightFuzzyPwd"  separator="or" item="item">
                         `Pwd` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test="apiKeyList != null">
+                    `api_key` in
+                    <foreach collection="apiKeyList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+                <if test ="fuzzyApiKey!=null and fuzzyApiKey.size()>0">
+                    (
+                    <foreach collection="fuzzyApiKey"  separator="or" item="item">
+                        `Api_key` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzyApiKey!=null and rightFuzzyApiKey.size()>0">
+                    (
+                    <foreach collection="rightFuzzyApiKey"  separator="or" item="item">
+                        `Api_key` like concat(#{item},'%')
                     </foreach>
                     ) and
                 </if>
@@ -433,7 +489,7 @@
         </trim>
     </select>
 
-    <select id="queryUserLimit1" resultMap="UserMap">
+    <select id="queryUserModelLimit1" resultMap="UserModelMap">
         select
         <include refid="baseResult"></include>
         from  `p_user`
@@ -446,6 +502,9 @@
             </if>
             <if test="pwd != null and pwd!=''">
                 `pwd` = #{pwd} and
+            </if>
+            <if test="apiKey != null and apiKey!=''">
+                `api_key` = #{apiKey} and
             </if>
             <if test="email != null and email!=''">
                 `email` = #{email} and
@@ -462,7 +521,7 @@
             <if test="lastLoginAddress != null and lastLoginAddress!=''">
                 `last_login_address` = #{lastLoginAddress} and
             </if>
-            <if test = "(_parameter instanceof org.bran.branproxy.model.User$QueryBuilder) == true">
+            <if test = "(_parameter instanceof org.bran.branproxy.model.UserModel$QueryBuilder) == true">
                     <if test="idList != null">
                         `id` in
                         <foreach collection="idList" close=")" open="(" separator="," item="item">
@@ -512,6 +571,26 @@
                     (
                     <foreach collection="rightFuzzyPwd"  separator="or" item="item">
                         `Pwd` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                    <if test="apiKeyList != null">
+                        `api_key` in
+                        <foreach collection="apiKeyList" close=")" open="(" separator="," item="item">
+                            #{item}
+                        </foreach> and
+                    </if>
+                <if test ="fuzzyApiKey!=null and fuzzyApiKey.size()>0">
+                    (
+                    <foreach collection="fuzzyApiKey"  separator="or" item="item">
+                        `Api_key` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzyApiKey!=null and rightFuzzyApiKey.size()>0">
+                    (
+                    <foreach collection="rightFuzzyApiKey"  separator="or" item="item">
+                        `Api_key` like concat(#{item},'%')
                     </foreach>
                     ) and
                 </if>
@@ -601,6 +680,7 @@
         `id`,
         `title`,
         `pwd`,
+        `api_key`,
         `email`,
         `status`,
         `is_delete`,
@@ -613,7 +693,7 @@
 
     <sql id="baseResult">
         <trim suffixOverrides=",">
-            <if test = "(_parameter instanceof org.bran.branproxy.model.User$QueryBuilder) == true">
+            <if test = "(_parameter instanceof org.bran.branproxy.model.UserModel$QueryBuilder) == true">
 
                 <if test="fetchFields==null">
                     <include refid="allResult"></include>
@@ -634,6 +714,9 @@
                     </if>
                     <if test="fetchFields.fetchFields.pwd==true">
                         `pwd`,
+                    </if>
+                    <if test="fetchFields.fetchFields.apiKey==true">
+                        `api_key`,
                     </if>
                     <if test="fetchFields.fetchFields.email==true">
                         `email`,
@@ -661,6 +744,9 @@
                     <if test="fetchFields.excludeFields.pwd==null">
                         `pwd`,
                     </if>
+                    <if test="fetchFields.excludeFields.apiKey==null">
+                        `api_key`,
+                    </if>
                     <if test="fetchFields.excludeFields.email==null">
                         `email`,
                     </if>
@@ -684,7 +770,7 @@
                     </if>
                 </if>
             </if>
-            <if test="(_parameter instanceof org.bran.branproxy.model.User$QueryBuilder) == false" >
+            <if test="(_parameter instanceof org.bran.branproxy.model.UserModel$QueryBuilder) == false" >
                 <include refid="allResult"></include>
             </if>
 

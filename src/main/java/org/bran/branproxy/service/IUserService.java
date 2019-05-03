@@ -8,4 +8,6 @@ import org.bran.branproxy.vo.BasePageVo;
 public interface IUserService {
 
     BasePageVo getUserList();
+
+    void resetApiKey(Long uid);
 }
