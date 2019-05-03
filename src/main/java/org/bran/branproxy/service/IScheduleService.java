@@ -1,18 +1,18 @@
 package org.bran.branproxy.service;
 
+import org.bran.branproxy.dto.SelectScheduleJobDto;
 import org.bran.branproxy.model.ScheduleJobEntity;
 import org.bran.branproxy.vo.PageExtVo;
 
-import java.util.Map;
 
 /**
  * @author lizhle
  */
 public interface IScheduleService {
 
-    PageExtVo queryList(Map<String, Object> map);
+    PageExtVo queryList(SelectScheduleJobDto dto);
 
-    int queryTotal(Map<String, Object> map);
+    int queryTotal(SelectScheduleJobDto dto);
 
     void run(Long jobId);
 
@@ -25,4 +25,6 @@ public interface IScheduleService {
     void delete(Long jobId);
 
     void update(ScheduleJobEntity entity);
+
+    ScheduleJobEntity jobDetail(Long id);
 }

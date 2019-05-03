@@ -1,13 +1,12 @@
 package org.bran.branproxy.controller;
 
-import org.bran.branproxy.common.enums.ScheduleStatus;
 import org.bran.branproxy.common.vo.ResultResponse;
+import org.bran.branproxy.dto.SelectScheduleJobDto;
 import org.bran.branproxy.model.ScheduleJobEntity;
 import org.bran.branproxy.service.IScheduleService;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import java.util.Map;
 
 /**
  * @author lizhle
@@ -20,14 +19,14 @@ public class ScheduleController {
     private IScheduleService scheduleService;
 
     @GetMapping("/list")
-    public ResultResponse listJob(@RequestParam Map<String, Object> params){
-        return ResultResponse.buildSuccess(scheduleService.queryList(params));
+    public ResultResponse listJob(SelectScheduleJobDto dto){
+        return ResultResponse.buildSuccess(scheduleService.queryList(dto));
     }
 
 
     @GetMapping("info/{jobId}")
     public ResultResponse info(@PathVariable Long jobId){
-        return null;
+        return ResultResponse.buildSuccess(scheduleService.jobDetail(jobId));
     }
 
     @PostMapping("/save")
@@ -36,7 +35,7 @@ public class ScheduleController {
         return ResultResponse.buildSuccess();
     }
 
-    @PatchMapping("/update")
+    @PostMapping("/update")
     public ResultResponse update(@RequestBody ScheduleJobEntity entity){
         scheduleService.update(entity);
         return ResultResponse.buildSuccess();

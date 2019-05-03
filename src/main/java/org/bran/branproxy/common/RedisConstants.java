@@ -2,7 +2,9 @@ package org.bran.branproxy.common;
 
 public class RedisConstants {
 
-    public static final String REDIS_PROXY_QUEUE ="proxy_queue";
+    public static final String REDIS_PROXY_QUEUE ="public:proxy:queue";
+
+    public static final String REDIS_PROXY_GOOGLE = "google:proxy:queue";
 
     public static final String UNIQUE_KEY = "unique_proxy";
 

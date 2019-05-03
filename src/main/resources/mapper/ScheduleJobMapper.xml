@@ -61,7 +61,7 @@
     </select>
 
     <select id="queryTotal" resultType="int">
-        select count(1) from schedule_job
+        select count(*) from schedule_job
         <where>
             <if test="beanName != null and beanName.trim() != ''">
                 bean_name like concat('%', #{beanName}, '%')

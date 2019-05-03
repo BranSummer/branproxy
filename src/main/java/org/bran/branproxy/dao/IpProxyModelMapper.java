@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.bran.branproxy.dto.BasePageQuery;
 import org.bran.branproxy.model.IpProxyModel;
 import org.bran.branproxy.dao.base.IpProxyModelBaseMapper;
 /**
@@ -26,4 +27,14 @@ public interface IpProxyModelMapper extends IpProxyModelBaseMapper{
      */
     @Select("SELECT COUNT(*) from ip_proxy")
     int countTotal();
+
+    /**
+     *
+     * @return
+     */
+    @Select("select * from ip_proxy  ORDER BY id DESC")
+    List<IpProxyModel> selectAll();
+
+
+    List<IpProxyModel> selectList(BasePageQuery query);
 }

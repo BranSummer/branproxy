@@ -28,7 +28,7 @@ import java.util.Objects;
 /**
  * @author lizhle
  */
-@Component
+@Component("fate0Source")
 public class Fate0Source {
 
     private static final String URL = "https://raw.githubusercontent.com/fate0/proxylist/master/proxy.list";

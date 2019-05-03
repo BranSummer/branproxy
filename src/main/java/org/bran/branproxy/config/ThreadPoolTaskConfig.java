@@ -16,14 +16,15 @@ import java.util.concurrent.ThreadPoolExecutor;
 public class ThreadPoolTaskConfig {
 
     @Bean
-    public Executor asyncProxyCheckExecutor(){
+    public ThreadPoolTaskExecutor asyncProxyCheckExecutor(){
         ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
         //配置核心线程数
-        executor.setCorePoolSize(5);
+        executor.setCorePoolSize(16);
         //配置最大线程数
-        executor.setMaxPoolSize(10);
+        executor.setMaxPoolSize(20);
         //配置队列大小
         executor.setQueueCapacity(99999);
+        executor.setAwaitTerminationSeconds(20);
         //配置线程池中的线程的名称前缀
         executor.setThreadNamePrefix("async-check-");
         // rejection-policy：当pool已经达到max size的时候，如何处理新任务

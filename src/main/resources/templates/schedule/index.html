@@ -126,10 +126,10 @@
 			multiselect: true,
 			pager: "#jqGridPager",
 			jsonReader: {
-				root: "info.list",
-				page: "info.currPage",
-				total: "info.totalPage",
-				records: "info.count"
+				root: "data.list",
+				page: "data.currPage",
+				total: "data.totalPage",
+				records: "data.count"
 			},
 			prmNames: {
 				page: "page",
@@ -171,7 +171,7 @@
 				$.get("/schedule/info/" + jobId, function (r) {
 					vm.showList = false;
 					vm.title = "修改";
-					vm.schedule = r.schedule;
+					vm.schedule = r.data;
 				});
 			},
 			saveOrUpdate: function () {

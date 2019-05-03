@@ -3,10 +3,12 @@ package org.bran.branproxy.util;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
+import org.springframework.stereotype.Component;
 
 /**
  * @author lizhle
  */
+@Component
 public class SpringContextUtils implements ApplicationContextAware {
     public static ApplicationContext applicationContext;
 

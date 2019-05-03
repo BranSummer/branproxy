@@ -16,7 +16,6 @@ import java.time.format.DateTimeFormatter;
  * @author lizhle
  */
 @Component
-@EnableScheduling
 @Slf4j
 public class CapacityJob {
 
@@ -28,7 +27,6 @@ public class CapacityJob {
     @Resource
     private SimpMessagingTemplate simpMessagingTemplate;
 
-    @Scheduled(fixedDelay = 10000)
     public void pubCapacityMessage(){
         LocalDateTime now = LocalDateTime.now();
         CapacityVo capacityVo = new CapacityVo();

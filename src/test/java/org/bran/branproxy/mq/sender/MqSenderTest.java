@@ -9,18 +9,15 @@ import javax.annotation.Resource;
 
 import java.util.List;
 
-import static org.junit.Assert.*;
-
-public class ProxyCheckMqSenderTest extends BranproxyApplicationTests {
+public class MqSenderTest extends BranproxyApplicationTests {
 
     @Resource
-    private ProxyCheckMqSender proxyCheckMqSender;
+    private MqSender mqSender;
     @Resource
     private ProxyModelMapper proxyModelMapper;
 
     @Test
     public void pubMessage() {
-        List<ProxyModel> proxyModelList = proxyModelMapper.queryProxyModel(ProxyModel.QueryBuild().timeout(0).build());
-        proxyModelList.forEach(e-> proxyCheckMqSender.pubMessage(e));
+
     }
 }

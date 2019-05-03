@@ -5,8 +5,10 @@ import org.apache.commons.collections.CollectionUtils;
 import org.bran.branproxy.common.enums.AnonymityEnum;
 import org.bran.branproxy.common.enums.ProtocolEnum;
 import org.bran.branproxy.common.vo.PagedResponse;
+import org.bran.branproxy.dao.IpProxyModelMapper;
 import org.bran.branproxy.dao.ProxyModelMapper;
 import org.bran.branproxy.dto.BasePageQuery;
+import org.bran.branproxy.model.IpProxyModel;
 import org.bran.branproxy.model.ProxyModel;
 import org.bran.branproxy.service.IProxyService;
 import org.bran.branproxy.vo.proxy.ProxyVo;
@@ -27,14 +29,16 @@ public class ProxyService implements IProxyService {
 
     @Resource
     private ProxyModelMapper proxyModelMapper;
+    @Resource
+    private IpProxyModelMapper ipProxyModelMapper;
 
     @Override
     public PagedResponse listProxy(BasePageQuery query) {
-        int count = proxyModelMapper.countAll();
+        int count = ipProxyModelMapper.countTotal();
         if(count == 0) {
             return PagedResponse.buildEmpty();
         }
-        List<ProxyModel> proxyModels = proxyModelMapper.selectList(query);
+        List<IpProxyModel> proxyModels = ipProxyModelMapper.selectList(query);
         if(CollectionUtils.isEmpty(proxyModels)){
             return PagedResponse.buildPage(Collections.emptyList(),count);
         }

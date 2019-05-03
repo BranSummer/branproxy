@@ -33,4 +33,9 @@
         </if>
     </insert>
 
+
+    <select id="selectList" parameterType="object" resultType="org.bran.branproxy.model.IpProxyModel">
+        select * from ip_proxy
+        limit #{offset} , #{limit}
+    </select>
 </mapper>

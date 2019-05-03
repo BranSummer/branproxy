@@ -9,6 +9,7 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.bran.branproxy.common.CommonContransts;
+import org.bran.branproxy.model.IpProxyModel;
 import org.bran.branproxy.model.ProxyModel;
 import org.springframework.stereotype.Component;
 
@@ -28,11 +29,11 @@ public class DetectUtil {
 
     public static final String GOOGLE_URL = "https://www.google.com";
 
-    public int detect(ProxyModel proxyModel, String detectUrl) {
+    public int detect(IpProxyModel ipProxyModel, String detectUrl) {
         long start = System.currentTimeMillis();
         // 创建http get实例
         HttpGet httpGet=new HttpGet(detectUrl);
-        CloseableHttpClient client = setProxy(httpGet, proxyModel.getIp(), proxyModel.getPort());
+        CloseableHttpClient client = setProxy(httpGet, ipProxyModel.getIp(), ipProxyModel.getPort());
         //设置请求头消息
         httpGet.setHeader("User-Agent",CommonContransts.USER_AGENT);
         // 执行http get请求
@@ -44,14 +45,15 @@ public class DetectUtil {
                 }
             }
         } catch (IOException e) {
-            log.info("{}此代理无效,error = {}",proxyModel,e.getMessage());
+            log.info("{}此代理无效,error = {}",ipProxyModel,e.getMessage());
             return -1;
         }
         long end = System.currentTimeMillis();
         return (int) (end - start);
     }
 
-    public  int detect(ProxyModel proxyModel) {
+
+    public  int detect(IpProxyModel proxyModel) {
         return detect(proxyModel,BAIDU_URL);
     }
 

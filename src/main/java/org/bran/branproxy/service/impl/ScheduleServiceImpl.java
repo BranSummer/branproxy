@@ -2,6 +2,7 @@ package org.bran.branproxy.service.impl;
 
 import org.bran.branproxy.common.enums.ScheduleStatus;
 import org.bran.branproxy.dao.ScheduleJobMapper;
+import org.bran.branproxy.dto.SelectScheduleJobDto;
 import org.bran.branproxy.model.ScheduleJobEntity;
 import org.bran.branproxy.service.IScheduleService;
 import org.bran.branproxy.util.job.ScheduleUtils;
@@ -16,12 +17,13 @@ import javax.annotation.Resource;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * @author lizhle
  */
 @Service
-@Transactional
+@Transactional(rollbackFor = Exception.class)
 public class ScheduleServiceImpl implements IScheduleService {
 
     @Resource
@@ -34,7 +36,7 @@ public class ScheduleServiceImpl implements IScheduleService {
      */
     @PostConstruct
     public void init() {
-        List<ScheduleJobEntity> scheduleJobList = scheduleJobMapper.queryList();
+        List<ScheduleJobEntity> scheduleJobList = scheduleJobMapper.queryAll();
         scheduleJobList.forEach(scheduleJob -> {
             CronTrigger cronTrigger = ScheduleUtils.getCronTrigger(scheduler, scheduleJob.getJobId());
             //如果不存在，则创建
@@ -47,24 +49,31 @@ public class ScheduleServiceImpl implements IScheduleService {
     }
 
     @Override
-    public PageExtVo<ScheduleJobEntity> queryList(Map<String, Object> map) {
-        System.out.println(map);
-        int totalCount = scheduleJobMapper.queryTotal(map);
+    public PageExtVo<ScheduleJobEntity> queryList(SelectScheduleJobDto dto) {
+        int totalCount = scheduleJobMapper.queryTotal(dto);
         if (totalCount == 0) {
             return new PageExtVo<>();
         }
-        List<ScheduleJobEntity> scheduleJobList = scheduleJobMapper.queryList();
+        List<ScheduleJobEntity> scheduleJobList = scheduleJobMapper.queryList(dto);
         PageExtVo vo = new PageExtVo();
         vo.setCount(totalCount);
         vo.setList(scheduleJobList);
-        vo.setPageSize(Integer.parseInt((String) map.get("limit")));
-        vo.setCurrPage(Integer.parseInt((String) map.get("page")));
+        vo.setPageSize(dto.getLimit());
+        vo.setCurrPage(dto.getPage());
         return vo;
     }
 
     @Override
-    public int queryTotal(Map<String, Object> map) {
-        return scheduleJobMapper.queryTotal(map);
+    public int queryTotal(SelectScheduleJobDto dto) {
+        return scheduleJobMapper.queryTotal(dto);
+    }
+
+    @Override
+    public ScheduleJobEntity jobDetail(Long id) {
+        if (Objects.isNull(id)) {
+            return null;
+        }
+        return scheduleJobMapper.selectById(id);
     }
 
     @Override
@@ -90,7 +99,7 @@ public class ScheduleServiceImpl implements IScheduleService {
         entity.setCreateTime(new Date());
         scheduleJobMapper.insert(entity);
         System.out.println(entity);
-//        ScheduleUtils.createScheduleJob(scheduler, entity);
+        ScheduleUtils.createScheduleJob(scheduler, entity);
     }
 
     @Override
@@ -101,7 +110,7 @@ public class ScheduleServiceImpl implements IScheduleService {
 
     @Override
     public void update(ScheduleJobEntity entity) {
-        ScheduleUtils.updateScheduleJob(scheduler,entity);
+        ScheduleUtils.updateScheduleJob(scheduler, entity);
         scheduleJobMapper.update(entity);
     }
 }

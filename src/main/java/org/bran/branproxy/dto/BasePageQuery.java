@@ -2,6 +2,7 @@ package org.bran.branproxy.dto;
 
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.Objects;
 
@@ -9,7 +10,7 @@ import java.util.Objects;
  * @author lizhle
  */
 @Data
-@Builder
+@NoArgsConstructor
 public class BasePageQuery {
 
     private Integer page;

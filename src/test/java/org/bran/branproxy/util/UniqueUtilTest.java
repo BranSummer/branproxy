@@ -26,7 +26,10 @@ public class UniqueUtilTest extends BranproxyApplicationTests {
         int totalCount = proxyModelMapper.countAll();
         int pageCount = PageUtil.getPageCount(totalCount,200);
         for (int i = 1; i <=pageCount; i++) {
-            List<ProxyModel> proxyModels = proxyModelMapper.selectList(BasePageQuery.builder().page(i).limit(200).build());
+            BasePageQuery query = new BasePageQuery();
+            query.setLimit(200);
+            query.setPage(i);
+            List<ProxyModel> proxyModels = proxyModelMapper.selectList(query);
             System.out.println(proxyModels.get(0));
             List<ProxyBaseModel> baseModels = proxyModels.stream().map(e->{
                 ProxyBaseModel baseModel = new ProxyBaseModel();

@@ -1,6 +1,7 @@
 package org.bran.branproxy.dao;
 
 import org.apache.ibatis.annotations.*;
+import org.bran.branproxy.dto.SelectScheduleJobDto;
 import org.bran.branproxy.model.ScheduleJobEntity;
 
 import java.util.List;
@@ -12,19 +13,24 @@ import java.util.Map;
 @Mapper
 public interface ScheduleJobMapper {
 
-    /**
-     * @param
-     * @return
-     */
-    List<ScheduleJobEntity> queryList();
 
     /**
-     * count
      *
-     * @param map
+     * @param dto SelectScheduleJobDto
      * @return
      */
-    int queryTotal(Map<String, Object> map);
+    List<ScheduleJobEntity> queryList(SelectScheduleJobDto dto);
+
+    @Select("select * from schedule_job")
+    List<ScheduleJobEntity> queryAll();
+
+
+    /**
+     *
+     * @param dto
+     * @return
+     */
+    int queryTotal(SelectScheduleJobDto dto);
 
     /**
      * 更新状态
