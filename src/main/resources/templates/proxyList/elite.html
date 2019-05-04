@@ -8,7 +8,7 @@
     <meta http-equiv="Cache" content="no-cache">
     <meta http-Equiv="Expires" Content="0"/>
     <title>监控列表</title>
-    <link rel="stylesheet" href="/lib/layui/css/layui.css"/>
+    <link rel="stylesheet" href="/static/lib/layui/css/layui.css"/>
 </head>
 
 <body>
@@ -29,11 +29,11 @@
 
     <br>
     <fieldset class="layui-elem-field layui-field-title">
-        <legend> 代理IP资源 </legend>
+        <legend> 代理IP资源--高匿代理 </legend>
     </fieldset>
 
     <!--动态数据表格-->
-    <table class="layui-table" lay-data="{url:'/proxy/list',page:true}" lay-filter="proxyList">
+    <table class="layui-table" lay-data="{url:'/proxy/list?anonymity=4',page:true}" lay-filter="proxyList">
         <thead>
         <tr>
             <th lay-data="{field:'ip', fixed: true}">IP</th>

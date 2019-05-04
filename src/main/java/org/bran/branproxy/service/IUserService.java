@@ -1,13 +1,20 @@
 package org.bran.branproxy.service;
 
+import org.bran.branproxy.common.vo.ResultResponse;
+import org.bran.branproxy.dto.user.AddUserDto;
 import org.bran.branproxy.vo.BasePageVo;
+import org.bran.branproxy.vo.user.UserVo;
+
+import java.util.List;
 
 /**
  * @author lizhle
  */
 public interface IUserService {
 
-    BasePageVo getUserList();
+    List<UserVo> getUserList();
+
+    ResultResponse saveUser(AddUserDto dto);
 
     void resetApiKey(Long uid);
 }

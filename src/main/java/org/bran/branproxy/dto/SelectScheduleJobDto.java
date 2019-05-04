@@ -11,4 +11,6 @@ import lombok.EqualsAndHashCode;
 public class SelectScheduleJobDto extends BasePageQuery {
 
     private String beanName;
+
+    private String type;
 }

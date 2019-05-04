@@ -33,6 +33,12 @@ public class ScheduleJobEntity {
      * 任务状态  0：正常  1：暂停
      */
     private Integer status;
+
+    /**
+     * 类型
+     */
+    private String type;
+
     /**
      * 备注
      */

@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.bran.branproxy.dto.BasePageQuery;
+import org.bran.branproxy.dto.ProxyQuery;
 import org.bran.branproxy.model.IpProxyModel;
 import org.bran.branproxy.dao.base.IpProxyModelBaseMapper;
 /**
@@ -37,4 +38,12 @@ public interface IpProxyModelMapper extends IpProxyModelBaseMapper{
 
 
     List<IpProxyModel> selectList(BasePageQuery query);
+
+    /**
+     * 查询符合条件的个数
+     *
+     * @param query
+     * @return
+     */
+    int countByQuery(ProxyQuery query);
 }

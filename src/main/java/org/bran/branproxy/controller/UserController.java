@@ -4,14 +4,17 @@ import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
+import org.bran.branproxy.common.vo.PagedResponse;
 import org.bran.branproxy.common.vo.ResultResponse;
 import org.bran.branproxy.dto.UserLoginDto;
+import org.bran.branproxy.dto.user.AddUserDto;
 import org.bran.branproxy.service.IUserService;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.validation.Valid;
 
 /**
  * @author lizhle
@@ -41,11 +44,23 @@ public class UserController {
         return ResultResponse.buildSuccess();
     }
 
-    @PostMapping("/apiKey")
+    @PostMapping("/add")
     @ResponseBody
-    public ResultResponse sendApiKey(Long uid){
+    public ResultResponse addUser(@RequestBody @Valid AddUserDto dto){
+        return userService.saveUser(dto);
+    }
 
-        return null;
+    @GetMapping("/list")
+    @ResponseBody
+    public ResultResponse userList(){
+        return ResultResponse.buildSuccess(userService.getUserList());
+    }
+
+    @PostMapping("/apiKey/{uid}")
+    @ResponseBody
+    public ResultResponse sendApiKey(@PathVariable long uid){
+        userService.resetApiKey(uid);
+        return ResultResponse.buildSuccess();
     }
 
     /**

@@ -1,7 +1,10 @@
 package org.bran.branproxy.controller;
 
 import org.bran.branproxy.service.IPermissionService;
+import org.bran.branproxy.service.IProxyService;
+import org.bran.branproxy.service.impl.ProxyService;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import javax.annotation.Resource;
@@ -14,7 +17,8 @@ public class RouteController {
 
     @Resource
     private IPermissionService permissionService;
-
+    @Resource
+    private IProxyService proxyService;
     /**
      * 默认页(首页)
      */
@@ -36,6 +40,7 @@ public class RouteController {
      */
     @GetMapping("/index")
     public String indexPage() {
+
         return "index";
     }
 
@@ -43,7 +48,8 @@ public class RouteController {
      * 主页
      */
     @GetMapping("/main")
-    public String mainPage() {
+    public String mainPage(ModelMap model) {
+        model.addAttribute("countVo",proxyService.homeCount());
         return "main";
     }
 
@@ -82,9 +88,19 @@ public class RouteController {
     /**
      * 定时任务
      */
-    @GetMapping("/schedule/index")
-    public String schedulePage() {
-        return "/schedule/index";
+    @GetMapping("/schedule/crawler")
+    public String scheduleCrawlerPage() {
+        return "/schedule/crawler";
+    }
+
+    @GetMapping("/schedule/frequency")
+    public String scheduleFrequencyPage(){
+        return "/schedule/frequency";
+    }
+
+    @GetMapping("schedule/healthyCheck")
+    public String scheduleHealthyCheckPage(){
+        return "schedule/healthyCheck";
     }
 
     @GetMapping("/proxy/elite")
@@ -97,8 +113,8 @@ public class RouteController {
         return "/proxyList/transparent";
     }
 
-    @GetMapping("/proxy/socks")
+    @GetMapping("/proxy/https")
     public String socksPage(){
-        return "/proxyList/socks";
+        return "/proxyList/https";
     }
 }

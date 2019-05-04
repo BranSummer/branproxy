@@ -1,6 +1,7 @@
 package org.bran.branproxy.mq.receiver;
 
 import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
 import org.bran.branproxy.config.RabbitMqConfig;
 import org.bran.branproxy.dao.IpProxyModelMapper;
 import org.bran.branproxy.dao.ProxyModelMapper;
@@ -15,6 +16,7 @@ import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.Objects;
@@ -25,6 +27,7 @@ import java.util.concurrent.TimeoutException;
  */
 
 @Data
+@Slf4j
 @RabbitListener(queues = RabbitMqConfig.PROXY_CHECK_QUEUE)
 public class ProxyCheckReceiver {
 
@@ -45,7 +48,8 @@ public class ProxyCheckReceiver {
         asyncService.executeCheck(()->proxyCheck(payload));
     }
 
-    private void proxyCheck(CheckPayload payload) {
+    @Transactional(rollbackFor = Exception.class, timeout = 20)
+    public void proxyCheck(CheckPayload payload) {
         if (Objects.isNull(payload)) {
             return;
         }
@@ -61,13 +65,12 @@ public class ProxyCheckReceiver {
                         .where(IpProxyModel.ConditionBuild().idList(payload.getIpProxyModel().getId()).build())
                         .build());
                 // push 到redis
-                stringRedisTemplate.opsForList().remove(payload.getRedisKey(),0,JsonUtil.toJson(proxyModel));
+                stringRedisTemplate.opsForList().remove(payload.getRedisKey(), 0, JsonUtil.toJson(proxyModel));
                 stringRedisTemplate.opsForList().rightPush(payload.getRedisKey(), JsonUtil.toJson(proxyModel));
             }
-        }catch (Exception e){
-
+        } catch (Exception e) {
+            log.error(e.getMessage());
         }
-
 
 
     }

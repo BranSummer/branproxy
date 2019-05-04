@@ -8,7 +8,7 @@
     <meta http-equiv="Cache" content="no-cache">
     <meta http-Equiv="Expires" Content="0"/>
     <title>用户列表</title>
-    <link rel="stylesheet" href="/lib/layui/css/layui.css"/>
+    <link rel="stylesheet" href="/static/lib/layui/css/layui.css"/>
 </head>
 <style>
 
@@ -31,13 +31,13 @@
 
     <!-- 数据表格 -->
     <!--动态数据表格-->
-    <table class="layui-table" lay-data="{url:'/user/permission/list'}" lay-filter="userList">
+    <table class="layui-table" lay-data="{url:'/user/list'}" lay-filter="userList">
         <thead>
         <tr>
             <th lay-data="{field:'title', fixed: true}">用户名</th>
             <th lay-data="{field:'email'}">邮箱</th>
             <th lay-data="{field:'apiKey'}">API_KEY</th>
-            <th lay-data="{field:'status'}">状态</th>
+            <th lay-data="{field:'statusName'}">状态</th>
             <th lay-data="{field:'lastLoginAddress'}">最后响应地址</th>
             <th lay-data="{fixed: 'right', align:'center', toolbar: '#bar'}"></th>
         </tr>
@@ -77,9 +77,10 @@
         </form>
     </div>
 </div>
-<script src="/lib/layui/layui.all.js"></script>
+<script src="/static/lib/layui/layui.all.js"></script>
 <script type="text/html" id="bar">
     <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+    <a class="layui-btn layui-btn-xs" lay-event="ak">生成AK</a>
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del"><i class="layui-icon layui-icon-group">&#xe640;</i></a>
 </script>
 <script type="text/javascript">
@@ -88,10 +89,10 @@
         var layer = layui.layer, form = layui.form, $ = layui.jquery, table = layui.table;
 
         //监听工具条
-        table.on('tool(permissionList)', function(obj){
+        table.on('tool(userList)', function(obj){
             var data = obj.data;
             if(obj.event === 'del') {
-                layer.confirm('确定删除此权限?', function (index) {
+                /*layer.confirm('确定删除此权限?', function (index) {
                     $.ajax({
                         url: "/user/permission/"+data.id,
                         type:"delete",
@@ -105,10 +106,23 @@
                             }
                         }
                     });
+                });*/
+            }else if(obj.event === 'ak'){
+                layer.confirm('确定生成API_KEY? 新的API_KEY将覆盖旧值', function (index) {
+                    $.ajax({
+                        url: "/user/apiKey"+data.id,
+                        type:"post",
+                        dataType:"json",
+                        contentType: "application/json; charset=utf-8",
+                        success: function (result) {
+                            if (result.code === 0) {
+                                location.reload();
+                            } else {
+                                layer.msg(result.msg);
+                            }
+                        }
+                    });
                 });
-            }else if(obj.event === 'edit'){
-                // TODO
-
             }
         });
 
@@ -117,7 +131,7 @@
             layer.open({
                 type: 1,
                 skin: 'layui-layer-rim', //加上边框
-                area: ['500px', '240px'], //宽高
+                area: ['500px', '350px'], //宽高
                 content: $(".layelAdd").html()
             });
         });
@@ -150,11 +164,17 @@
         form.on('submit(formAdd)', function (data) {
             var name = data.field.name;
             var password = data.field.password;
+            var email = data.field.email;
             $.ajax({
-                url: "/saveUser",
+                url: "/user/add",
                 dataType: "json",
+                contentType: "application/json; charset=utf-8",
                 type: "post",
-                data: {name: name, password: password},
+                data: JSON.stringify({
+                    "name": name,
+                    "password": password,
+                    "email": email
+                }),
                 success: function (data) {
                     if (data.code == 0) {
                         location.reload();

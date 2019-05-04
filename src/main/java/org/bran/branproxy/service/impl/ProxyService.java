@@ -8,9 +8,11 @@ import org.bran.branproxy.common.vo.PagedResponse;
 import org.bran.branproxy.dao.IpProxyModelMapper;
 import org.bran.branproxy.dao.ProxyModelMapper;
 import org.bran.branproxy.dto.BasePageQuery;
+import org.bran.branproxy.dto.ProxyQuery;
 import org.bran.branproxy.model.IpProxyModel;
 import org.bran.branproxy.model.ProxyModel;
 import org.bran.branproxy.service.IProxyService;
+import org.bran.branproxy.vo.proxy.ProxyCountVo;
 import org.bran.branproxy.vo.proxy.ProxyVo;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
@@ -28,13 +30,11 @@ import java.util.stream.Collectors;
 public class ProxyService implements IProxyService {
 
     @Resource
-    private ProxyModelMapper proxyModelMapper;
-    @Resource
     private IpProxyModelMapper ipProxyModelMapper;
 
     @Override
-    public PagedResponse listProxy(BasePageQuery query) {
-        int count = ipProxyModelMapper.countTotal();
+    public PagedResponse listProxy(ProxyQuery query) {
+        int count = ipProxyModelMapper.countByQuery(query);
         if(count == 0) {
             return PagedResponse.buildEmpty();
         }
@@ -50,5 +50,21 @@ public class ProxyService implements IProxyService {
             return vo;
         }).collect(Collectors.toList());
         return PagedResponse.buildPage(voList,count);
+    }
+
+    @Override
+    public ProxyCountVo homeCount() {
+        ProxyCountVo vo = new ProxyCountVo();
+        vo.setTotalCount(ipProxyModelMapper.countTotal());
+        ProxyQuery eliteQuery = new ProxyQuery();
+        eliteQuery.setAnonymity(AnonymityEnum.ELITE.getValue());
+        vo.setEliteCount(ipProxyModelMapper.countByQuery(eliteQuery));
+        ProxyQuery transparentQuery = new ProxyQuery();
+        transparentQuery.setAnonymity(AnonymityEnum.TRANSPARENT.getValue());
+        vo.setTransparentCount(ipProxyModelMapper.countByQuery(transparentQuery));
+        ProxyQuery httpsQuery = new ProxyQuery();
+        httpsQuery.setType(ProtocolEnum.HTTPS.getValue());
+        vo.setHttpsCount(ipProxyModelMapper.countByQuery(httpsQuery));
+        return vo;
     }
 }

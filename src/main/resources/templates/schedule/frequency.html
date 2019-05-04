@@ -29,7 +29,7 @@
 				<div class="layui-card">
 					<div class="layui-card-header">
 						<i class="layui-icon">&#xe68e;</i>
-						<span>定时调度</span>
+						<span>定时调度/监控频率</span>
 					</div>
 					<div class="layui-card-body">
 						<div class="grid-btn" style="height:34px;">
@@ -99,7 +99,7 @@
 <script type="text/javascript">
 	$(function () {
 		$("#jqGrid").jqGrid({
-			url: '/schedule/list',
+			url: '/schedule/list?type=frequency',
 			datatype: "json",
 			colModel: [
 				{label: '任务ID', name: 'jobId', width: 60, key: true},
@@ -147,7 +147,8 @@
 		el: '#rrapp',
 		data: {
 			q: {
-				beanName: null
+				beanName: null,
+				type: 'frequency'
 			},
 			showList: true,
 			title: null,
@@ -296,7 +297,7 @@
 				vm.showList = true;
 				var page = $("#jqGrid").jqGrid('getGridParam', 'page');
 				$("#jqGrid").jqGrid('setGridParam', {
-					postData: {'beanName': vm.q.beanName},
+					postData: {'beanName': vm.q.beanName,'type':'frequency'},
 					page: page
 				}).trigger("reloadGrid");
 			},

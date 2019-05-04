@@ -23,6 +23,47 @@
         </trim>
     </sql>
 
+    <sql id="condition">
+        <trim prefix="where" suffixOverrides="and | or">
+            <if test="id != null">
+                `id` = #{id} and
+            </if>
+            <if test="ip != null and ip!=''">
+                `ip` = #{ip} and
+            </if>
+            <if test="port != null">
+                `port` = #{port} and
+            </if>
+            <if test="status != null">
+                `status` = #{status} and
+            </if>
+            <if test="address != null and address!=''">
+                `address` = #{address} and
+            </if>
+            <if test="anonymity != null">
+                `anonymity` = #{anonymity} and
+            </if>
+            <if test="type != null">
+                `type` = #{type} and
+            </if>
+            <if test="timeout != null">
+                `timeout` = #{timeout} and
+            </if>
+            <if test="timeoutAbroad != null">
+                `timeout_abroad` = #{timeoutAbroad} and
+            </if>
+            <if test="lastUpdateTime != null">
+                `lastUpdateTime` = #{lastUpdateTime} and
+            </if>
+            <if test="latitude != null">
+                `latitude` = #{latitude} and
+            </if>
+            <if test="longitude != null">
+                `longitude` = #{longitude} and
+            </if>
+        </trim>
+    </sql>
+
     <insert id="insertBatch" parameterType="list">
         <if test="list != null and list.size()>0 ">
             insert into ip_proxy (<include refid="batchInsertField"/>)
@@ -36,6 +77,12 @@
 
     <select id="selectList" parameterType="object" resultType="org.bran.branproxy.model.IpProxyModel">
         select * from ip_proxy
+        <include refid="condition"/>
         limit #{offset} , #{limit}
+    </select>
+
+    <select id="countByQuery" resultType="int" parameterType="object">
+        select count(*) from ip_proxy
+        <include refid="condition"/>
     </select>
 </mapper>

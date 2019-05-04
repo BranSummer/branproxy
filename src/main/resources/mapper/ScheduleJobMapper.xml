@@ -46,15 +46,22 @@
         </trim>
     </sql>
 
+    <sql id="condition">
+        <trim prefix="where" prefixOverrides="and | or">
+            <if test="beanName != null and beanName.trim() != ''">
+               and bean_name like concat('%', #{beanName}, '%')
+            </if>
+            <if test="type != null and type.trim() != ''">
+               and type = #{type}
+            </if>
+        </trim>
+    </sql>
+
     <select id="queryList" resultType="org.bran.branproxy.model.ScheduleJobEntity" parameterType="object">
         select
         <include refid="fields"/>
         from schedule_job
-        <where>
-            <if test="beanName != null and beanName.trim() != ''">
-                bean_name like concat('%', #{beanName}, '%')
-            </if>
-        </where>
+        <include refid="condition"/>
         <if test="offset != null and limit != null ">
             limit #{offset}, #{limit}
         </if>
@@ -62,11 +69,7 @@
 
     <select id="queryTotal" resultType="int">
         select count(*) from schedule_job
-        <where>
-            <if test="beanName != null and beanName.trim() != ''">
-                bean_name like concat('%', #{beanName}, '%')
-            </if>
-        </where>
+        <include refid="condition"/>
     </select>
 
     <insert id="insert" parameterType="org.bran.branproxy.model.ScheduleJobEntity"

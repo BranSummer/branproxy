@@ -35,7 +35,7 @@
                     <span>代理池总量 </span>
                 </div>
                 <div class="layui-card-body">
-                    <h2>123213</h2>
+                    <h2> <p  th:text="${countVo.getTotalCount()}">3333</p></h2>
                 </div>
             </div>
         </div>
@@ -46,7 +46,7 @@
                     <span>高匿代理 </span>
                 </div>
                 <div class="layui-card-body">
-                    <h2>123213</h2>
+                    <h2> <a href="/proxy/elite" target="myiframe" th:text="${countVo.getEliteCount()}">3333</a></h2>
                 </div>
             </div>
         </div>
@@ -57,7 +57,7 @@
                     <span>透明代理 </span>
                 </div>
                 <div class="layui-card-body">
-                    <h2>123213</h2>
+                    <h2> <a href="/proxy/transparent" target="myiframe" th:text="${countVo.getTransparentCount()}">3333</a></h2>
                 </div>
             </div>
         </div>
@@ -68,7 +68,7 @@
                     <span>HTTPS代理 </span>
                 </div>
                 <div class="layui-card-body">
-                    <h2>123213</h2>
+                    <h2> <a href="/proxy/https" target="myiframe" th:text="${countVo.getHttpsCount()}">3333</a></h2>
                 </div>
             </div>
         </div>
