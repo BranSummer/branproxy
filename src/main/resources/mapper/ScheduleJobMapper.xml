@@ -16,6 +16,7 @@
             <if test="cronExpression != null">cron_expression,</if>
             <if test="status != null">status,</if>
             <if test="remark != null">remark,</if>
+            <if test="type != null">type,</if>
             <if test="createTime != null">create_time,</if>
         </trim>
     </sql>
@@ -29,6 +30,7 @@
             <if test="cronExpression != null">#{cronExpression},</if>
             <if test="status != null">#{status},</if>
             <if test="remark != null">#{remark},</if>
+            <if test="remark != null">#{type},</if>
             <if test="createTime != null">#{createTime},</if>
         </trim>
     </sql>

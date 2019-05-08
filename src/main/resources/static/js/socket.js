@@ -1,8 +1,9 @@
 var interval_time = 60000;
 
+var socket = new SockJS('/endpointDashboard');
+
 
 function capacityDashBoard() {
-    var socket = new SockJS('/endpointDashboard');
     var stompClient = Stomp.over(socket);
     var data = [];
     stompClient.connect({},function(frame) {
@@ -13,6 +14,16 @@ function capacityDashBoard() {
                 data.shift();
             }
             setCapacityOption(data);
+        })
+    })
+}
+
+function checkRateDashBoard() {
+    var stompClient = Stomp.over(socket);
+    stompClient.connect({},function (frame) {
+        stompClient.subscribe("/checkRate",function (message) {
+            var msg = JSON.parse(message.body);
+            // TODO setRateOption
         })
     })
 }

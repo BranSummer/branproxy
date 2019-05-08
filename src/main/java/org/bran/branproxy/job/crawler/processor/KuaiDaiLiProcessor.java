@@ -1,4 +1,4 @@
-package org.bran.branproxy.job.crawler;
+package org.bran.branproxy.job.crawler.processor;
 
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;

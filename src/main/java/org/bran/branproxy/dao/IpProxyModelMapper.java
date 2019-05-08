@@ -9,6 +9,8 @@ import org.bran.branproxy.dto.BasePageQuery;
 import org.bran.branproxy.dto.ProxyQuery;
 import org.bran.branproxy.model.IpProxyModel;
 import org.bran.branproxy.dao.base.IpProxyModelBaseMapper;
+import org.bran.branproxy.vo.monitor.GeoModel;
+
 /**
 *  @author bran
 */
@@ -46,4 +48,7 @@ public interface IpProxyModelMapper extends IpProxyModelBaseMapper{
      * @return
      */
     int countByQuery(ProxyQuery query);
+
+    @Select("SELECT latitude , longitude FROM ip_proxy WHERE latitude != 0")
+    List<GeoModel> queryGeoList();
 }

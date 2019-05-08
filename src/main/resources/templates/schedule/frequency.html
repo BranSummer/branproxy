@@ -147,8 +147,7 @@
 		el: '#rrapp',
 		data: {
 			q: {
-				beanName: null,
-				type: 'frequency'
+				beanName: null
 			},
 			showList: true,
 			title: null,
@@ -161,7 +160,9 @@
 			add: function () {
 				vm.showList = false;
 				vm.title = "新增";
-				vm.schedule = {};
+				vm.schedule = {
+					type:'frequency'
+				};
 			},
 			update: function () {
 				var jobId = getSelectedRow();
@@ -181,6 +182,7 @@
 				}
 
 				var url = vm.schedule.jobId == null ? "/schedule/save" : "/schedule/update";
+				vm.schedule.type='frequency';
 				$.ajax({
 					type: "POST",
 					url: url,
@@ -297,7 +299,7 @@
 				vm.showList = true;
 				var page = $("#jqGrid").jqGrid('getGridParam', 'page');
 				$("#jqGrid").jqGrid('setGridParam', {
-					postData: {'beanName': vm.q.beanName,'type':'frequency'},
+					postData: {'beanName': vm.q.beanName},
 					page: page
 				}).trigger("reloadGrid");
 			},

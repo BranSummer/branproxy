@@ -2,6 +2,7 @@ package org.bran.branproxy.mq.receiver;
 
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
+import org.bran.branproxy.common.RedisConstants;
 import org.bran.branproxy.config.RabbitMqConfig;
 import org.bran.branproxy.dao.IpProxyModelMapper;
 import org.bran.branproxy.dao.ProxyModelMapper;
@@ -14,13 +15,11 @@ import org.bran.branproxy.util.JsonUtil;
 import org.springframework.amqp.rabbit.annotation.RabbitHandler;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.BeanUtils;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.Objects;
-import java.util.concurrent.TimeoutException;
 
 /**
  * @author lizhle
@@ -45,7 +44,7 @@ public class ProxyCheckReceiver {
 
     @RabbitHandler
     public void receiveHandler(CheckPayload payload) {
-        asyncService.executeCheck(()->proxyCheck(payload));
+        asyncService.executeInvoke(()->proxyCheck(payload));
     }
 
     @Transactional(rollbackFor = Exception.class, timeout = 20)
@@ -60,14 +59,15 @@ public class ProxyCheckReceiver {
                 BeanUtils.copyProperties(payload.getIpProxyModel(), proxyModel);
                 proxyModel.setTimeout(timeout);
                 // 更新到数据库
-                ipProxyModelMapper.update(IpProxyModel.UpdateBuild()
+                /*ipProxyModelMapper.update(IpProxyModel.UpdateBuild()
                         .set(IpProxyModel.Build().timeout(timeout).build())
                         .where(IpProxyModel.ConditionBuild().idList(payload.getIpProxyModel().getId()).build())
-                        .build());
+                        .build());*/
                 // push 到redis
                 stringRedisTemplate.opsForList().remove(payload.getRedisKey(), 0, JsonUtil.toJson(proxyModel));
                 stringRedisTemplate.opsForList().rightPush(payload.getRedisKey(), JsonUtil.toJson(proxyModel));
             }
+            stringRedisTemplate.opsForValue().increment(payload.getRedisKey()+ RedisConstants.RATE_TMP,1);
         } catch (Exception e) {
             log.error(e.getMessage());
         }

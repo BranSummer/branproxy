@@ -3,22 +3,18 @@ package org.bran.branproxy.service;
 import org.apache.commons.lang3.StringUtils;
 import org.bran.branproxy.BranproxyApplicationTests;
 import org.bran.branproxy.common.CommonContransts;
-import org.bran.branproxy.job.crawler.KuaiDaiLiProcessor;
-import org.bran.branproxy.job.crawler.XiciProcessor;
+import org.bran.branproxy.job.crawler.processor.KuaiDaiLiProcessor;
+import org.bran.branproxy.job.crawler.processor.XiciProcessor;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
 import org.junit.Test;
 import us.codecraft.webmagic.Site;
 import us.codecraft.webmagic.Spider;
 
 import javax.annotation.Resource;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
-import static org.junit.Assert.*;
 
 public class PageProcessorTest extends BranproxyApplicationTests {
 

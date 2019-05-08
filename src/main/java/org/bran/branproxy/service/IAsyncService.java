@@ -5,7 +5,7 @@ package org.bran.branproxy.service;
  */
 public interface IAsyncService {
 
-    void executeCheck(AsyncExecutor executor);
+    void executeInvoke(AsyncExecutor executor);
 
     @FunctionalInterface
     interface AsyncExecutor {

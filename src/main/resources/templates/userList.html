@@ -110,7 +110,7 @@
             }else if(obj.event === 'ak'){
                 layer.confirm('确定生成API_KEY? 新的API_KEY将覆盖旧值', function (index) {
                     $.ajax({
-                        url: "/user/apiKey"+data.id,
+                        url: "/user/apiKey/"+data.id,
                         type:"post",
                         dataType:"json",
                         contentType: "application/json; charset=utf-8",

@@ -8,6 +8,7 @@ import org.bran.branproxy.common.vo.PagedResponse;
 import org.bran.branproxy.common.vo.ResultResponse;
 import org.bran.branproxy.dto.UserLoginDto;
 import org.bran.branproxy.dto.user.AddUserDto;
+import org.bran.branproxy.service.IAsyncService;
 import org.bran.branproxy.service.IUserService;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
@@ -25,6 +26,8 @@ public class UserController {
 
     @Resource
     private IUserService userService;
+    @Resource
+    private IAsyncService asyncService;
 
     /**
      * 登陆
@@ -59,7 +62,7 @@ public class UserController {
     @PostMapping("/apiKey/{uid}")
     @ResponseBody
     public ResultResponse sendApiKey(@PathVariable long uid){
-        userService.resetApiKey(uid);
+        asyncService.executeInvoke(()->userService.resetApiKey(uid));
         return ResultResponse.buildSuccess();
     }
 

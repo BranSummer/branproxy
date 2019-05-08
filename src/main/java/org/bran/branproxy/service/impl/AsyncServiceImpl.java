@@ -12,7 +12,7 @@ public class AsyncServiceImpl implements IAsyncService {
 
     @Override
     @Async("asyncProxyCheckExecutor")
-    public void executeCheck(AsyncExecutor asyncExecutor) {
+    public void executeInvoke(AsyncExecutor asyncExecutor) {
         asyncExecutor.execute();
     }
 }

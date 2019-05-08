@@ -2,7 +2,6 @@ package org.bran.branproxy.controller;
 
 import org.bran.branproxy.service.IPermissionService;
 import org.bran.branproxy.service.IProxyService;
-import org.bran.branproxy.service.impl.ProxyService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -78,11 +77,27 @@ public class RouteController {
     }
 
     /**
-     * 监控页
+     * 地理分布监控页
      */
-    @GetMapping("/monitor")
+    @GetMapping("/monitor/geo")
+    public String monitorGeoPage() {
+        return "monitor/geo";
+    }
+
+    /**
+     * 容量监控页
+     */
+    @GetMapping("/monitor/capacity")
     public String monitorPage() {
-        return "monitor";
+        return "monitor/capacity";
+    }
+
+    /**
+     * 频率监控页
+     */
+    @GetMapping("/monitor/rate")
+    public String monitorRate(){
+        return "monitor/rate";
     }
 
     /**

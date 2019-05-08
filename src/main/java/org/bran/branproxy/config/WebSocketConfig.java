@@ -25,6 +25,6 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
     @Override
     public void configureMessageBroker(MessageBrokerRegistry registry) {
         // 广播式配置名为 /dashboard 消息代理 , 这个消息代理必须和 controller 中的 @SendTo 配置的地址前缀一样或者全匹配
-        registry.enableSimpleBroker("/dashboard");
+        registry.enableSimpleBroker("/dashboard","/checkRate");
     }
 }
