@@ -3,9 +3,9 @@ capacityChart.hideLoading();
 // 显示标题，图例和空的坐标轴
 capacityChart.setOption({
     title: {
-        text: '代理池容量'
+        text: '代理池容量',
+        subtext: '单位/个',
     },
-    tooltip: {},
     legend: {
         data:['capacity']
     },
@@ -18,6 +18,13 @@ capacityChart.setOption({
         boundaryGap: [0, '50%'],
         type: 'value'
     },
+    tooltip: my_tooltip,
+    toolbox: my_toolbox,
+    dataZoom: [{
+        start:0
+    }, {
+        type: 'inside'
+    }],
     series: [{
         name: 'capacity',
         type: 'line',
@@ -39,7 +46,7 @@ function setCapacityOption(data){
             })
         },
         series: [{
-            name:'成交',
+            name:'总容量',
             data: list.map(function (item) {
                 return item.capacity;
             })

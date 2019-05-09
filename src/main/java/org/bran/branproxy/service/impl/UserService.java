@@ -86,4 +86,9 @@ public class UserService implements IUserService {
         message.setFrom(MAIL_FROM);
         mailSender.send(message);
     }
+
+    @Override
+    public UserModel getUserByUid(long uid) {
+        return userModelMapper.queryUserModelLimit1(UserModel.QueryBuild().id(uid).build());
+    }
 }

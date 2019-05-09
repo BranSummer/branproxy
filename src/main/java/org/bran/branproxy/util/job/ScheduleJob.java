@@ -1,16 +1,13 @@
 package org.bran.branproxy.util.job;
 
-import org.apache.commons.lang3.StringUtils;
 import org.bran.branproxy.model.ScheduleJobEntity;
 import org.bran.branproxy.util.JsonUtil;
-import org.bran.branproxy.util.SpringContextUtils;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.quartz.QuartzJobBean;
 
-import java.util.Date;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
@@ -30,7 +27,7 @@ public class ScheduleJob extends QuartzJobBean {
     @Override
     protected void executeInternal(JobExecutionContext context) throws JobExecutionException {
         String jsonJob = context.getMergedJobDataMap().getString(ScheduleJobEntity.JOB_PARAM_KEY);
-        ScheduleJobEntity scheduleJob = JsonUtil.praseJson(jsonJob, ScheduleJobEntity.class);
+        ScheduleJobEntity scheduleJob = JsonUtil.parseJson(jsonJob, ScheduleJobEntity.class);
 
 /*
         //获取scheduleJobLogService

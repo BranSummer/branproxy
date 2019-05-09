@@ -1,7 +1,6 @@
 package org.bran.branproxy.util;
 
 import com.alibaba.fastjson.JSONObject;
-import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.bran.branproxy.common.RedisConstants;
 import org.bran.branproxy.dao.CityBlockIpv4Mapper;
@@ -50,7 +49,7 @@ public class LocationUtil {
             }
         });
         List<GeoVo> geoVos = map.keySet().stream().map(e->{
-            GeoModel model = JsonUtil.praseJson(e,GeoModel.class);
+            GeoModel model = JsonUtil.parseJson(e,GeoModel.class);
             GeoVo vo = new GeoVo();
             vo.setLatitude(model.getLatitude());
             vo.setLongitude(model.getLongitude());

@@ -1,7 +1,5 @@
 package org.bran.branproxy.job.crawler;
 
-import com.alibaba.fastjson.JSONObject;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.bran.branproxy.common.enums.AnonymityEnum;
@@ -19,7 +17,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
 import javax.annotation.Resource;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -52,7 +49,7 @@ public class Fate0Source {
         String[] proxyJsons = proxyStr.split("\n");
         List<IpProxyModel> ipProxyModels = new ArrayList<>();
         for (String proxyJson : proxyJsons) {
-            HashMap map = JsonUtil.praseJson(proxyJson, HashMap.class);
+            HashMap map = JsonUtil.parseJson(proxyJson, HashMap.class);
             ProxyBaseModel baseModel = new ProxyBaseModel();
             baseModel.setIp((String) map.get("host"));
             baseModel.setPort((int) map.get("port"));

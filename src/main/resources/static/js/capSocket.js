@@ -18,16 +18,9 @@ function capacityDashBoard() {
     })
 }
 
-function checkRateDashBoard() {
-    var stompClient = Stomp.over(socket);
-    stompClient.connect({},function (frame) {
-        stompClient.subscribe("/checkRate",function (message) {
-            var msg = JSON.parse(message.body);
-            // TODO setRateOption
-        })
-    })
-}
 
-//加载层-默认风格
+// 容量看板启动
 capacityDashBoard();
+
+
 

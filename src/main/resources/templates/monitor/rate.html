@@ -45,12 +45,12 @@
         </div>
     </div>
 
-    <div class="layui-col-md6">
+    <div class="layui-col-md12">
         <div class="layui-card">
             <div class="layui-card-header">
                 <span class="layui-badge layui-bg-cyan">检活速率 </span>
             </div>
-            <div class="layui-card-body" id="eden" style="height: 330px">
+            <div class="layui-card-body" id="rate" style="height: 330px">
             </div>
         </div>
     </div>
@@ -159,110 +159,19 @@
         </div>
     </div>
 
-    <div class="layui-col-md6">
-        <div class="layui-card">
-            <div class="layui-card-header">
-                <span class="layui-badge layui-bg-cyan">类加载耗时</span>
-            </div>
-            <div class="layui-card-body" id="classt" style="height: 330px">
-            </div>
-        </div>
-    </div>
 
-    <div class="layui-col-md6" style="margin: 10px 0 10px 0">
-        <div class="layui-card">
-            <div class="layui-card-header">
-                <!--<span class="layui-badge layui-bg-green title">类加载监控</span>-->
-            </div>
-        </div>
-    </div>
 
-    <div class="layui-col-md6" style="margin: 10px 0 10px 0">
-        <div class="layui-card">
-            <div class="layui-card-header">
-                <span class="layui-badge layui-bg-green title">类编译监控</span>
-            </div>
-        </div>
-    </div>
 
-    <div class="layui-col-md6">
-        <div class="layui-card">
-            <div class="layui-card-header">
-                <span class="layui-badge layui-bg-cyan">类加载大小</span>
-            </div>
-            <div class="layui-card-body" id="combyte" style="height: 330px">
-            </div>
-        </div>
-    </div>
-
-    <div class="layui-col-md6">
-        <div class="layui-card">
-            <div class="layui-card-header">
-                <span class="layui-badge layui-bg-cyan">类编译数量</span>
-            </div>
-            <div class="layui-card-body" id="comn" style="height: 330px">
-            </div>
-        </div>
-    </div>
-
-    <div class="layui-col-md6" style="margin: 10px 0 10px 0">
-        <div class="layui-card">
-            <div class="layui-card-header">
-                <!--<span class="layui-badge layui-bg-green title">类编译监控</span>-->
-            </div>
-        </div>
-    </div>
-
-    <div class="layui-col-md6" style="margin: 10px 0 10px 0">
-        <div class="layui-card">
-            <div class="layui-card-header">
-                <span class="layui-badge layui-bg-green title">线程监控</span>
-            </div>
-        </div>
-    </div>
-
-    <div class="layui-col-md6">
-        <div class="layui-card">
-            <div class="layui-card-header">
-                <span class="layui-badge layui-bg-cyan">类编译耗时</span>
-            </div>
-            <div class="layui-card-body" id="comt" style="height: 330px">
-            </div>
-        </div>
-    </div>
-
-    <div class="layui-col-md6">
-        <div class="layui-card">
-            <div class="layui-card-header">
-                <span class="layui-badge layui-bg-cyan">总数/运行/等待/休眠</span>
-            </div>
-            <div class="layui-card-body" id="thread" style="height: 330px">
-            </div>
-        </div>
-    </div>
 
 </div>
-<script src="/lib/jquery.min.js"></script>
-<script src="/lib/sockjs.min.js"></script>
-<script src="/lib/stomp.min.js"></script>
-<script src="/lib/layui/layui.all.js"></script>
+<script src="/static/lib/jquery.min.js"></script>
+<script src="/static/lib/sockjs.min.js"></script>
+<script src="/static/lib/stomp.min.js"></script>
+<script src="/static/lib/layui/layui.all.js"></script>
 <!-- ECharts单文件引入 -->
-<script src="/lib/echarts.min.js"></script>
-<script src="/static/js/util.js?v=1"></script>
-<script src="/static/js/socket.js?v=1"></script>
-<script src="/js/s0.js"></script>
-<script src="/js/s1.js"></script>
-<script src="/js/eden.js"></script>
-<script src="/js/old.js"></script>
-<script src="/js/mc.js"></script>
-<script src="/js/ccsc.js"></script>
-<script src="/js/gcn.js"></script>
-<script src="/js/gct.js"></script>
-<script src="/js/classn.js"></script>
-<script src="/js/classt.js"></script>
-<script src="/js/comn.js"></script>
-<script src="/js/comt.js"></script>
-<script src="/js/combyte.js"></script>
-<script src="/js/thread.js"></script>
+<script src="/static/lib/echarts.min.js"></script>
+<script src="/static/js/rateSocket.js"></script>
+<script src="/static/js/util.js"></script>
+<script src="/static/js/monitor/rate.js"></script>
 </body>
 </html>
