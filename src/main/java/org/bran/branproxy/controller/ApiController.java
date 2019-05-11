@@ -1,10 +1,12 @@
 package org.bran.branproxy.controller;
 
+import org.bran.branproxy.common.vo.ResultResponse;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * @Auther: BranSummer
+ * @author: BranSummer
  * @Date: 2018-10-7 21:48
  * @Description:
  */
@@ -13,5 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class ApiController {
 
 
-
+    @GetMapping
+    public ResultResponse getProxy(){
+        return null;
+    }
 }

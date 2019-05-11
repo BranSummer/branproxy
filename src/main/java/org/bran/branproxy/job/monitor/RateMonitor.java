@@ -37,6 +37,7 @@ public class RateMonitor {
         String wsDestination = (String)jsonObject.get("wsDestination");
         RateVo vo = getRateVoFromRedis(redisKey);
         simpMessagingTemplate.convertAndSend(wsDestination,vo);
+        stringRedisTemplate.opsForValue().getAndSet(redisKey+RedisConstants.RATE_TMP,"0");
     }
 
     public void pubRateMessage(String redisKey) {
@@ -62,8 +63,9 @@ public class RateMonitor {
         int count;
         if(StringUtils.isBlank(countStr)){
             count = 0;
+        }else {
+            count = Integer.parseInt(countStr);
         }
-        count = Integer.parseInt(countStr);
         LocalDateTime now = LocalDateTime.now();
         RateVo vo = new RateVo();
         vo.setDate(now.format(FORMATTER));

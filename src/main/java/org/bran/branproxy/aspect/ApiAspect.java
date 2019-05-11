@@ -78,6 +78,7 @@ public class ApiAspect {
 
     private boolean isSignValid(Map paramMap, String apiKey){
         String signInput = (String) paramMap.get("sign");
+        paramMap.put("apiKey",apiKey);
         List<String> signatureFactors = new ArrayList<>();
         for (Object k : paramMap.keySet()) {
             if(paramMap.get(k) == null || k.equals("sign")){

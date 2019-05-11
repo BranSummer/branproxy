@@ -2,14 +2,23 @@ package org.bran.branproxy.job.crawler.processor;
 
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.bran.branproxy.common.CommonContransts;
+import org.bran.branproxy.common.RedisConstants;
 import org.bran.branproxy.common.enums.AnonymityEnum;
 import org.bran.branproxy.common.enums.ProtocolEnum;
 import org.bran.branproxy.dao.IpProxyModelMapper;
+import org.bran.branproxy.job.check.CheckTask;
 import org.bran.branproxy.model.IpProxyModel;
 import org.bran.branproxy.model.ProxyBaseModel;
+import org.bran.branproxy.mq.payload.CheckPayload;
+import org.bran.branproxy.mq.sender.MqSender;
+import org.bran.branproxy.util.DetectUtil;
+import org.bran.branproxy.util.LocationUtil;
 import org.bran.branproxy.util.UniqueUtil;
 import org.jsoup.Jsoup;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Component;
 import us.codecraft.webmagic.Page;
 import us.codecraft.webmagic.Site;
@@ -32,6 +41,12 @@ public class XiciProcessor implements PageProcessor {
     private IpProxyModelMapper ipProxyModelMapper;
     @Resource
     private UniqueUtil uniqueUtil;
+    @Resource
+    private StringRedisTemplate stringRedisTemplate;
+    @Resource
+    private LocationUtil locationUtil;
+    @Resource
+    private CheckTask checkTask;
 
     private static final String PROXY_XPATH = "//*[@id=\"ip_list\"]/tbody/tr";
 
@@ -66,10 +81,18 @@ public class XiciProcessor implements PageProcessor {
                 proxyModel.setAddress(list.get(2));
                 proxyModel.setAnonymity(getAnonymity(list.get(3)));
                 proxyModel.setType(getProtocolType(list.get(4)));
+                proxyModel= locationUtil.getIpLocation(proxyModel);
                 ipProxyModels.add(proxyModel);
             }
         }
-        ipProxyModelMapper.insertBatch(ipProxyModels);
+        if(CollectionUtils.isNotEmpty(ipProxyModels)){
+            stringRedisTemplate.opsForValue().increment(RedisConstants.NEWLY_PROXYCOUNT+ RedisConstants.RATE_TMP,
+                    ipProxyModels.size());
+            ipProxyModelMapper.insertBatch(ipProxyModels);
+            // 推送到MQ校验
+            ipProxyModels.forEach(e->checkTask.checkProxy(e));
+        }
+
     }
 
     @Override

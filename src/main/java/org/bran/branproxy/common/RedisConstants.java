@@ -15,4 +15,6 @@ public class RedisConstants {
     public static final String RATE_LIST = ":rate:list";
 
     public static final String RATE_TMP = ":rate:tmp";
+
+    public static final String NEWLY_PROXYCOUNT = "newlyProxy";
 }

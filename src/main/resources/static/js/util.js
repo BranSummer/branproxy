@@ -19,7 +19,6 @@ var my_tooltip = {
         }
     };
 var my_toolbox ={
-    left: 'center',
     feature: {
         dataZoom: {
             yAxisIndex: 'none'

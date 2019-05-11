@@ -30,7 +30,7 @@ import java.util.stream.Collectors;
 public class UserService implements IUserService {
 
     private static final String MAIL_FROM = "1121268624@qq.com";
-    private static final String MAIL_TEMPLATE = "%s，你好，您的最新的API_KEY为%s，请妥善保存";
+    private static final String MAIL_TEMPLATE = "%s，您好，您的最新的API_KEY为%s，请妥善保存";
 
     @Resource
     private UserModelMapper userModelMapper;
@@ -72,10 +72,9 @@ public class UserService implements IUserService {
     @Override
     public void resetApiKey(Long uid) {
         long timestamp = System.currentTimeMillis();
-        String factor = String.valueOf(timestamp) + uid;
-        String apiKey = new String(Base64.encodeBase64(factor.getBytes()));
+        long factor = timestamp + uid;
+        String apiKey = Long.toHexString(factor);
         UserModel userModel = userModelMapper.queryUserModelLimit1(UserModel.QueryBuild().id(uid).build());
-        System.out.println("当前用户id为"+uid);
         userModelMapper.update(UserModel.UpdateBuild()
                 .set(UserModel.Build().apiKey(apiKey).build())
                 .where(UserModel.ConditionBuild().idList(uid)).build());

@@ -5,15 +5,22 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.bran.branproxy.common.CommonContransts;
+import org.bran.branproxy.common.RedisConstants;
 import org.bran.branproxy.common.enums.AnonymityEnum;
 import org.bran.branproxy.common.enums.ProtocolEnum;
 import org.bran.branproxy.dao.IpProxyModelMapper;
 import org.bran.branproxy.dao.ProxyModelMapper;
+import org.bran.branproxy.job.check.CheckTask;
 import org.bran.branproxy.model.IpProxyModel;
 import org.bran.branproxy.model.ProxyBaseModel;
 import org.bran.branproxy.model.ProxyModel;
+import org.bran.branproxy.mq.payload.CheckPayload;
+import org.bran.branproxy.mq.sender.MqSender;
+import org.bran.branproxy.util.DetectUtil;
+import org.bran.branproxy.util.LocationUtil;
 import org.bran.branproxy.util.UniqueUtil;
 import org.jsoup.Jsoup;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Component;
 import us.codecraft.webmagic.Page;
 import us.codecraft.webmagic.Site;
@@ -38,6 +45,12 @@ public class KuaiDaiLiProcessor implements PageProcessor {
     private IpProxyModelMapper ipProxyModelMapper;
     @Resource
     private UniqueUtil uniqueUtil;
+    @Resource
+    private StringRedisTemplate stringRedisTemplate;
+    @Resource
+    private LocationUtil locationUtil;
+    @Resource
+    private CheckTask checkTask;
 
     private static final String PROXY_XPATH = "//*[@id=\"list\"]/table/tbody/tr";
 
@@ -60,6 +73,7 @@ public class KuaiDaiLiProcessor implements PageProcessor {
             model.setAnonymity(getAnonymity(list.get(2)));
             model.setType(ProtocolEnum.getProtocolFromDesc(list.get(3)).getValue());
             model.setAddress(list.get(4) + StringUtils.SPACE + list.get(5));
+            model = locationUtil.getIpLocation(model);
             return model;
         }).filter(e -> {
             // 过滤已加入的代理
@@ -70,7 +84,11 @@ public class KuaiDaiLiProcessor implements PageProcessor {
         }).collect(Collectors.toList());
         if (CollectionUtils.isNotEmpty(ipProxyModels)) {
             log.info("新增代理:{}",ipProxyModels);
+            stringRedisTemplate.opsForValue().increment(RedisConstants.NEWLY_PROXYCOUNT+ RedisConstants.RATE_TMP,
+                    ipProxyModels.size());
             ipProxyModelMapper.insertBatch(ipProxyModels);
+            // 推送到MQ校验
+           ipProxyModels.forEach(e-> checkTask.checkProxy(e));
         }
     }
 

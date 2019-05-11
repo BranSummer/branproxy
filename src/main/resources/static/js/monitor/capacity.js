@@ -1,3 +1,5 @@
+
+// 监控总容量
 var capacityChart = echarts.init(document.getElementById('capacity'));
 capacityChart.hideLoading();
 // 显示标题，图例和空的坐标轴
@@ -49,6 +51,81 @@ function setCapacityOption(data){
             name:'总容量',
             data: list.map(function (item) {
                 return item.capacity;
+            })
+        }]
+    });
+}
+
+// 监控新加代理
+var newlyProxyChart = echarts.init(document.getElementById('newlyProxy'));
+newlyProxyChart.hideLoading();
+
+
+function setNewlyProxyOption(data) {
+    var list = data;
+    newlyProxyChart.setOption({
+        title: {
+            text: '新入库代理监控'
+        },
+        tooltip: {
+            trigger: 'axis',
+            axisPointer: {
+                type: 'cross',
+                label: {
+                    backgroundColor: '#283b56'
+                }
+            }
+        },
+        legend: {
+            data:['新入库个数']
+        },
+        toolbox: {
+            show: true,
+            feature: {
+                dataView: {readOnly: false},
+                restore: {},
+                saveAsImage: {}
+            }
+        },
+        dataZoom: {
+            show: false,
+            start: 0,
+            end: 100
+        },
+        xAxis: [
+            {
+                type: 'category',
+                boundaryGap: true,
+                data: list.map(function (item) {
+                    return item.date;
+                })
+            }
+        ],
+        yAxis: [
+            {
+                type: 'value',
+                scale: true,
+                name: 'count',
+                boundaryGap: [0.2, 0.2]
+            },
+            {
+                type: 'value',
+                scale: true,
+                name: 'count',
+                boundaryGap: [0.2, 0.2]
+            }
+        ],
+        series: [{
+            name:'count',
+            type:'bar',
+            data: list.map(function (item) {
+                return item.count;
+            })
+        },{
+            name:'count',
+            type:'line',
+            data: list.map(function (item) {
+                return item.count;
             })
         }]
     });

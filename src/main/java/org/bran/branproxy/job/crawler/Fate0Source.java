@@ -6,6 +6,7 @@ import org.bran.branproxy.common.enums.AnonymityEnum;
 import org.bran.branproxy.common.enums.ProtocolEnum;
 import org.bran.branproxy.common.vo.ResultResponse;
 import org.bran.branproxy.dao.IpProxyModelMapper;
+import org.bran.branproxy.job.check.CheckTask;
 import org.bran.branproxy.model.IpProxyModel;
 import org.bran.branproxy.model.ProxyBaseModel;
 import org.bran.branproxy.util.JsonUtil;
@@ -36,6 +37,8 @@ public class Fate0Source {
     private IpProxyModelMapper ipProxyModelMapper;
     @Resource
     private UniqueUtil uniqueUtil;
+    @Resource
+    private CheckTask checkTask;
 
     public ResultResponse getFromFateZero() {
         ResponseEntity<String> responseEntity = restTemplate.getForEntity(URL, String.class);
@@ -66,6 +69,7 @@ public class Fate0Source {
         if (CollectionUtils.isNotEmpty(ipProxyModels)) {
             List<List<IpProxyModel>> partList = PageUtil.getGroupedListWithPaged(ipProxyModels, 500);
             partList.forEach(list -> ipProxyModelMapper.insertBatch(list));
+            ipProxyModels.forEach(e->checkTask.checkProxy(e));
         }
         return ResultResponse.buildSuccess();
     }

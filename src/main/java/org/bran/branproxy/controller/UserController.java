@@ -71,8 +71,8 @@ public class UserController {
      */
     @GetMapping("/logout")
     public String logout(){
-        Subject user = SecurityUtils.getSubject();
-        user.logout();
+        /*Subject user = SecurityUtils.getSubject();
+        user.logout();*/
         return "/login";
     }
 
