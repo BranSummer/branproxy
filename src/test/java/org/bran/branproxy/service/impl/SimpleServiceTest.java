@@ -28,12 +28,12 @@ public class SimpleServiceTest extends BranproxyApplicationTests {
 
     @Test
     public void testMigrate(){
-        migrate();
+//        migrate();
     }
 
     @Test
     public void testFate0(){
-       fate0Source.getFromFateZero();
+//       fate0Source.getFromFateZero();
     }
 
     private void migrate(){

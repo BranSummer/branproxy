@@ -33,7 +33,7 @@ public enum AnonymityEnum {
                 return anonymityEnum.getDesc();
             }
         }
-        return StringUtils.EMPTY;
+        return "其他";
     }
 
     AnonymityEnum(Integer value, String desc) {

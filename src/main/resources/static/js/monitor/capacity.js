@@ -3,7 +3,8 @@
 var capacityChart = echarts.init(document.getElementById('capacity'));
 capacityChart.hideLoading();
 // 显示标题，图例和空的坐标轴
-capacityChart.setOption({
+
+var capacityOption = {
     title: {
         text: '代理池容量',
         subtext: '单位/个',
@@ -37,9 +38,10 @@ capacityChart.setOption({
         },
         data: []
     }]
-});
+}
+capacityChart.setOption(capacityOption);
 
-function setCapacityOption(data){
+function setCapacityData(data){
     var list = data;
     capacityChart.setOption({
         xAxis: {
@@ -60,8 +62,7 @@ function setCapacityOption(data){
 var newlyProxyChart = echarts.init(document.getElementById('newlyProxy'));
 newlyProxyChart.hideLoading();
 
-
-function setNewlyProxyOption(data) {
+function setNewlyProxyData(data) {
     var list = data;
     newlyProxyChart.setOption({
         title: {
@@ -126,6 +127,69 @@ function setNewlyProxyOption(data) {
             type:'line',
             data: list.map(function (item) {
                 return item.count;
+            })
+        }]
+    });
+}
+
+// 监控高匿代理容量图表
+var eliteCapacityChart = echarts.init(document.getElementById('eliteCapacity'));
+eliteCapacityChart.hideLoading();
+eliteCapacityChart.setOption(capacityOption);
+function setEliteCapacityData(data) {
+    var list = data;
+    capacityChart.setOption({
+        xAxis: {
+            data: list.map(function (item) {
+                return item.date;
+            })
+        },
+        series: [{
+            name:'高匿代理容量',
+            data: list.map(function (item) {
+                return item.capacity;
+            })
+        }]
+    });
+}
+
+// 监控透明代理容量图表
+var transparentCapacityChart = echarts.init(document.getElementById('transparentCapacity'));
+transparentCapacityChart.hideLoading();
+transparentCapacityChart.setOption(capacityOption);
+function setTransparentCapacityData(data) {
+    var list = data;
+    capacityChart.setOption({
+        xAxis: {
+            data: list.map(function (item) {
+                return item.date;
+            })
+        },
+        series: [{
+            name:'透明代理容量',
+            data: list.map(function (item) {
+                return item.capacity;
+            })
+        }]
+    });
+}
+
+// 监控https代理容量
+var httpsCapacityChart = echarts.init(document.getElementById('httpsCapacity'));
+httpsCapacityChart.hideLoading();
+httpsCapacityChart.setOption(capacityOption);
+function setHttpsCapacityData(data) {
+    var list = data;
+    capacityChart.setOption({
+        xAxis: {
+            data: list.map(function (item) {
+                return item.date;
+            })
+        },
+        series: [{
+            name:'HTTPS代理容量',
+            data: list.map(function (item) {
+                return item.capacity;
             })
         }]
     });

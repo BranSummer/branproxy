@@ -29,12 +29,12 @@
 
 
     <!--动态数据表格-->
-    <table class="layui-table" lay-data="{url:'/user/permission/list'}" lay-filter="roleList">
+    <table class="layui-table" lay-data="{url:'/user/role/list'}" lay-filter="roleList">
         <thead>
         <tr>
-            <th lay-data="{field:'title', fixed: true}">资源名称</th>
-            <th lay-data="{field:'typeName'}">类型</th>
-            <th lay-data="{field:'code'}">code</th>
+            <th lay-data="{field:'id', fixed: true}">角色id</th>
+            <th lay-data="{field:'角色名称'}">类型</th>
+            <th lay-data="{field:'角色描述'}">code</th>
             <th lay-data="{fixed: 'right', align:'center', toolbar: '#bar'}"></th>
         </tr>
         </thead>
@@ -59,6 +59,7 @@
                 <label class="layui-form-label">分配权限</label>
                 <div class="layui-input-block" id="permission_selector">
                     <!--多选组件-->
+                    <>
                 </div>
             </div>
 
@@ -159,14 +160,13 @@
             var desc = data.field.desc;
             var role = data.field.role;
             $.ajax({
-                url: "/user/permission",
+                url: "/user/role",
                 dataType: "json",
                 contentType: "application/json; charset=utf-8",
                 type: "post",
                 data: JSON.stringify({
                     "desc": desc,
                     "title": title,
-                    "code": role
                 }),
                 success: function (data) {
                     if (data.code === 0) {

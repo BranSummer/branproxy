@@ -10,6 +10,7 @@ import org.bran.branproxy.job.check.CheckTask;
 import org.bran.branproxy.model.IpProxyModel;
 import org.bran.branproxy.model.ProxyBaseModel;
 import org.bran.branproxy.util.JsonUtil;
+import org.bran.branproxy.util.LocationUtil;
 import org.bran.branproxy.util.PageUtil;
 import org.bran.branproxy.util.UniqueUtil;
 import org.springframework.http.HttpStatus;
@@ -39,6 +40,8 @@ public class Fate0Source {
     private UniqueUtil uniqueUtil;
     @Resource
     private CheckTask checkTask;
+    @Resource
+    private LocationUtil locationUtil;
 
     public ResultResponse getFromFateZero() {
         ResponseEntity<String> responseEntity = restTemplate.getForEntity(URL, String.class);
@@ -63,6 +66,7 @@ public class Fate0Source {
                 proxyModel.setAddress((String) map.get("country"));
                 proxyModel.setAnonymity(getAnonymity((String) map.get("anonymity")));
                 proxyModel.setType(getType((String) map.get("type")));
+                proxyModel = locationUtil.getIpLocation(proxyModel);
                 ipProxyModels.add(proxyModel);
             }
         }

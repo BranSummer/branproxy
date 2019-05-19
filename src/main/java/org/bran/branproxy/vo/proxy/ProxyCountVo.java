@@ -2,6 +2,8 @@ package org.bran.branproxy.vo.proxy;
 
 import lombok.Data;
 
+import java.util.List;
+
 /**
  * @author lizhle
  */
@@ -15,4 +17,5 @@ public class ProxyCountVo {
     private Integer transparentCount;
 
     private Integer httpsCount;
+
 }

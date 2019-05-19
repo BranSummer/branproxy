@@ -25,6 +25,7 @@ public class ThreadPoolTaskConfig {
         //配置队列大小
         executor.setQueueCapacity(99999);
         executor.setAwaitTerminationSeconds(20);
+
         //配置线程池中的线程的名称前缀
         executor.setThreadNamePrefix("async-");
         // rejection-policy：当pool已经达到max size的时候，如何处理新任务

@@ -20,8 +20,8 @@ public class LocationUtilTest extends BranproxyApplicationTests {
 
     @Test
     public void setIpLocation() {
-        List<IpProxyModel> ipProxyModels = ipProxyModelMapper.selectAll();
-        ipProxyModels.forEach(e -> locationUtil.setIpLocation(e));
+       /* List<IpProxyModel> ipProxyModels = ipProxyModelMapper.selectListWithoutGeo();
+        ipProxyModels.forEach(e -> locationUtil.setIpLocation(e));*/
     }
 
 }

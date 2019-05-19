@@ -85,4 +85,10 @@
         select count(*) from ip_proxy
         <include refid="condition"/>
     </select>
+
+    <select id="selectByMap" parameterType="map" resultType="org.bran.branproxy.model.IpProxyModel">
+        select * from ip_proxy
+        <include refid="condition"/>
+        order by id desc
+    </select>
 </mapper>

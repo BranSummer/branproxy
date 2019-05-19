@@ -1,15 +1,19 @@
 package org.bran.branproxy.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.bran.branproxy.dto.BasePageQuery;
 import org.bran.branproxy.dto.ProxyQuery;
+import org.bran.branproxy.model.GroupModel;
 import org.bran.branproxy.model.IpProxyModel;
 import org.bran.branproxy.dao.base.IpProxyModelBaseMapper;
 import org.bran.branproxy.vo.monitor.GeoModel;
+import org.bran.branproxy.vo.monitor.GeoVo;
+import org.bran.branproxy.vo.proxy.GroupVo;
 
 /**
 *  @author bran
@@ -38,6 +42,7 @@ public interface IpProxyModelMapper extends IpProxyModelBaseMapper{
     @Select("select * from ip_proxy  ORDER BY id DESC")
     List<IpProxyModel> selectAll();
 
+    List<IpProxyModel> selectByMap(Map map);
 
     List<IpProxyModel> selectList(BasePageQuery query);
 
@@ -51,4 +56,13 @@ public interface IpProxyModelMapper extends IpProxyModelBaseMapper{
 
     @Select("SELECT latitude , longitude FROM ip_proxy WHERE latitude != 0")
     List<GeoModel> queryGeoList();
+
+    @Select("SELECT * FROM ip_proxy WHERE latitude != 0")
+    List<IpProxyModel> selectListWithoutGeo();
+
+    @Select("SELECT anonymity as nameId, count(*) as value  FROM `ip_proxy` GROUP BY anonymity")
+    List<GroupModel> selectGroupByAnonymity();
+
+    @Select("SELECT type as nameId, count(*) as value  FROM `ip_proxy` GROUP BY type")
+    List<GroupModel> selectGroupByType();
 }

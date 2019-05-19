@@ -16,12 +16,12 @@ public class MailServiceTest extends BranproxyApplicationTests {
 
     @Test
     public void testMail(){
-        SimpleMailMessage message = new SimpleMailMessage();
+       /* SimpleMailMessage message = new SimpleMailMessage();
         message.setFrom("1121268624@qq.com");
         message.setTo("1031680234@qq.com");
         message.setSubject("test");
         message.setText("test mail");
-        mailSender.send(message);
+        mailSender.send(message);*/
     }
 
 }

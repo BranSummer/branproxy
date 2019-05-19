@@ -34,4 +34,5 @@ public class MonitorController {
     public ResultResponse geoList(){
         return ResultResponse.buildSuccess(locationUtil.getLocaltionVo());
     }
+
 }

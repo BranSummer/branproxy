@@ -19,6 +19,7 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 /**
@@ -58,6 +59,7 @@ public class ProxyCheckReceiver {
                 ProxyModel proxyModel = new ProxyModel();
                 BeanUtils.copyProperties(payload.getIpProxyModel(), proxyModel);
                 proxyModel.setTimeout(timeout);
+                proxyModel.setLastUpdateTime(LocalDateTime.now());
                 // 更新到数据库
                 /*ipProxyModelMapper.update(IpProxyModel.UpdateBuild()
                         .set(IpProxyModel.Build().timeout(timeout).build())

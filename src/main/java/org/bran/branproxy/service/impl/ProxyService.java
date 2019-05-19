@@ -9,9 +9,11 @@ import org.bran.branproxy.dao.IpProxyModelMapper;
 import org.bran.branproxy.dao.ProxyModelMapper;
 import org.bran.branproxy.dto.BasePageQuery;
 import org.bran.branproxy.dto.ProxyQuery;
+import org.bran.branproxy.model.GroupModel;
 import org.bran.branproxy.model.IpProxyModel;
 import org.bran.branproxy.model.ProxyModel;
 import org.bran.branproxy.service.IProxyService;
+import org.bran.branproxy.vo.proxy.GroupVo;
 import org.bran.branproxy.vo.proxy.ProxyCountVo;
 import org.bran.branproxy.vo.proxy.ProxyVo;
 import org.springframework.beans.BeanUtils;
@@ -65,6 +67,32 @@ public class ProxyService implements IProxyService {
         ProxyQuery httpsQuery = new ProxyQuery();
         httpsQuery.setType(ProtocolEnum.HTTPS.getValue());
         vo.setHttpsCount(ipProxyModelMapper.countByQuery(httpsQuery));
+
+
         return vo;
+    }
+
+    @Override
+    public List<GroupVo> typeGroupVo() {
+        // 代理类型饼图
+        List<GroupModel> typeList = ipProxyModelMapper.selectGroupByType();
+        return typeList.stream().map(e->{
+            GroupVo groupVo = new GroupVo();
+            groupVo.setName(ProtocolEnum.getDescFromValue(e.getNameId()));
+            groupVo.setValue(e.getValue());
+            return groupVo;
+        }).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<GroupVo> anonymityGroupVo() {
+        // 代理匿名度饼图
+        List<GroupModel> anonymityList = ipProxyModelMapper.selectGroupByAnonymity();
+        return anonymityList.stream().map(e->{
+            GroupVo groupVo = new GroupVo();
+            groupVo.setName(AnonymityEnum.getDescFromValue(e.getNameId()));
+            groupVo.setValue(e.getValue());
+            return groupVo;
+        }).collect(Collectors.toList());
     }
 }

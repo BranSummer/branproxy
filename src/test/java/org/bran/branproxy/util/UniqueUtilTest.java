@@ -23,7 +23,7 @@ public class UniqueUtilTest extends BranproxyApplicationTests {
 
     @Test
     public void isDuplicate() {
-        int totalCount = proxyModelMapper.countAll();
+       /* int totalCount = proxyModelMapper.countAll();
         int pageCount = PageUtil.getPageCount(totalCount,200);
         for (int i = 1; i <=pageCount; i++) {
             BasePageQuery query = new BasePageQuery();
@@ -41,12 +41,12 @@ public class UniqueUtilTest extends BranproxyApplicationTests {
             log.info("once add， value = {}",eachValue);
         }
         long actualCount = uniqueUtil.getUniqueSize();
-        log.info("total distinct count = {}",actualCount);
+        log.info("total distinct count = {}",actualCount);*/
     }
 
     @Test
     public void removeDuplicate(){
-        List<ProxyModel> proxyModels = proxyModelMapper.queryProxyModel(ProxyModel.Build().build());
+        /*List<ProxyModel> proxyModels = proxyModelMapper.queryProxyModel(ProxyModel.Build().build());
         proxyModels.forEach(e->{
             ProxyBaseModel baseModel = new ProxyBaseModel();
             baseModel.setIp(e.getIp());
@@ -57,6 +57,6 @@ public class UniqueUtilTest extends BranproxyApplicationTests {
                         .where(ProxyModel.ConditionBuild().idList(e.getId())));
                 System.out.println(baseModel);
             }
-        });
+        });*/
     }
 }

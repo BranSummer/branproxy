@@ -4,7 +4,6 @@ import com.alibaba.fastjson.JSONObject;
 import org.apache.commons.lang3.StringUtils;
 import org.bran.branproxy.common.RedisConstants;
 import org.bran.branproxy.util.JsonUtil;
-import org.bran.branproxy.vo.charts.CapacityVo;
 import org.bran.branproxy.vo.charts.RateVo;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.messaging.simp.SimpMessagingTemplate;

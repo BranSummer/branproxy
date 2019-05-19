@@ -1,12 +1,12 @@
-// 回收检活速率
-var rateChart = echarts.init(document.getElementById('rate'));
+// 公共队列自检速率
+var publicQueueRateChart = echarts.init(document.getElementById('publicQueueRate'));
 
-rateChart.hideLoading();
+publicQueueRateChart.hideLoading();
 
-rateChart.setOption({
+publicQueueRateChart.setOption({
     backgroundColor: background_color,
     title: {
-        subtext: '单位/个',
+        text: '公共队列自检速率',
         textStyle: {
             color: '#fff'
         }
@@ -48,8 +48,8 @@ rateChart.setOption({
     }]
 });
 
-function setRateOption(data) {
-    rateChart.setOption({
+function setPublicQueueRateOption(data) {
+    publicQueueRateChart.setOption({
         xAxis: {
             data: data.map(function (item) {
                 return item.date;

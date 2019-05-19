@@ -30,7 +30,7 @@ public class DetectUtilTest extends BranproxyApplicationTests {
 
     @Test
     public void detectZhihu(){
-        Document doc=null;
+        /*Document doc=null;
         Connection con= Jsoup.connect("https://www.zhihu.com/collection/100349534");
 
         try {
@@ -38,6 +38,6 @@ public class DetectUtilTest extends BranproxyApplicationTests {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        System.out.println(doc.body().text());
+        System.out.println(doc.body().text());*/
     }
 }

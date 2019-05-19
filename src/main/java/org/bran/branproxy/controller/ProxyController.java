@@ -25,4 +25,14 @@ public class ProxyController {
     public PagedResponse listProxy(ProxyQuery query){
         return proxyService.listProxy(query);
     }
+
+    @GetMapping("/typeGroup")
+    public ResultResponse getTypeGroup(){
+        return ResultResponse.buildSuccess(proxyService.typeGroupVo());
+    }
+
+    @GetMapping("/anonymityGroup")
+    public ResultResponse getAnonymityGroup(){
+        return ResultResponse.buildSuccess(proxyService.anonymityGroupVo());
+    }
 }

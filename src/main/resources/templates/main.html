@@ -11,6 +11,20 @@
     <link rel="stylesheet" href="/lib/layui/css/layui.css"/>
 </head>
 
+<style>
+    .layui-col-md6 {
+        padding: 5px;
+    }
+
+    .layui-card-header {
+        color: #444 !important;
+    }
+
+    .title {
+        padding: 1px 5px;
+    }
+</style>
+
 <body>
 <div style="padding: 20px; background-color: #F2F2F2;margin-top: 50px;">
     <div class="layui-row layui-col-space15">
@@ -76,6 +90,25 @@
 
     <br>
 
+    <div class="layui-col-md6">
+        <div class="layui-card">
+            <div class="layui-card-header">
+                <span class="layui-badge layui-bg-cyan">代理匿名度分布</span>
+            </div>
+            <div class="layui-card-body" id="anonymityPie" style="height: 330px">
+            </div>
+        </div>
+    </div>
+
+    <div class="layui-col-md6">
+        <div class="layui-card">
+            <div class="layui-card-header">
+                <span class="layui-badge layui-bg-cyan">代理类型分布</span>
+            </div>
+            <div class="layui-card-body" id="typePie" style="height: 330px">
+            </div>
+        </div>
+    </div>
 
     <br>
     <fieldset class="layui-elem-field layui-field-title">
@@ -100,14 +133,59 @@
 </div>
 <script src="/lib/layui/layui.all.js"></script>
 <script src="/lib/jquery.min.js"></script>
+<!-- ECharts单文件引入 -->
+<script src="/static/lib/echarts/echarts.min.js"></script>
 <script type="text/javascript">
     //由于模块都一次性加载，因此不用执行 layui.use() 来加载对应模块，直接使用即可：
     ;!function () {
         var layer = layui.layer
             , form = layui.form, element = layui.element, table = layui.table;
-
-
     }();
+
+</script>
+
+<script type="text/javascript">
+
+    function renderAnonymityPie() {
+        var domPie1 = document.getElementById("anonymityPie");
+        var myChart1 = echarts.init(domPie1);
+        $.get("/proxy/anonymityGroup", function (res) {
+            var option1 = {
+                series: [
+                    {
+                        name: '代理匿名度',
+                        type: 'pie',
+                        radius: '55%',
+                        roseType: 'angle',
+                        data: res.data
+                    }
+                ]
+            };
+            myChart1.setOption(option1);
+        });
+    }
+
+    function renderTypePie() {
+        var domPie2 = document.getElementById("typePie");
+        var myChart2 = echarts.init(domPie2);
+        $.get("/proxy/typeGroup", function (res) {
+            var option2 = {
+                series: [
+                    {
+                        name: '代理类型',
+                        type: 'pie',
+                        radius: '55%',
+                        data: res.data
+                    }
+                ]
+            };
+            myChart2.setOption(option2)
+        });
+
+
+    }
+    renderAnonymityPie();
+    renderTypePie()
 
 </script>
 </body>

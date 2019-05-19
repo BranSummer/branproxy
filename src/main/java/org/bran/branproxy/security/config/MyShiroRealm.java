@@ -18,7 +18,6 @@ import javax.annotation.Resource;
  * @Date: 2019-2-6 14:53
  * @Description: TODO
  */
-@Component
 public class MyShiroRealm extends AuthorizingRealm {
 
     /**
@@ -34,6 +33,7 @@ public class MyShiroRealm extends AuthorizingRealm {
 
         // 存储角色和权限信息的POJO
         SimpleAuthorizationInfo authInfo = new SimpleAuthorizationInfo();
+
         // 添加用户角色和权限
 
         return authInfo;
